@@ -4,7 +4,7 @@ This repository is the authoritative source for enterprise function-level capabi
 
 ## Mandatory Rules
 
-1. Write new repository content in English by default.
+1. Write new repository content in English by default. `README-CH.md` is the explicitly maintained Chinese companion; keep other generated repository content in English unless the user explicitly requests an authoritative locale-specific source.
 2. Register a new function through `$register-domain-pack`; do not hand-create an unregistered domain directory.
 3. Every Domain Pack requires a stable ID, named owner, lifecycle status, version, purpose, and validation evidence.
 4. Domain rules may specialize the Harness Kernel but may not weaken organization red lines.

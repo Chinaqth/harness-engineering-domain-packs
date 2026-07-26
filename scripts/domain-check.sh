@@ -6,6 +6,7 @@ cd "$repo_root"
 
 required=(
   "README.md"
+  "README-CH.md"
   "AGENTS.md"
   "registry/domains.json"
   "schemas/domain-pack.schema.json"
@@ -28,10 +29,13 @@ if find . -path ./.git -prune -o -type f \( \
   exit 1
 fi
 
-if find . -path ./.git -prune -o -type f \( \
+if find . \
+  -path ./.git -prune -o \
+  -path ./README-CH.md -prune -o \
+  -type f \( \
   -name '*.md' -o -name '*.json' -o -name '*.yaml' -o -name '*.yml' \
 \) -print0 | xargs -0 grep -Il '[一-龥]' | grep -q .; then
-  echo "ERROR: generated repository content must be English-first"
+  echo "ERROR: generated repository content must be English-first outside README-CH.md"
   exit 1
 fi
 
