@@ -1,6 +1,6 @@
 ---
 name: register-domain-pack
-description: Register a new enterprise function as a draft Domain Pack by creating the standard directory contract and updating the central registry. Use when a new department, discipline, platform team, or reusable professional capability must become discoverable by the Harness Router.
+description: Register a new enterprise function as a draft Domain Pack by creating the standard directory contract and updating the central registry. Use when a new department, discipline, platform team, or reusable professional capability must become discoverable through the Harness routing protocol.
 ---
 
 # Register Domain Pack

@@ -17,7 +17,7 @@ Allowed Domain states:
 
 | State | Meaning |
 | --- | --- |
-| `draft` | Registered but incomplete; Router must not select it for production work |
+| `draft` | Registered but incomplete; a future resolver must not select it for production work |
 | `active` | Owned, validated, and available for routing |
 | `deprecated` | Still resolvable for pinned consumers but not selected by default |
 | `retired` | Unavailable for new routing; retained for audit and migration |

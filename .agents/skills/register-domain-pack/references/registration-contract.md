@@ -34,4 +34,4 @@ Registration is intentionally conservative:
 - Capabilities: empty
 - Reviewers: empty
 
-Registration makes a function visible to maintainers, not selectable by the production Router. Activation is a separate governed change.
+Registration makes a function visible to maintainers. It does not make the function selectable by a future production resolver; activation is a separate governed change.

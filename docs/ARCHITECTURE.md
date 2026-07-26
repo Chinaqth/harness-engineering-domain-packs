@@ -2,7 +2,7 @@
 
 ## Purpose
 
-A Domain Pack converts a business function into a discoverable, versioned capability surface. It tells the enterprise Router when the function applies, what it owns, which workflows and Skills it provides, which tools it needs, and how its output is evaluated.
+A Domain Pack converts a business function into a discoverable, versioned capability surface. It defines when a future conforming resolver may consider the function, what it owns, which workflows and Skills it provides, which tools it needs, and how its output is evaluated. This repository provides contracts and content; it does not provide a production routing runtime.
 
 ## Layering
 
@@ -40,7 +40,7 @@ domains/<domain-path>/
 | --- | --- |
 | `DOMAIN.md` | Human-readable purpose, boundaries, inputs, outputs, and maturity |
 | `domain.json` | Stable identity, lifecycle, ownership, inheritance, and applicability |
-| `routes.json` | Conditions that make the Router consider this Domain |
+| `routes.json` | Conditions a future conforming resolver may use to consider this Domain |
 | `capabilities.json` | Workflows, Skills, tools, evaluators, permissions, and dependencies |
 | `owners.json` | Primary owner and required reviewers |
 | `rules/` | Domain invariants that specialize but do not weaken the Kernel |
@@ -51,7 +51,7 @@ domains/<domain-path>/
 
 ## Discovery and Routing
 
-The Harness Router reads `registry/domains.json`, then loads only candidate manifests and route metadata. It does not load every Domain Pack body into context.
+The routing protocol requires a future resolver to read `registry/domains.json`, then load only candidate manifests and route metadata. A conforming implementation must not load every Domain Pack body into context.
 
 ```text
 Task Envelope
