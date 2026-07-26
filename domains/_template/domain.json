@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "id": "{{DOMAIN_ID}}",
+  "display_name": "{{DISPLAY_NAME}}",
+  "description": "{{DESCRIPTION}}",
+  "version": "0.1.0",
+  "status": "draft",
+  "owner": "{{OWNER}}",
+  "inherits": [],
+  "applicability": {
+    "task_types": [],
+    "repository_signals": []
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "{{DOMAIN_ID}}",
+  "primary_owner": "{{OWNER}}",
+  "reviewers": []
+}

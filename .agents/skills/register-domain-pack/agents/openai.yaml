@@ -1,0 +1,4 @@
+interface:
+  display_name: "Register Domain Pack"
+  short_description: "Register a new enterprise function as a Domain Pack"
+  default_prompt: "Use $register-domain-pack to add a new function to this Domain Pack registry."
