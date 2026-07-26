@@ -22,7 +22,7 @@ Allowed Domain states:
 | `deprecated` | Still resolvable for pinned consumers but not selected by default |
 | `retired` | Unavailable for new routing; retained for audit and migration |
 
-Activation requires at least one route, one capability, a named owner, validation evidence, and a compatibility statement.
+Activation requires at least one meaningful route, one capability with workflow and evaluator coverage, a named owner and reviewer, validation evidence, a compatibility statement, and resolvable dependencies.
 
 ## Change Rules
 

@@ -65,6 +65,8 @@ Task Envelope
 
 The registry is the fact source. Model reasoning may interpret ambiguous intent and compose work packages, but it must not invent unregistered capabilities.
 
+All registered JSON documents are checked against the schemas in `schemas/`. Lifecycle validation adds semantic gates that JSON Schema alone cannot express: an active Pack must have review ownership, meaningful routes and capabilities, evaluator coverage, activation evidence, a compatibility statement, and resolvable dependencies.
+
 ## Distribution
 
 The Git repository is authoritative. An installer may publish versioned Domain Packs to `~/.harness/domains/` and selected Skills to `~/.agents/skills/`. Projects may optionally declare versions and overlays without copying the complete Pack.

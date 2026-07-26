@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Domain Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "domains"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path", "version", "status", "owner"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*(\\.[a-z0-9][a-z0-9-]*)+$" },
+          "path": { "type": "string", "minLength": 1 },
+          "version": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$" },
+          "status": { "enum": ["draft", "active", "deprecated", "retired"] },
+          "owner": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

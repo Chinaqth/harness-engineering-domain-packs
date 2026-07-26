@@ -27,6 +27,8 @@ The authoritative Domain Pack source is this repository. Installed copies may li
 ├── schemas/
 │   ├── capability.schema.json
 │   ├── domain-pack.schema.json
+│   ├── owners.schema.json
+│   ├── registry.schema.json
 │   └── route.schema.json
 ├── domains/
 │   └── _template/
@@ -59,7 +61,7 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
   --description "Owns iOS application delivery and evaluation."
 ```
 
-Registration creates `domains/engineering/ios/`, updates `registry/domains.json`, and validates the result. A newly registered pack remains `draft` with empty routes and capabilities until its Domain Owner completes and reviews it.
+Registration stages and validates `domains/engineering/ios/`, then commits the Domain directory and `registry/domains.json` through a rollback-safe operation. JSON-sensitive values are encoded structurally rather than substituted as raw text. A newly registered pack remains `draft` with empty routes and capabilities until its Domain Owner completes and reviews it.
 
 ## Validate
 
@@ -67,7 +69,7 @@ Registration creates `domains/engineering/ios/`, updates `registry/domains.json`
 ./scripts/domain-check.sh
 ```
 
-The check validates required structure, registry-to-directory consistency, unique identifiers, Skill structure, English-first policy, suspicious secret filenames, and registration tests.
+The check validates every registered document against its repository JSON Schema, then enforces registry-to-directory consistency, lifecycle gates, dependency resolution, referenced files, Skill structure, English-first policy, suspicious secret filenames, and registration rollback tests.
 
 ## Current State
 

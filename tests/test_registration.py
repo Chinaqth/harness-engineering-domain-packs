@@ -6,6 +6,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = (
@@ -79,6 +80,41 @@ class RegistrationTests(unittest.TestCase):
                 "iOS",
                 "iOS Engineering",
                 "ios-platform-team",
+                "Description",
+            )
+
+    def test_json_sensitive_values_are_encoded_safely(self) -> None:
+        domain_path = MODULE.register_domain(
+            self.root,
+            "engineering.web",
+            'Web "Platform"',
+            "web-platform-team",
+            'Owns "web" delivery.\nIncludes browser evaluation.',
+        )
+        manifest = json.loads((domain_path / "domain.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["display_name"], 'Web "Platform"')
+        self.assertIn("\n", manifest["description"])
+
+    def test_registry_commit_failure_rolls_back_domain(self) -> None:
+        registry_before = (
+            self.root / "registry" / "domains.json"
+        ).read_text(encoding="utf-8")
+        with mock.patch.object(MODULE.os, "replace", side_effect=OSError("simulated")):
+            with self.assertRaises(MODULE.RegistrationError):
+                self.register()
+        self.assertFalse((self.root / "domains" / "engineering" / "ios").exists())
+        self.assertEqual(
+            (self.root / "registry" / "domains.json").read_text(encoding="utf-8"),
+            registry_before,
+        )
+
+    def test_owner_must_be_single_line(self) -> None:
+        with self.assertRaises(MODULE.RegistrationError):
+            MODULE.register_domain(
+                self.root,
+                "engineering.ios",
+                "iOS Engineering",
+                "ios-team\nother-team",
                 "Description",
             )
 

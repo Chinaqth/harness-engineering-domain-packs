@@ -30,7 +30,7 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 ```
 
 6. If the preview is correct, run the same command without `--dry-run`.
-7. Run `./scripts/domain-check.sh`.
+7. Run `./scripts/domain-check.sh`. Treat a failed check as a failed registration and report it immediately.
 8. Report the created path, registry entry, lifecycle state, and the professional content still required before activation.
 
 ## Guardrails
@@ -42,7 +42,8 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 - Do not mark a newly registered pack `active`.
 - Do not add routes or capabilities merely to make validation pass; the Domain Owner must define meaningful content.
 - Treat a published Domain ID as immutable. Deprecate and replace it instead of renaming it.
+- Do not bypass the staged registration script with raw token replacement. JSON values must be encoded structurally, and a failed registry update must roll back the Domain directory.
 
 ## Expected Result
 
-The script creates `domains/<id segments>/` from the canonical template and adds one sorted registry entry with version `0.1.0` and status `draft`. It makes no changes during a dry run and refuses duplicates or invalid IDs.
+The script stages `domains/<id segments>/`, encodes JSON values structurally, and commits the Domain directory and sorted registry entry as one rollback-safe operation. The result uses version `0.1.0` and status `draft`. A dry run makes no changes, and invalid or duplicate registrations are rejected.

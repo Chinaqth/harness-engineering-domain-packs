@@ -10,5 +10,12 @@
   "applicability": {
     "task_types": [],
     "repository_signals": []
+  },
+  "compatibility": {
+    "kernel_protocol_version": "1.0",
+    "statement": ""
+  },
+  "activation": {
+    "evidence": []
   }
 }

@@ -7,7 +7,7 @@
   "required": ["schema_version", "domain_id", "routes"],
   "properties": {
     "schema_version": { "const": "1.0" },
-    "domain_id": { "type": "string" },
+    "domain_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*(\\.[a-z0-9][a-z0-9-]*)+$" },
     "routes": {
       "type": "array",
       "items": {
@@ -17,9 +17,9 @@
         "properties": {
           "id": { "type": "string", "minLength": 1 },
           "priority": { "type": "integer", "minimum": 0 },
-          "task_types": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
-          "signals": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
-          "capabilities": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+          "task_types": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+          "signals": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+          "capabilities": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
         }
       }
     }

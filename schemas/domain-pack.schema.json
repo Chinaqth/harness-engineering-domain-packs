@@ -4,7 +4,7 @@
   "title": "Domain Pack Manifest",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "id", "display_name", "description", "version", "status", "owner", "inherits", "applicability"],
+  "required": ["schema_version", "id", "display_name", "description", "version", "status", "owner", "inherits", "applicability", "compatibility", "activation"],
   "properties": {
     "schema_version": { "const": "1.0" },
     "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*(\\.[a-z0-9][a-z0-9-]*)+$" },
@@ -21,6 +21,27 @@
       "properties": {
         "task_types": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
         "repository_signals": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kernel_protocol_version", "statement"],
+      "properties": {
+        "kernel_protocol_version": { "type": "string", "minLength": 1 },
+        "statement": { "type": "string" }
+      }
+    },
+    "activation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence"],
+      "properties": {
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
       }
     }
   }

@@ -11,6 +11,8 @@ required=(
   "schemas/domain-pack.schema.json"
   "schemas/capability.schema.json"
   "schemas/route.schema.json"
+  "schemas/registry.schema.json"
+  "schemas/owners.schema.json"
   "domains/_template/domain.json"
   ".agents/skills/register-domain-pack/SKILL.md"
 )
