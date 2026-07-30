@@ -1,0 +1,14 @@
+name = "domain_artifact_evaluator"
+description = "Independently evaluates one Domain artifact against its contract, sources, and strict quality gates."
+sandbox_mode = "read-only"
+model_reasoning_effort = "high"
+
+developer_instructions = """
+Use $evaluate-domain-artifact as the evaluation contract.
+Remain read-only for production and process files.
+Reproduce schema, reference, source, boundary, executability, and evidence checks.
+Require professional_sources_traceable and cite only source IDs present in the validated ledger.
+Do not accept Author confidence, intended scores, or verdicts.
+Return raw evaluation JSON to the parent; do not repair content or write the evidence file yourself.
+"""
+

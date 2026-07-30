@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "change_id": "autonomous-domain-completion",
+  "risk": "G2",
+  "criteria": [
+    {
+      "id": "AC-1",
+      "description": "Completion requires only a registered Domain ID.",
+      "status": "passed",
+      "evidence": [
+        ".agents/skills/complete-domain-pack/SKILL.md",
+        "changes/autonomous-domain-completion/evaluations/forward-test.md"
+      ]
+    },
+    {
+      "id": "AC-2",
+      "description": "Research is authoritative, source-traceable, and deterministic at its contract boundary.",
+      "status": "passed",
+      "evidence": [
+        ".agents/skills/complete-domain-pack/scripts/validate_research.py",
+        "changes/autonomous-domain-completion/evaluations/forward-test.md"
+      ]
+    },
+    {
+      "id": "AC-3",
+      "description": "Five project-scoped Agent roles are valid and independently bounded.",
+      "status": "passed",
+      "evidence": [
+        ".codex/agents/",
+        "scripts/validate_agents.py"
+      ]
+    },
+    {
+      "id": "AC-4",
+      "description": "Every evaluation is source-bound and retains strict scoring safeguards.",
+      "status": "passed",
+      "evidence": [
+        ".agents/skills/evaluate-domain-artifact/scripts/score_evaluation.py",
+        ".agents/skills/complete-domain-pack/scripts/validate_session.py",
+        "tests/test_domain_development.py"
+      ]
+    },
+    {
+      "id": "AC-5",
+      "description": "Content completeness and activation readiness are separate observable states.",
+      "status": "passed",
+      "evidence": [
+        ".agents/skills/evaluate-domain-pack/scripts/check_pack.py",
+        "tests/test_domain_development.py"
+      ]
+    },
+    {
+      "id": "AC-6",
+      "description": "Repository checks, isolated forward testing, and independent evaluation pass.",
+      "status": "passed",
+      "evidence": [
+        "changes/autonomous-domain-completion/evaluations/forward-test.md",
+        "changes/autonomous-domain-completion/evaluations/final-independent-evaluation.md"
+      ]
+    }
+  ]
+}

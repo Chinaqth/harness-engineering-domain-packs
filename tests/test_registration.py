@@ -32,9 +32,9 @@ class RegistrationTests(unittest.TestCase):
             self.root / "domains" / "_template",
         )
         (self.root / "registry").mkdir()
-        shutil.copy2(
-            REPO_ROOT / "registry" / "domains.json",
-            self.root / "registry" / "domains.json",
+        (self.root / "registry" / "domains.json").write_text(
+            json.dumps({"schema_version": "1.0", "domains": []}, indent=2) + "\n",
+            encoding="utf-8",
         )
 
     def tearDown(self) -> None:

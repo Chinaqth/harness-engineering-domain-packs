@@ -40,4 +40,6 @@ if find . \
 fi
 
 python3 scripts/validate_registry.py
+python3 scripts/validate_skills.py
+python3 scripts/validate_agents.py
 python3 -m unittest discover -s tests

@@ -132,6 +132,8 @@ Agent 或未来 Router 都不能为了路由成功而虚构未注册职能或能
 | 路径 | 职责 |
 | --- | --- |
 | `.agents/skills/register-domain-pack/` | 引导式、可回滚的新 Domain 草稿注册 |
+| `.agents/skills/complete-domain-pack/` | 仅根据 Domain ID 自动研究、生成、评分和完善内容 |
+| `.codex/agents/` | 项目级 Builder、Researcher、Author 和独立 Evaluator 角色 |
 | `scripts/validate_registry.py` | Schema、生命周期、引用、身份、所有权和依赖验证 |
 | `scripts/domain-check.sh` | 完整仓库检查 |
 | `tests/test_registration.py` | 注册编码、幂等、暂存和回滚行为 |
@@ -200,14 +202,31 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 
 ### 3. 完成 Pack
 
-Domain Owner 需要定义：
+当使用者知道注册职能、但不了解其专业内容时，委托自动完善流程：
 
-- 适用任务和仓库信号；
-- Route 与 Capability 关系；
-- Workflow、Rule、Skill、Tool 和 Template；
-- Evaluator、权限和依赖；
-- Reviewer 所有权；
-- Kernel 兼容性声明和激活证据。
+```text
+启动 domain_pack_builder sub-agent，并使用 $complete-domain-pack
+根据 engineering.android 的注册身份自动完善内容。
+不要自动激活。
+```
+
+请在权威 Domain Packs 源码仓库中运行这条内容生产流程。它的 Custom Agent 位于项目级
+`.codex/agents/`，不会由 Harness CLI 投射成产品仓库中的运行时职能。
+
+Domain ID 是唯一必需输入。只读 Researcher 会查找当前权威公开资料并记录组织特定缺口，
+随后由相互分离的 Author、Artifact Evaluator 和 Pack Evaluator 生成并评估全部生产制品。
+每个制品必须获得大于 90 分且绑定来源的当前独立评估，通过全部硬门禁，并且不存在 P0
+或 P1 问题。
+
+配套 Skill 包括：
+
+- `$author-domain-artifact`：生成一个明确声明的制品；
+- `$evaluate-domain-artifact`：生成与内容摘要绑定的独立评估；
+- `$evaluate-domain-pack`：完成最终内容与激活就绪评估。
+
+结果会单独报告 `content_state=content-complete`，以及整体状态 `needs-org-input`、
+`activation-ready`、`blocked` 或 `fail`。公开专业内容可以先于内部 Reviewer、权限和
+未公开政策完成；只有 Domain Owner 和必需 Reviewer 才能批准激活。
 
 ### 4. 验证
 

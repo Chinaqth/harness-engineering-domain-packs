@@ -1,0 +1,4 @@
+interface:
+  display_name: "Author Domain Artifact"
+  short_description: "Create one evidence-ready Domain Pack artifact"
+  default_prompt: "Use $author-domain-artifact to create or revise one declared Domain Pack artifact."

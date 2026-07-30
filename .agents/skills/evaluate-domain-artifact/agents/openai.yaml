@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evaluate Domain Artifact"
+  short_description: "Independently score one Domain Pack artifact"
+  default_prompt: "Use $evaluate-domain-artifact to independently evaluate one Domain Pack artifact."

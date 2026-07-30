@@ -132,6 +132,8 @@ Registration and activation are separate changes. A successful registration alwa
 | Path | Responsibility |
 | --- | --- |
 | `.agents/skills/register-domain-pack/` | Guided, rollback-safe registration of a new draft Domain |
+| `.agents/skills/complete-domain-pack/` | Autonomous research, authoring, scoring, and completion from a Domain ID |
+| `.codex/agents/` | Project-scoped Builder, Researcher, Author, and independent Evaluator roles |
 | `scripts/validate_registry.py` | Schema, lifecycle, reference, identity, ownership, and dependency validation |
 | `scripts/domain-check.sh` | Complete repository integrity gate |
 | `tests/test_registration.py` | Registration encoding, idempotency, staging, and rollback behavior |
@@ -200,14 +202,34 @@ Remove `--dry-run` only after confirming the identity and owner. Registration cr
 
 ### 3. Complete the Pack
 
-The Domain Owner defines:
+Delegate completion when the user knows the registered function but not its professional content:
 
-- Applicability and repository signals;
-- Routes and capability relationships;
-- Workflows, rules, Skills, tools, and templates;
-- Evaluators, permissions, and dependencies;
-- Reviewer ownership;
-- Kernel compatibility statement and activation evidence.
+```text
+Spawn the domain_pack_builder subagent and use $complete-domain-pack
+to complete engineering.android from its registered identity.
+Do not activate it automatically.
+```
+
+Run this authoring workflow from the authoritative Domain Packs checkout. Its Custom Agents are
+project-scoped under `.codex/agents/`; they are not runtime capabilities projected into product
+repositories by the Harness CLI.
+
+The Domain ID is the only required input. A read-only Researcher discovers current authoritative
+public sources and records organization-specific gaps. Separate Author, Artifact Evaluator, and
+Pack Evaluator agents then build and evaluate every production artifact. Every artifact must
+receive a current source-bound score greater than 90, pass all hard gates, and contain no P0 or P1
+finding.
+
+The supporting Skills are:
+
+- `$author-domain-artifact` for one declared artifact;
+- `$evaluate-domain-artifact` for a digest-bound independent evaluation;
+- `$evaluate-domain-pack` for final content and activation-readiness evaluation.
+
+The result reports `content_state=content-complete` separately from the overall
+`needs-org-input`, `activation-ready`, `blocked`, or `fail` state. Public content may complete
+before internal reviewers, permissions, and unpublished policy are known. Only the Domain Owner
+and required Reviewers may approve activation.
 
 ### 4. Validate
 

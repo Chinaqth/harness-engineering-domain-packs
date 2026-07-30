@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "id": "engineering.android",
+  "display_name": "Android Engineering",
+  "description": "Owns reusable Android application delivery and evaluation.",
+  "version": "0.1.0",
+  "status": "draft",
+  "owner": "platform-android",
+  "inherits": [],
+  "applicability": {
+    "task_types": [],
+    "repository_signals": []
+  },
+  "compatibility": {
+    "kernel_protocol_version": "1.0",
+    "statement": ""
+  },
+  "activation": {
+    "evidence": []
+  }
+}

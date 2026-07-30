@@ -1,0 +1,4 @@
+interface:
+  display_name: "Complete Domain Pack"
+  short_description: "Research, author, and evaluate a registered Domain Pack"
+  default_prompt: "Use $complete-domain-pack to complete a registered Domain Pack from its Domain ID."

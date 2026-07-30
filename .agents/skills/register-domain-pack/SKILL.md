@@ -31,7 +31,8 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 
 6. If the preview is correct, run the same command without `--dry-run`.
 7. Run `./scripts/domain-check.sh`. Treat a failed check as a failed registration and report it immediately.
-8. Report the created path, registry entry, lifecycle state, and the professional content still required before activation.
+8. Report the created path, registry entry, lifecycle state, and the next command:
+   `Use $complete-domain-pack to complete <domain-id> from its registered identity.`
 
 ## Guardrails
 
@@ -46,4 +47,7 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 
 ## Expected Result
 
-The script stages `domains/<id segments>/`, encodes JSON values structurally, and commits the Domain directory and sorted registry entry as one rollback-safe operation. The result uses version `0.1.0` and status `draft`. A dry run makes no changes, and invalid or duplicate registrations are rejected.
+The script stages `domains/<id segments>/`, encodes JSON values structurally, and commits the
+Domain directory and sorted registry entry as one rollback-safe operation. The result uses version
+`0.1.0` and status `draft`. A dry run makes no changes, and invalid or duplicate registrations are
+rejected. Completion remains a separate transaction handled by `$complete-domain-pack`.

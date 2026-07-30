@@ -35,9 +35,16 @@ class RegistryValidationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        shutil.copytree(ROOT / "domains", self.root / "domains")
+        shutil.copytree(
+            ROOT / "domains" / "_template",
+            self.root / "domains" / "_template",
+        )
         shutil.copytree(ROOT / "schemas", self.root / "schemas")
-        shutil.copytree(ROOT / "registry", self.root / "registry")
+        (self.root / "registry").mkdir()
+        (self.root / "registry" / "domains.json").write_text(
+            json.dumps({"schema_version": "1.0", "domains": []}, indent=2) + "\n",
+            encoding="utf-8",
+        )
         self.domain = REGISTER.register_domain(
             self.root,
             "engineering.ios",

@@ -1,4 +1,12 @@
 {
   "schema_version": "1.0",
-  "domains": []
+  "domains": [
+    {
+      "id": "engineering.android",
+      "path": "domains/engineering/android",
+      "version": "0.1.0",
+      "status": "draft",
+      "owner": "platform-android"
+    }
+  ]
 }

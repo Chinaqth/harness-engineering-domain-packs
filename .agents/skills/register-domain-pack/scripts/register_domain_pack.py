@@ -196,6 +196,7 @@ def register_domain(
 
     print(f"Created {relative_path}/")
     print(f"Registered {domain_id} as draft version 0.1.0")
+    print(f"Next: use $complete-domain-pack to complete {domain_id}")
     return domain_path
 
 

@@ -19,6 +19,7 @@ This repository is the authoritative source for enterprise function-level capabi
 | --- | --- |
 | Understand repository boundaries | `docs/ARCHITECTURE.md` |
 | Register a function | `.agents/skills/register-domain-pack/SKILL.md` |
+| Complete a registered draft | `.agents/skills/complete-domain-pack/SKILL.md`, `.codex/agents/` |
 | Change ownership or lifecycle | `docs/GOVERNANCE.md` |
 | Add a route or capability | Relevant JSON Schema in `schemas/` |
 | Validate the repository | `scripts/domain-check.sh`, `scripts/validate_registry.py` |
@@ -31,3 +32,5 @@ This repository is the authoritative source for enterprise function-level capabi
 - Routes identify inputs, outputs, dependencies, and applicable task types.
 - Capabilities identify workflows, Skills, tools, evaluators, and permission needs.
 - Documentation and actual registry state agree.
+- Autonomous completion cites a validated research ledger and keeps activation under human
+  authority.
