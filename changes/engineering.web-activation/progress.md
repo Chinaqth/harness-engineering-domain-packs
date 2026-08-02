@@ -1,11 +1,11 @@
 # Engineering Web Activation Progress
 
-State: `evaluating`
+State: `done`
 
 Authorization, lifecycle synchronization, artifact evaluations, and the independent end-to-end
 evaluation are complete. The Pack is `content-complete` and `activation-ready`; the final
-independent normalized score is `98.30`. The next step is exact-scope staging, commit-tree
-validation, and publication to `origin/main`.
+independent normalized score is `98.30`. Exact-scope staged-tree validation passed and activation
+commit `d3db942` was pushed to `origin/main` without force.
 
 ## Verified Evidence
 
@@ -18,6 +18,7 @@ validation, and publication to `origin/main`.
 - Final independent Pack score: `98.30`, all hard gates true, no findings or blocked reasons.
 - Exact staged-tree validation requires the completed per-Domain README prerequisite; the prior
   `main` language check rejects Domain-local Chinese README files.
+- Publication: `d3db942` advanced `origin/main` from `a5e87f5` and the remote accepted the update.
 
 ## Autonomy Budgets
 

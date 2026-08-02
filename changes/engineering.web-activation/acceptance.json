@@ -2,13 +2,13 @@
   "schema_version": "1.0",
   "change_id": "engineering.web-activation",
   "risk": "G2",
-  "state": "evaluating",
+  "state": "done",
   "criteria": [
     {"id": "AC-1", "description": "Authorized reviewer and approval evidence are durable.", "status": "passed", "evidence": ["activation-evidence.json", "decision.md"]},
     {"id": "AC-2", "description": "Pack state is activation-ready.", "status": "passed", "evidence": ["evaluations/pack-check.final.json"]},
     {"id": "AC-3", "description": "Registry and manifest are active and validation passes.", "status": "passed", "evidence": ["validation.md", "evaluations/pack-check.final.json"]},
     {"id": "AC-4", "description": "Active routing succeeds and missing task authority fails closed.", "status": "passed", "evidence": ["evaluations/end-to-end.md"]},
     {"id": "AC-5", "description": "Independent end-to-end evaluation passes without P0/P1.", "status": "passed", "evidence": ["evaluations/end-to-end.md", "evaluations/final.1.evaluation.json"]},
-    {"id": "AC-6", "description": "Only approved paths are committed and pushed to origin/main.", "status": "pending", "evidence": []}
+    {"id": "AC-6", "description": "Only approved paths are committed and pushed to origin/main.", "status": "passed", "evidence": ["progress.md", "validation.md"]}
   ]
 }

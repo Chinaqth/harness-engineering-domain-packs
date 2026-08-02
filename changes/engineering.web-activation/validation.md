@@ -21,6 +21,7 @@
 - Critical journey: positive active routing, negative signal/task, deterministic ambiguity,
   disabled capability, missing dependency, version mismatch, draft-lifecycle fixture, and missing
   task-input fail-closed scenarios pass.
+- Activation commit `d3db942` was pushed non-force to `origin/main`, advancing it from `a5e87f5`.
 
 ## Permission Boundary
 
@@ -36,6 +37,6 @@ dependent claims and actions with `needs-org-input`.
 
 ## Rollback
 
-Revert the publication-evidence commit, then revert the scoped activation commit. The second revert
+Revert the publication-evidence commit, then revert activation commit `d3db942`. The second revert
 restores `draft` lifecycle and removes the reviewer/evidence activation bindings while preserving
 the public professional baseline.
