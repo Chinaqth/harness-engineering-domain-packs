@@ -1,0 +1,208 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "domain_path": "domains/engineering/web",
+  "state": "activation-ready",
+  "content_state": "content-complete",
+  "content_verdict": "pass",
+  "activation_verdict": "pass",
+  "verdict": "pass",
+  "checks": [
+    {
+      "name": "repository-registry-validation",
+      "scope": "content",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "unique-registry-entry",
+      "scope": "content",
+      "passed": true,
+      "detail": "found 1"
+    },
+    {
+      "name": "validated-research-ledger",
+      "scope": "content",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "applicability-task-types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "applicability-repository-signals",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "compatibility-statement",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "routes",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capabilities",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "activation-evidence",
+      "scope": "activation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reviewers",
+      "scope": "activation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-semantic-web-interface-engineering-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-semantic-web-interface-engineering-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-semantic-web-interface-engineering-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-ecmascript-browser-application-behavior-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-ecmascript-browser-application-behavior-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-ecmascript-browser-application-behavior-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-web-accessibility-engineering-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-web-accessibility-engineering-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-web-accessibility-engineering-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-http-integration-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-http-integration-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-http-integration-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-frontend-security-verification-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-frontend-security-verification-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-frontend-security-verification-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-performance-observability-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-performance-observability-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-performance-observability-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-cross-browser-compatibility-verification-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-cross-browser-compatibility-verification-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-cross-browser-compatibility-verification-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "route-priority-determinism",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "content_issues": [],
+  "activation_issues": [],
+  "organizational_gaps": [],
+  "issues": []
+}

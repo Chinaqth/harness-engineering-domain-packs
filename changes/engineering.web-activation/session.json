@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "research_ledger": "research/sources.json",
+  "max_artifact_iterations": 5,
+  "max_pack_iterations": 3,
+  "artifacts": [
+    {"path": "DOMAIN.md", "evaluations": ["evaluations/domain-md.1.evaluation.json"]},
+    {"path": "README-CH.md", "evaluations": ["evaluations/README-CH.2.evaluation.json"]},
+    {"path": "capabilities.json", "evaluations": ["evaluations/capabilities-json.1.evaluation.json"]},
+    {"path": "domain.json", "evaluations": ["evaluations/domain-json.1.evaluation.json"]},
+    {"path": "evaluators/EVALUATOR.md", "evaluations": ["evaluations/evaluators-EVALUATOR.1.evaluation.json"]},
+    {"path": "owners.json", "evaluations": ["evaluations/owners.1.evaluation.json"]},
+    {"path": "routes.json", "evaluations": ["evaluations/routes-json.1.evaluation.json"]},
+    {"path": "rules/BASE.md", "evaluations": ["evaluations/rules-BASE.1.evaluation.json"]},
+    {"path": "skills/web-interface-delivery/SKILL.md", "evaluations": ["evaluations/skill-web-interface-delivery.1.evaluation.json"]},
+    {"path": "templates/delivery-evidence.md", "evaluations": ["evaluations/template-delivery-evidence.1.evaluation.json"]},
+    {"path": "workflows/WORKFLOW.md", "evaluations": ["evaluations/workflow.1.evaluation.json"]}
+  ],
+  "final_evaluations": [
+    "evaluations/final.1.evaluation.json"
+  ]
+}

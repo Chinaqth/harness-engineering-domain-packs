@@ -32,10 +32,11 @@ fi
 if find . \
   -path ./.git -prune -o \
   -path ./README-CH.md -prune -o \
+  -path './domains/*/README-CH.md' -prune -o \
   -type f \( \
   -name '*.md' -o -name '*.json' -o -name '*.yaml' -o -name '*.yml' \
 \) -print0 | xargs -0 grep -Il '[一-龥]' | grep -q .; then
-  echo "ERROR: generated repository content must be English-first outside README-CH.md"
+  echo "ERROR: generated repository content must be English-first outside approved README-CH.md files"
   exit 1
 fi
 

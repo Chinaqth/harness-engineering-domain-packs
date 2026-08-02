@@ -148,6 +148,7 @@ Agent 或未来 Router 都不能为了路由成功而虚构未注册职能或能
 ```text
 domains/<domain-path>/
 ├── DOMAIN.md
+├── README-CH.md
 ├── domain.json
 ├── routes.json
 ├── capabilities.json
@@ -162,6 +163,7 @@ domains/<domain-path>/
 | 文件或目录 | 职责 |
 | --- | --- |
 | `DOMAIN.md` | 人类可读的目标、边界、输入、输出和成熟度 |
+| `README-CH.md` | 中文目录导览，逐项说明每个生产文件和目录的作用及实际行为 |
 | `domain.json` | 稳定身份、版本、生命周期、Owner、适用性、兼容性和激活证据 |
 | `routes.json` | 任务类型、仓库信号、优先级和候选能力 |
 | `capabilities.json` | Workflow、Skill、Tool、Evaluator、权限和依赖 |

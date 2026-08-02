@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "domain_path": "domains/engineering/web",
+  "state": "needs-org-input",
+  "content_state": "content-complete",
+  "content_verdict": "pass",
+  "activation_verdict": "fail",
+  "verdict": "pass",
+  "checks": [
+    {
+      "name": "repository-registry-validation",
+      "scope": "content",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "unique-registry-entry",
+      "scope": "content",
+      "passed": true,
+      "detail": "found 1"
+    },
+    {
+      "name": "validated-research-ledger",
+      "scope": "content",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "applicability-task-types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "applicability-repository-signals",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "compatibility-statement",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "routes",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capabilities",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "activation-evidence",
+      "scope": "activation",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "reviewers",
+      "scope": "activation",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "capability-semantic-web-interface-engineering-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-semantic-web-interface-engineering-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-semantic-web-interface-engineering-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-ecmascript-browser-application-behavior-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-ecmascript-browser-application-behavior-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-ecmascript-browser-application-behavior-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-web-accessibility-engineering-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-web-accessibility-engineering-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-web-accessibility-engineering-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-http-integration-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-http-integration-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-http-integration-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-frontend-security-verification-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-frontend-security-verification-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-frontend-security-verification-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-performance-observability-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-performance-observability-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-browser-performance-observability-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-cross-browser-compatibility-verification-task_types",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-cross-browser-compatibility-verification-workflows",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "capability-cross-browser-compatibility-verification-evaluators",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "route-priority-determinism",
+      "scope": "content",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "content_issues": [],
+  "activation_issues": [
+    "Activation readiness gate failed: activation-evidence",
+    "Activation readiness gate failed: reviewers",
+    "Activation evidence must contain at least one repository-relative file",
+    "Organization input required: ORG-REVIEWERS: The required engineering, accessibility, security, design, product, and release reviewers and their decision rights are not known.",
+    "Organization input required: ORG-PERMISSIONS: The permissions granted to platform-web for repository changes, dependency changes, deployment, production access, rollback, and policy configuration are not known.",
+    "Organization input required: ORG-INTERNAL-STANDARDS: Organization-specific coding standards, framework conventions, design-system requirements, dependency policies, supported-language targets, and documentation requirements are not known.",
+    "Organization input required: ORG-PRIVATE-ARCHITECTURE: Private application architecture, rendering model, API topology, authentication integration, state-management approach, hosting topology, and observability stack are not known.",
+    "Organization input required: ORG-PRODUCT-COMMANDS: Authoritative repository commands for install, development, linting, type checking, testing, building, security checks, accessibility checks, preview, deployment, and rollback are not known.",
+    "Organization input required: ORG-APPROVAL-EVIDENCE: The evidence format and approval records required to activate this Domain Pack and authorize production-facing work are not known.",
+    "Organization input required: ORG-BROWSER-MATRIX: The supported browsers, versions, devices, assistive technologies, localization contexts, and degradation policy are not known.",
+    "Organization input required: ORG-QUALITY-TARGETS: Adopted WCAG conformance level, performance objectives and budgets, interoperability thresholds, test coverage expectations, and release-blocking criteria are not known.",
+    "Organization input required: ORG-SECURITY-BASELINE: The organization-approved threat model, ASVS scope or verification level, CSP rollout policy, vulnerability severity thresholds, incident escalation path, and risk-acceptance authority are not known."
+  ],
+  "organizational_gaps": [
+    {
+      "id": "ORG-REVIEWERS",
+      "description": "The required engineering, accessibility, security, design, product, and release reviewers and their decision rights are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-PERMISSIONS",
+      "description": "The permissions granted to platform-web for repository changes, dependency changes, deployment, production access, rollback, and policy configuration are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-INTERNAL-STANDARDS",
+      "description": "Organization-specific coding standards, framework conventions, design-system requirements, dependency policies, supported-language targets, and documentation requirements are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-PRIVATE-ARCHITECTURE",
+      "description": "Private application architecture, rendering model, API topology, authentication integration, state-management approach, hosting topology, and observability stack are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-PRODUCT-COMMANDS",
+      "description": "Authoritative repository commands for install, development, linting, type checking, testing, building, security checks, accessibility checks, preview, deployment, and rollback are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-APPROVAL-EVIDENCE",
+      "description": "The evidence format and approval records required to activate this Domain Pack and authorize production-facing work are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-BROWSER-MATRIX",
+      "description": "The supported browsers, versions, devices, assistive technologies, localization contexts, and degradation policy are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-QUALITY-TARGETS",
+      "description": "Adopted WCAG conformance level, performance objectives and budgets, interoperability thresholds, test coverage expectations, and release-blocking criteria are not known.",
+      "required_for_activation": true
+    },
+    {
+      "id": "ORG-SECURITY-BASELINE",
+      "description": "The organization-approved threat model, ASVS scope or verification level, CSP rollout policy, vulnerability severity thresholds, incident escalation path, and risk-acceptance authority are not known.",
+      "required_for_activation": true
+    }
+  ],
+  "issues": [
+    "Activation readiness gate failed: activation-evidence",
+    "Activation readiness gate failed: reviewers",
+    "Activation evidence must contain at least one repository-relative file",
+    "Organization input required: ORG-REVIEWERS: The required engineering, accessibility, security, design, product, and release reviewers and their decision rights are not known.",
+    "Organization input required: ORG-PERMISSIONS: The permissions granted to platform-web for repository changes, dependency changes, deployment, production access, rollback, and policy configuration are not known.",
+    "Organization input required: ORG-INTERNAL-STANDARDS: Organization-specific coding standards, framework conventions, design-system requirements, dependency policies, supported-language targets, and documentation requirements are not known.",
+    "Organization input required: ORG-PRIVATE-ARCHITECTURE: Private application architecture, rendering model, API topology, authentication integration, state-management approach, hosting topology, and observability stack are not known.",
+    "Organization input required: ORG-PRODUCT-COMMANDS: Authoritative repository commands for install, development, linting, type checking, testing, building, security checks, accessibility checks, preview, deployment, and rollback are not known.",
+    "Organization input required: ORG-APPROVAL-EVIDENCE: The evidence format and approval records required to activate this Domain Pack and authorize production-facing work are not known.",
+    "Organization input required: ORG-BROWSER-MATRIX: The supported browsers, versions, devices, assistive technologies, localization contexts, and degradation policy are not known.",
+    "Organization input required: ORG-QUALITY-TARGETS: Adopted WCAG conformance level, performance objectives and budgets, interoperability thresholds, test coverage expectations, and release-blocking criteria are not known.",
+    "Organization input required: ORG-SECURITY-BASELINE: The organization-approved threat model, ASVS scope or verification level, CSP rollout policy, vulnerability severity thresholds, incident escalation path, and risk-acceptance authority are not known."
+  ]
+}

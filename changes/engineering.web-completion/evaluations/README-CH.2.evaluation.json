@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "artifact": "README-CH.md",
+  "artifact_sha256": "a569b99ed735cd8b42522978e750dca1878022df15ec5f320edb5d581673ac9e",
+  "evaluator": "domain_artifact_evaluator_readme_ch_iter2_fresh",
+  "iteration": 2,
+  "evaluated_at": "2026-08-02T13:16:47Z",
+  "dimensions": {
+    "contract": 99.0,
+    "professional": 98.0,
+    "boundaries": 99.0,
+    "executability": 97.0,
+    "verifiability": 98.0,
+    "architecture": 98.0,
+    "maintainability": 99.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-WEB-DOMAIN-IDENTITY",
+    "WEB-OWASP-ASVS",
+    "WEB-RFC9110-HTTP",
+    "WEB-TC39-ECMA262",
+    "WEB-W3C-ARIA-KEYBOARD",
+    "WEB-W3C-CSP3",
+    "WEB-W3C-CSS-2025",
+    "WEB-W3C-PERFORMANCE-TIMELINE",
+    "WEB-W3C-WCAG22",
+    "WEB-WHATWG-HTML-ORIGINS",
+    "WEB-WHATWG-HTML-SEMANTICS",
+    "WEB-WPT-DOCS"
+  ],
+  "findings": [],
+  "blocked_reasons": [],
+  "overall_score": 98.25,
+  "verdict": "pass"
+}

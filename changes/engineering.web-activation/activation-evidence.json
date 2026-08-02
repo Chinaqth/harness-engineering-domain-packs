@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "version": "0.1.0",
+  "decision": "approved",
+  "approved_at": "2026-08-02",
+  "owner": "platform-web",
+  "reviewers": ["platform-web"],
+  "authority": "The approving user explicitly stated they are the reviewer, represent platform-web, authorize activation, and approve proceeding.",
+  "scope": "Activate the source-traceable reusable Web Frontend Engineering baseline for routing eligibility.",
+  "constraints": [
+    "Activation grants no deployment, production, dependency, policy-change, exception, release, legal-conformance, or risk-acceptance permission.",
+    "Project architecture, commands, browser and assistive-technology matrices, quality targets, security baselines, and operational permissions remain mandatory project-overlay or task-contract inputs.",
+    "A capability must fail closed at every claim or action that depends on a missing organization or project input."
+  ],
+  "rollback": "Revert the scoped activation commit to restore draft lifecycle and remove this evidence reference."
+}

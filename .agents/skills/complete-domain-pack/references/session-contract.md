@@ -28,4 +28,5 @@ Append evaluation paths in iteration order. Do not replace failed evidence. The 
 evaluation must pass and match the current artifact digest. A final evaluation must use artifact
 label `.` and bind its digest to the complete Domain directory. Before final delivery, declare
 every non-hidden production file in the Domain directory; `.gitkeep` files are not production
-artifacts.
+artifacts. `README-CH.md` is a required production artifact and must be evaluated against the
+final file inventory before whole-Pack evaluation.

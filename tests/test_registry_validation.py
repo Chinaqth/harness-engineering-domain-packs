@@ -178,6 +178,39 @@ class RegistryValidationTests(unittest.TestCase):
             any("unknown dependency" in error for error in VALIDATOR.validate(self.root))
         )
 
+    def test_missing_chinese_readme_is_rejected(self) -> None:
+        (self.domain / "README-CH.md").unlink()
+        self.assertTrue(
+            any("missing README-CH.md" in error for error in VALIDATOR.validate(self.root))
+        )
+
+    def test_incomplete_chinese_readme_inventory_is_rejected(self) -> None:
+        readme_path = self.domain / "README-CH.md"
+        readme_path.write_text("# 中文说明\n\n`DOMAIN.md`\n", encoding="utf-8")
+        errors = VALIDATOR.validate(self.root)
+        self.assertTrue(
+            any("does not describe production file routes.json" in error for error in errors)
+        )
+        self.assertTrue(
+            any("does not describe directory workflows/" in error for error in errors)
+        )
+
+    def test_chinese_readme_requires_chinese_text(self) -> None:
+        readme_path = self.domain / "README-CH.md"
+        inventory = "\n".join(
+            f"`{path.relative_to(self.domain).as_posix()}`"
+            for path in self.domain.rglob("*")
+            if path.is_file()
+            and not any(
+                part.startswith(".") for part in path.relative_to(self.domain).parts
+            )
+        )
+        directories = "\n".join(f"`{directory}/`" for directory in VALIDATOR.REQUIRED_DIRS)
+        readme_path.write_text(f"# Guide\n{inventory}\n{directories}\n", encoding="utf-8")
+        self.assertTrue(
+            any("must contain Chinese guidance" in error for error in VALIDATOR.validate(self.root))
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

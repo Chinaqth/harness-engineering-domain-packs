@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "artifact": "owners.json",
+  "artifact_sha256": "b83abf6203d644cdbd6765325fd39d9cf6e4cb5e50bd0660b6fd9378baeb20e1",
+  "evaluator": "domain-artifact-evaluator-activation-owners",
+  "iteration": 1,
+  "evaluated_at": "2026-08-02T13:58:24Z",
+  "dimensions": {
+    "contract": 100.0,
+    "professional": 98.0,
+    "boundaries": 97.0,
+    "executability": 96.0,
+    "verifiability": 99.0,
+    "architecture": 100.0,
+    "maintainability": 100.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-WEB-DOMAIN-IDENTITY"
+  ],
+  "findings": [],
+  "blocked_reasons": [],
+  "overall_score": 98.4,
+  "verdict": "pass"
+}

@@ -25,6 +25,7 @@ Professional behavior becomes more specific closer to the task. Safety constrain
 ```text
 domains/<domain-path>/
 ├── DOMAIN.md
+├── README-CH.md
 ├── domain.json
 ├── routes.json
 ├── capabilities.json
@@ -39,6 +40,7 @@ domains/<domain-path>/
 | Artifact | Responsibility |
 | --- | --- |
 | `DOMAIN.md` | Human-readable purpose, boundaries, inputs, outputs, and maturity |
+| `README-CH.md` | Chinese inventory of each production artifact's responsibility and behavior; never an independent policy source |
 | `domain.json` | Stable identity, lifecycle, ownership, inheritance, and applicability |
 | `routes.json` | Conditions a future conforming resolver may use to consider this Domain |
 | `capabilities.json` | Workflows, Skills, tools, evaluators, permissions, and dependencies |

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "primary_owner": "platform-web",
+  "reviewers": [
+    "platform-web"
+  ]
+}

@@ -4,13 +4,21 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from schema_validation import validate_instance
 
-REQUIRED_FILES = ("DOMAIN.md", "domain.json", "routes.json", "capabilities.json", "owners.json")
+REQUIRED_FILES = (
+    "DOMAIN.md",
+    "README-CH.md",
+    "domain.json",
+    "routes.json",
+    "capabilities.json",
+    "owners.json",
+)
 REQUIRED_DIRS = ("rules", "workflows", "evaluators", "templates", "skills")
 SCHEMA_FILES = {
     "registry": "registry.schema.json",
@@ -19,6 +27,7 @@ SCHEMA_FILES = {
     "capabilities": "capability.schema.json",
     "owners": "owners.schema.json",
 }
+CHINESE_TEXT = re.compile(r"[\u3400-\u9fff]")
 
 
 def load_json(path: Path, errors: list[str]) -> dict:
@@ -103,6 +112,28 @@ def validate(root: Path) -> list[str]:
                 errors.append(f"{domain_id}: missing {required}/")
         if not domain_path.is_dir():
             continue
+
+        chinese_readme_path = domain_path / "README-CH.md"
+        if chinese_readme_path.is_file():
+            chinese_readme = chinese_readme_path.read_text(encoding="utf-8")
+            if not CHINESE_TEXT.search(chinese_readme):
+                errors.append(f"{domain_id}: README-CH.md must contain Chinese guidance")
+            production_files = sorted(
+                path.relative_to(domain_path).as_posix()
+                for path in domain_path.rglob("*")
+                if path.is_file()
+                and not any(part.startswith(".") for part in path.relative_to(domain_path).parts)
+            )
+            for relative in production_files:
+                if f"`{relative}`" not in chinese_readme:
+                    errors.append(
+                        f"{domain_id}: README-CH.md does not describe production file {relative}"
+                    )
+            for directory in REQUIRED_DIRS:
+                if f"`{directory}/`" not in chinese_readme:
+                    errors.append(
+                        f"{domain_id}: README-CH.md does not describe directory {directory}/"
+                    )
 
         manifest = load_json(domain_path / "domain.json", errors)
         routes = load_json(domain_path / "routes.json", errors)

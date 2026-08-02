@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "capabilities": [
+    {
+      "id": "semantic-web-interface-engineering",
+      "description": "Design, implement, and review browser interfaces whose HTML structure, native controls, and CSS presentation preserve required meaning and operation across declared states and presentation contexts, with feature maturity, target support, and approved fallback behavior evidenced separately.",
+      "task_types": [
+        "web-frontend-design",
+        "web-frontend-implementation",
+        "web-frontend-review"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "web-interface-delivery"
+      ],
+      "tools": [
+        "Source and rendered-document inspection capable of exposing HTML structure, names, roles, states, and content-model violations",
+        "Browser rendering and responsive-state inspection across the declared presentation contexts",
+        "Project-provided static analysis, browser test, and build procedures"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires task-scoped authorization to read and, when implementation is requested, modify the declared frontend source and evidence artifacts",
+        "Requires authorization to execute only project-supplied inspection, test, and build procedures in declared environments; dependency, deployment, production, and release permissions require separate approval"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "ecmascript-browser-application-behavior",
+      "description": "Implement and review deterministic browser application behavior using ECMAScript language semantics while identifying browser host APIs separately and verifying required state transitions, failure handling, target availability, and approved fallbacks.",
+      "task_types": [
+        "web-frontend-implementation",
+        "web-frontend-review"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "web-interface-delivery"
+      ],
+      "tools": [
+        "ECMAScript-aware source inspection and project-provided static analysis",
+        "Browser runtime inspection capable of observing state transitions, errors, cancellation, repetition, stale results, cleanup, and host-API availability",
+        "Project-provided browser behavior test procedures"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires task-scoped authorization to read and, when implementation is requested, modify the declared browser application source and evidence artifacts",
+        "Requires authorization to execute only project-supplied analysis and browser behavior procedures in declared environments; dependency installation, support-policy changes, deployment, and production access require separate approval"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "web-accessibility-engineering",
+      "description": "Engineer and verify complete affected pages and flows against an organization-adopted accessibility target, including responsive variations, semantic structure, keyboard operation, visible and predictable focus, and intentional keyboard and focus models for custom widgets.",
+      "task_types": [
+        "web-accessibility-engineering"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "web-interface-delivery"
+      ],
+      "tools": [
+        "Rendered accessibility-tree and semantic inspection",
+        "Keyboard-only and focus-trace observation across material states and responsive variations",
+        "Project-approved automated accessibility analysis and declared assistive-technology test capability"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires authorization to inspect and exercise the complete affected page or flow using the organization-declared browser and assistive-technology matrix",
+        "Requires task-scoped authorization to modify declared frontend artifacts when remediation is requested; accessibility target selection, exception approval, legal conclusions, and release decisions require separate authority"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "browser-http-integration",
+      "description": "Implement and verify client behavior at an authoritative HTTP service boundary, including request and representation semantics, material response outcomes, authentication and cache context, cancellation, retry, stale-response handling, user-visible recovery, and sanitized contract-mismatch evidence.",
+      "task_types": [
+        "browser-http-integration"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "web-interface-delivery"
+      ],
+      "tools": [
+        "Browser network inspection or equivalent sanitized request-and-response capture",
+        "Project-provided client integration test capability for declared service-contract outcomes",
+        "Browser runtime observation of cancellation, cache, stale-response, retry, and recovery behavior"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires authorization to exercise only declared service-contract scenarios using approved non-sensitive test data and environments",
+        "Requires task-scoped authorization to modify the declared client integration surface; backend changes, production credentials, protected data, service policy, deployment, and risk acceptance require separate authority"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "frontend-security-verification",
+      "description": "Apply and verify organization-approved frontend security requirements across browser origins, untrusted content, executable resources, navigation, messaging, storage, authentication context, and CSP, preserving sanitized findings and escalating risk decisions without treating client controls as server enforcement.",
+      "task_types": [
+        "frontend-security-verification"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "web-interface-delivery"
+      ],
+      "tools": [
+        "Source and browser inspection capable of tracing origins, resources, executable content, DOM or template insertion, navigation, messaging, storage, and CSP state",
+        "Organization-approved frontend security verification capability for the declared threat-model or ASVS scope",
+        "Sanitized CSP reporting or equivalent policy-observation capability when CSP is in scope"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires explicit security-testing authorization for the declared targets, environments, and scenarios, with approved sanitization and evidence handling",
+        "Requires task-scoped authorization to remediate the declared frontend surface; production testing, policy changes, credential or protected-data access, control weakening, incident operations, and risk acceptance require separate authority"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "browser-performance-observability",
+      "description": "Instrument, collect, and evaluate browser navigation, resource, and application-defined performance measurements for a declared scenario and environment, retaining raw observations, reruns, variability, and limitations while judging acceptance only against an organization-approved objective.",
+      "task_types": [
+        "browser-performance-analysis"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "web-interface-delivery"
+      ],
+      "tools": [
+        "Browser measurement capability exposing relevant Performance Timeline entries and application-defined marks and measures",
+        "Reproducible scenario execution or manual procedure with environment, cache, and network context recording",
+        "Evidence capture capable of retaining raw observations, reruns, and variability without protected data"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires authorization to collect sanitized browser measurements for the declared scenarios and environments",
+        "Requires task-scoped authorization to add or modify declared client instrumentation when requested; production access, protected-data collection, objective or budget selection, deployment, and release decisions require separate authority"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "cross-browser-compatibility-verification",
+      "description": "Verify required positive, negative, rendering, interaction, fallback, and degradation behavior across an organization-declared browser, device, and assistive-technology matrix using portable scenarios and per-target evidence that distinguishes implementation incompatibility from test instability.",
+      "task_types": [
+        "cross-browser-compatibility-verification"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "web-interface-delivery"
+      ],
+      "tools": [
+        "Portable browser-facing test or scenario execution across the declared browser, device, and assistive-technology matrix",
+        "Rendering and interaction capture for cases not decidable by programmatic assertion alone",
+        "Per-target result, rerun, flake, fallback, and degradation evidence collection"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires authorization and environment access to execute project-supplied browser scenarios only against the declared matrix",
+        "Requires task-scoped authorization to modify declared frontend or test artifacts when remediation is requested; target removal, matrix narrowing, degradation-policy changes, deployment, production access, and release decisions require separate authority"
+      ],
+      "dependencies": []
+    }
+  ]
+}

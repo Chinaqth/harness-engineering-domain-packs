@@ -10,6 +10,9 @@
 - Evaluators: define criteria, evidence, negative paths, severity, and verdict semantics.
 - Templates: define reusable output structure without project-specific facts.
 - Skills: package non-obvious professional workflow, references, and deterministic helpers.
+- `README-CH.md`: enumerate every current non-hidden production file and directory in Chinese;
+  explain each item's responsibility and actual behavior, link descriptions to the authoritative
+  English artifact, and introduce no independent rule, permission, or organization fact.
 
 ## Machine Contract
 
@@ -21,4 +24,3 @@
 - `routes.json`: reference existing capabilities and use discriminating task types and signals.
 
 Schema validity is necessary but does not demonstrate professional correctness.
-

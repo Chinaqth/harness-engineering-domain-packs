@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "id": "engineering.web",
+  "display_name": "Web Frontend Engineering",
+  "description": "Owns reusable Web frontend engineering delivery practice and evaluation.",
+  "version": "0.1.0",
+  "status": "active",
+  "owner": "platform-web",
+  "inherits": [],
+  "applicability": {
+    "task_types": [
+      "web-frontend-design",
+      "web-frontend-implementation",
+      "web-frontend-review",
+      "web-accessibility-engineering",
+      "browser-http-integration",
+      "frontend-security-verification",
+      "browser-performance-analysis",
+      "cross-browser-compatibility-verification"
+    ],
+    "repository_signals": [
+      "HTML documents or templates",
+      "CSS stylesheets or CSS-generating source",
+      "browser-executed ECMAScript or TypeScript",
+      "web application manifest or frontend package metadata",
+      "browser-facing component or page source",
+      "browser automation or web-platform test configuration"
+    ]
+  },
+  "compatibility": {
+    "kernel_protocol_version": "1.0",
+    "statement": "Compatible with Harness Kernel protocol 1.0. This Domain specializes reusable Web frontend engineering practice without weakening Kernel authorization, security, privacy, evidence, approval, or lifecycle requirements."
+  },
+  "activation": {
+    "evidence": [
+      "changes/engineering.web-activation/activation-evidence.json"
+    ]
+  }
+}

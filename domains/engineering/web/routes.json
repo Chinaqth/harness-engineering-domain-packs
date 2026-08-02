@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "routes": [
+    {
+      "id": "frontend-security-verification",
+      "priority": 700,
+      "task_types": [
+        "frontend-security-verification"
+      ],
+      "signals": [
+        "browser origin, cross-origin isolation, navigation, or window messaging behavior",
+        "untrusted content entering a DOM, HTML template, executable resource, or client-side navigation sink",
+        "Content Security Policy directives, delivery, reports, or enforcement behavior"
+      ],
+      "capabilities": [
+        "frontend-security-verification"
+      ]
+    },
+    {
+      "id": "web-accessibility-engineering",
+      "priority": 650,
+      "task_types": [
+        "web-accessibility-engineering"
+      ],
+      "signals": [
+        "declared WCAG success criteria or conformance target for an affected page or flow",
+        "keyboard operation, visible focus, focus order, or custom-widget focus management",
+        "rendered accessibility tree, accessible name, role, state, or semantic relationship"
+      ],
+      "capabilities": [
+        "web-accessibility-engineering"
+      ]
+    },
+    {
+      "id": "cross-browser-compatibility-verification",
+      "priority": 600,
+      "task_types": [
+        "cross-browser-compatibility-verification"
+      ],
+      "signals": [
+        "declared browser, device, or assistive-technology support matrix",
+        "browser-specific rendering, interaction, feature-support, fallback, or degradation behavior",
+        "portable browser-facing scenario requiring per-target compatibility evidence"
+      ],
+      "capabilities": [
+        "cross-browser-compatibility-verification"
+      ]
+    },
+    {
+      "id": "browser-performance-observability",
+      "priority": 550,
+      "task_types": [
+        "browser-performance-analysis"
+      ],
+      "signals": [
+        "Performance Timeline navigation, resource, mark, measure, or observer data",
+        "declared browser performance scenario, objective, budget, or regression threshold",
+        "browser measurement reruns requiring environment, cache, network, or variability evidence"
+      ],
+      "capabilities": [
+        "browser-performance-observability"
+      ]
+    },
+    {
+      "id": "browser-http-integration",
+      "priority": 500,
+      "task_types": [
+        "browser-http-integration"
+      ],
+      "signals": [
+        "browser client request, response, representation, status, authentication, or cache semantics",
+        "client-side cancellation, retry, stale-response suppression, or service-error recovery",
+        "sanitized browser network evidence for an authoritative service contract"
+      ],
+      "capabilities": [
+        "browser-http-integration"
+      ]
+    },
+    {
+      "id": "ecmascript-browser-application-behavior",
+      "priority": 450,
+      "task_types": [
+        "web-frontend-implementation",
+        "web-frontend-review"
+      ],
+      "signals": [
+        "browser-executed ECMAScript state transition, event, asynchronous operation, or error path",
+        "browser host API availability, cancellation, cleanup, repetition, or fallback behavior",
+        "stale client-side result, race condition, or nondeterministic browser application behavior"
+      ],
+      "capabilities": [
+        "ecmascript-browser-application-behavior"
+      ]
+    },
+    {
+      "id": "semantic-web-interface-engineering",
+      "priority": 400,
+      "task_types": [
+        "web-frontend-design",
+        "web-frontend-implementation",
+        "web-frontend-review"
+      ],
+      "signals": [
+        "HTML element semantics, content model, document structure, form, or native interactive control",
+        "CSS cascade, layout, responsive presentation, typography, writing mode, or user-interface styling",
+        "browser-rendered page or component structure across declared states and presentation contexts"
+      ],
+      "capabilities": [
+        "semantic-web-interface-engineering"
+      ]
+    }
+  ]
+}

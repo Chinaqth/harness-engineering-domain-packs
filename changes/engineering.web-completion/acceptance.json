@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "change_id": "engineering.web-completion",
+  "risk": "G2",
+  "criteria": [
+    {
+      "id": "AC-1",
+      "description": "The research ledger and supporting outputs pass deterministic validation.",
+      "status": "passed",
+      "evidence": ["research/sources.json", "evaluations/pack-check.final.json"]
+    },
+    {
+      "id": "AC-2",
+      "description": "Every production artifact has a current independent passing evaluation.",
+      "status": "passed",
+      "evidence": ["session.json", "evaluations/final.1.evaluation.json"]
+    },
+    {
+      "id": "AC-3",
+      "description": "Repository, schema, reference, Skill, Agent, and session checks pass.",
+      "status": "passed",
+      "evidence": ["validation.md", "evaluations/pack-check.final.json"]
+    },
+    {
+      "id": "AC-4",
+      "description": "Representative routing scenarios pass with fail-closed behavior.",
+      "status": "passed",
+      "evidence": ["evaluations/routing-scenarios.md"]
+    },
+    {
+      "id": "AC-5",
+      "description": "A fresh independent Pack evaluation passes and reports separate completion states.",
+      "status": "passed",
+      "evidence": ["evaluations/final.1.envelope.json", "evaluations/final.1.evaluation.json"]
+    },
+    {
+      "id": "AC-6",
+      "description": "The Domain remains draft and unresolved organization facts are not invented.",
+      "status": "passed",
+      "evidence": ["../../domains/engineering/web/domain.json", "evaluations/pack-check.final.json"]
+    }
+  ]
+}

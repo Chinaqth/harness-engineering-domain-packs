@@ -148,6 +148,7 @@ Every registered function uses:
 ```text
 domains/<domain-path>/
 ├── DOMAIN.md
+├── README-CH.md
 ├── domain.json
 ├── routes.json
 ├── capabilities.json
@@ -162,6 +163,7 @@ domains/<domain-path>/
 | Artifact | Responsibility |
 | --- | --- |
 | `DOMAIN.md` | Human-readable purpose, boundaries, inputs, outputs, and maturity |
+| `README-CH.md` | Chinese inventory explaining the responsibility and behavior of every production file and directory |
 | `domain.json` | Stable identity, version, lifecycle, owner, applicability, compatibility, and activation evidence |
 | `routes.json` | Task types, repository signals, priority, and candidate capabilities |
 | `capabilities.json` | Workflows, Skills, tools, evaluators, permissions, and dependencies |

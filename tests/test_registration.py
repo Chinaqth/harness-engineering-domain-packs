@@ -59,6 +59,10 @@ class RegistrationTests(unittest.TestCase):
         self.assertEqual(manifest["id"], "engineering.ios")
         self.assertEqual(manifest["status"], "draft")
         self.assertEqual(registry["domains"][0]["path"], "domains/engineering/ios")
+        chinese_readme = (domain_path / "README-CH.md").read_text(encoding="utf-8")
+        self.assertIn("iOS Engineering Domain 目录说明", chinese_readme)
+        self.assertIn("`engineering.ios`", chinese_readme)
+        self.assertNotIn("{{", chinese_readme)
 
     def test_duplicate_is_rejected(self) -> None:
         self.register()
