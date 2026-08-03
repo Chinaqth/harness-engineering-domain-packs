@@ -10,7 +10,8 @@ This repository is the authoritative source for enterprise function-level capabi
 4. Domain rules may specialize the Harness Kernel but may not weaken organization red lines.
 5. Do not place credentials, production data, customer data, or project-specific secrets in a Domain Pack.
 6. Capability, route, and Domain IDs are immutable after publication. Deprecate and replace instead of silently renaming.
-7. Run `./scripts/domain-check.sh` before completing a change. Do not treat a non-empty route or capability list as activation evidence unless schema and lifecycle validation both pass.
+7. Run `./scripts/domain-check.sh` before completing a change. Do not treat a non-empty route or
+   capability list as activation readiness unless schema, reference, and lifecycle validation pass.
 8. Keep registry metadata and Domain Pack files consistent.
 
 ## Read on Demand
@@ -32,5 +33,5 @@ This repository is the authoritative source for enterprise function-level capabi
 - Routes identify inputs, outputs, dependencies, and applicable task types.
 - Capabilities identify workflows, Skills, tools, evaluators, and permission needs.
 - Documentation and actual registry state agree.
-- Autonomous completion cites a validated research ledger and keeps activation under human
-  authority.
+- Autonomous completion cites a validated research ledger and automatically activates only after
+  its automated content, routing, reference, and evaluation gates pass.

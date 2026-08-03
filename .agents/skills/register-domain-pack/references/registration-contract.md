@@ -34,4 +34,6 @@ Registration is intentionally conservative:
 - Capabilities: empty
 - Reviewers: empty
 
-Registration makes a function visible to maintainers. It does not make the function selectable by a future production resolver; activation is a separate governed change.
+Registration makes a function visible to maintainers. It does not make the empty function
+selectable by a future production resolver. `$complete-domain-pack` adds the role and capabilities
+and automatically activates the Pack after automated validation and evaluation pass.

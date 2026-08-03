@@ -5,7 +5,7 @@
 Each Domain Pack has:
 
 - A primary Domain Owner accountable for professional correctness;
-- Reviewers for material workflow, rule, capability, and evaluator changes;
+- Optional reviewers for material workflow, rule, capability, and evaluator consultation;
 - A lifecycle state and semantic version;
 - Evidence that the pack remains routable and internally consistent.
 
@@ -22,7 +22,17 @@ Allowed Domain states:
 | `deprecated` | Still resolvable for pinned consumers but not selected by default |
 | `retired` | Unavailable for new routing; retained for audit and migration |
 
-Activation requires at least one meaningful route, one capability with workflow and evaluator coverage, a named owner and reviewer, validation evidence, a compatibility statement, and resolvable dependencies.
+Completion automatically activates a Pack when it has at least one meaningful route, one
+capability with workflow and evaluator coverage, a named owner, a compatibility statement,
+resolvable references and dependencies, and passing automated evaluation. Reviewer presence and a
+separate activation-evidence transaction are not lifecycle prerequisites.
+
+A non-breaking registration and completion that changes only reusable routing metadata is G1 by
+default. Round up under Kernel governance when permissions, security boundaries, compatibility, or
+production configuration change.
+
+Automatic activation grants routing eligibility only. Git publication, deployment, release,
+production access, exceptions, and task-specific permissions remain separate authorities.
 
 ## Change Rules
 

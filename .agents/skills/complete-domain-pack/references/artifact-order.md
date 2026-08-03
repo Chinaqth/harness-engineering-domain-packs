@@ -4,7 +4,7 @@ Build artifacts in this order unless the change contract records a justified dep
 
 1. `DOMAIN.md`: purpose, ownership, boundaries, stable inputs, outputs, and handoffs.
 2. `domain.json`: identity, applicability, compatibility, and evidence placeholders.
-3. `owners.json`: primary owner and required reviewers.
+3. `owners.json`: primary owner and optional reviewers.
 4. `rules/`: professional invariants that specialize but never weaken Kernel policy.
 5. `workflows/`: repeatable delivery sequences with inputs, outputs, checks, and failure paths.
 6. `evaluators/`: acceptance and evidence contracts for workflow outcomes.

@@ -50,28 +50,6 @@ def load_research_validator(root: Path):
     return module
 
 
-def activation_evidence_issues(root: Path, evidence: object) -> list[str]:
-    root = root.resolve()
-    changes_root = (root / "changes").resolve()
-    if not isinstance(evidence, list) or not evidence:
-        return ["Activation evidence must contain at least one repository-relative file"]
-    issues = []
-    for index, relative in enumerate(evidence):
-        if not isinstance(relative, str) or not relative.strip():
-            issues.append(f"Activation evidence {index} must be a non-empty path")
-            continue
-        relative_path = Path(relative)
-        if not relative_path.parts or relative_path.parts[0] != "changes":
-            issues.append(f"Activation evidence must be stored under changes/: {relative}")
-            continue
-        path = (root / relative).resolve()
-        if changes_root != path and changes_root not in path.parents:
-            issues.append(f"Activation evidence escapes changes/: {relative}")
-        elif not path.is_file():
-            issues.append(f"Activation evidence does not exist: {relative}")
-    return issues
-
-
 def check_pack(root: Path, domain_id: str, ledger_path: Path | None = None) -> dict:
     root = root.resolve()
     content_issues: list[str] = []
@@ -122,7 +100,7 @@ def check_pack(root: Path, domain_id: str, ledger_path: Path | None = None) -> d
 
     domain_root = root / entries[0]["path"]
     manifest = load_json(domain_root / "domain.json", content_issues)
-    owners = load_json(domain_root / "owners.json", content_issues)
+    load_json(domain_root / "owners.json", content_issues)
     routes = load_json(domain_root / "routes.json", content_issues)
     capabilities = load_json(domain_root / "capabilities.json", content_issues)
 
@@ -149,11 +127,7 @@ def check_pack(root: Path, domain_id: str, ledger_path: Path | None = None) -> d
             ledger = load_json(resolved_ledger, research_issues)
         gaps = ledger.get("organizational_gaps")
         if isinstance(gaps, list):
-            organizational_gaps = [
-                gap
-                for gap in gaps
-                if isinstance(gap, dict) and gap.get("required_for_activation") is True
-            ]
+            organizational_gaps = [gap for gap in gaps if isinstance(gap, dict)]
     checks.append({
         "name": "validated-research-ledger",
         "scope": "content",
@@ -162,8 +136,6 @@ def check_pack(root: Path, domain_id: str, ledger_path: Path | None = None) -> d
     })
     content_issues.extend(f"Research: {issue}" for issue in research_issues)
 
-    evidence = manifest.get("activation", {}).get("evidence")
-    evidence_issues = activation_evidence_issues(root, evidence)
     content_readiness = {
         "applicability-task-types": bool(
             manifest.get("applicability", {}).get("task_types")
@@ -181,25 +153,6 @@ def check_pack(root: Path, domain_id: str, ledger_path: Path | None = None) -> d
         checks.append({"name": name, "scope": "content", "passed": passed, "detail": ""})
         if not passed:
             content_issues.append(f"Content completeness gate failed: {name}")
-
-    activation_readiness = {
-        "activation-evidence": not evidence_issues,
-        "reviewers": bool(owners.get("reviewers")),
-    }
-    for name, passed in activation_readiness.items():
-        checks.append({
-            "name": name,
-            "scope": "activation",
-            "passed": passed,
-            "detail": "",
-        })
-        if not passed:
-            activation_issues.append(f"Activation readiness gate failed: {name}")
-    activation_issues.extend(evidence_issues)
-    for gap in organizational_gaps:
-        activation_issues.append(
-            f"Organization input required: {gap.get('id')}: {gap.get('description')}"
-        )
 
     for capability in capabilities.get("capabilities", []):
         if not isinstance(capability, dict):
@@ -244,15 +197,9 @@ def check_pack(root: Path, domain_id: str, ledger_path: Path | None = None) -> d
         if content_verdict == "pass"
         else "incomplete"
     )
-    activation_verdict = (
-        "pass"
-        if content_verdict == "pass" and not activation_issues
-        else "fail"
-    )
+    activation_verdict = "pass" if content_verdict == "pass" else "fail"
     if content_verdict == "fail":
         state = "fail"
-    elif activation_issues:
-        state = "needs-org-input"
     else:
         state = "activation-ready"
     return {
@@ -268,6 +215,7 @@ def check_pack(root: Path, domain_id: str, ledger_path: Path | None = None) -> d
         "content_issues": content_issues,
         "activation_issues": activation_issues,
         "organizational_gaps": organizational_gaps,
+        "organizational_gaps_block_lifecycle": False,
         "issues": [*content_issues, *activation_issues],
     }
 

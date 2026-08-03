@@ -5,7 +5,9 @@ description: Register a new enterprise function as a draft Domain Pack by creati
 
 # Register Domain Pack
 
-Register the identity and empty contract of a new function without inventing its professional content. Keep the result in `draft` until its owner defines and reviews routes, capabilities, workflows, rules, and evaluators.
+Register the identity and empty contract of a new function without inventing its professional
+content. Keep the empty result in `draft`; `$complete-domain-pack` automatically activates it after
+the role, capabilities, and automated evidence are complete.
 
 ## Workflow
 
@@ -40,7 +42,8 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 - Do not invent an owner. Ask for one if no authoritative owner can be found.
 - Do not register project names, temporary initiatives, or individual tasks as enterprise Domains.
 - Do not copy project-specific architecture, credentials, customer data, or environment values into a Domain Pack.
-- Do not mark a newly registered pack `active`.
+- Do not mark the empty newly registered Pack `active`; automatic activation belongs to the
+  completion workflow.
 - Do not add routes or capabilities merely to make validation pass; the Domain Owner must define meaningful content.
 - Treat a published Domain ID as immutable. Deprecate and replace it instead of renaming it.
 - Do not bypass the staged registration script with raw token replacement. JSON values must be encoded structurally, and a failed registry update must roll back the Domain directory.
@@ -50,4 +53,5 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 The script stages `domains/<id segments>/`, encodes JSON values structurally, and commits the
 Domain directory and sorted registry entry as one rollback-safe operation. The result uses version
 `0.1.0` and status `draft`. A dry run makes no changes, and invalid or duplicate registrations are
-rejected. Completion remains a separate transaction handled by `$complete-domain-pack`.
+rejected. Completion remains a separate rollback-safe transaction handled by
+`$complete-domain-pack`, which automatically activates a passing Pack.

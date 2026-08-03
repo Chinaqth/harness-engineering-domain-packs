@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "change_id": "domain-auto-activation",
+  "risk": "G2",
+  "status": "done",
+  "criteria": [
+    {"id": "AC-1", "description": "Registration remains draft-only.", "status": "passing", "evidence": ["tests/test_registration.py", "evaluation.md"]},
+    {"id": "AC-2", "description": "Completed Packs do not require lifecycle reviewers or activation evidence.", "status": "passing", "evidence": ["tests/test_registry_validation.py", "evaluation.md"]},
+    {"id": "AC-3", "description": "Finalization atomically activates registry and manifest and rejects unsafe states.", "status": "passing", "evidence": ["tests/test_auto_activation.py", "evaluation.md"]},
+    {"id": "AC-4", "description": "Active structural and routing integrity remains enforced.", "status": "passing", "evidence": ["validation.md", "evaluation.md"]},
+    {"id": "AC-5", "description": "Task-level authority remains separate and fail-closed.", "status": "passing", "evidence": ["docs/GOVERNANCE.md", "evaluation.md"]},
+    {"id": "AC-6", "description": "Skills, documentation, automated checks, and independent evaluation pass.", "status": "passing", "evidence": ["validation.md", "evaluation.md"]}
+  ]
+}

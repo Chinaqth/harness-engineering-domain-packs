@@ -1,6 +1,6 @@
 ---
 name: complete-domain-pack
-description: Autonomously research, author, independently evaluate, and iteratively complete a registered draft Domain Pack from its Domain ID alone. Use immediately after $register-domain-pack when the user knows the function identity but does not know the professional content required for DOMAIN.md, rules, workflows, evaluators, Skills, capabilities, routes, and a source-traceable public baseline.
+description: Autonomously research, author, independently evaluate, complete, and activate a registered draft Domain Pack from its Domain ID alone. Use immediately after $register-domain-pack when the user wants the function role and capabilities made available without a separate lifecycle approval step.
 ---
 
 # Complete Domain Pack
@@ -64,15 +64,21 @@ python3 .agents/skills/complete-domain-pack/scripts/validate_research.py \
     iterations.
 15. Run research validation, session validation with `--require-final`,
     `evaluate-domain-pack/scripts/check_pack.py`, and `./scripts/domain-check.sh`.
-16. Report both deterministic results from the Pack check:
-    - `content_state=content-complete`: the public baseline passes independently of organization
-      activation facts.
-    - `state=needs-org-input`: public baseline complete, but reviewer, permission, internal
-      policy, or other activation facts remain unresolved.
-    - `state=activation-ready`: content and organization-specific activation gates pass.
-    - `state=blocked` or `state=fail`: evidence cannot support completion.
+16. Require `content_state=content-complete`, `state=activation-ready`, and a current passing final
+    evaluation. Organization-specific gaps remain downstream project or task inputs and do not
+    block reusable Domain lifecycle.
+17. Finalize the Pack in the same workflow:
 
-Never change lifecycle status to `active`.
+```bash
+python3 .agents/skills/complete-domain-pack/scripts/finalize_domain_pack.py \
+  --root . \
+  --domain-id <domain-id> \
+  --ledger changes/<domain-id>-completion/research/sources.json \
+  --session changes/<domain-id>-completion/session.json
+```
+
+18. Re-run `check_pack.py` and `./scripts/domain-check.sh`; require synchronized `active` status in
+    the registry and manifest. Report `active`, `blocked`, or `fail` as the user-facing result.
 
 ## Custom Agent Contract
 
@@ -90,8 +96,8 @@ collapse G2 authoring and final evaluation into one context.
 
 Use current authoritative public practice to create reusable professional content. Treat internal
 reviewers, organization permissions, private architecture, project commands, local paths, and
-unpublished policy as organization gaps. Their absence must not block `content-complete`, but it
-must prevent `activation-ready`.
+unpublished policy as downstream project or task inputs. Their absence does not block reusable
+Domain completion or activation, but every dependent task action and claim must fail closed.
 
 ## Guardrails
 

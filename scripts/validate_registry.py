@@ -239,12 +239,8 @@ def validate(root: Path) -> list[str]:
                 errors.append(f"{domain_id}: active Domain must define at least one route")
             if not capability_items:
                 errors.append(f"{domain_id}: active Domain must define at least one capability")
-            if not owners.get("reviewers"):
-                errors.append(f"{domain_id}: active Domain must define at least one reviewer")
             if not manifest.get("compatibility", {}).get("statement", "").strip():
                 errors.append(f"{domain_id}: active Domain must define a compatibility statement")
-            if not manifest.get("activation", {}).get("evidence"):
-                errors.append(f"{domain_id}: active Domain must record activation evidence")
             for capability in capability_items:
                 if not isinstance(capability, dict):
                     continue
