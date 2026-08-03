@@ -10,7 +10,7 @@
 
 一个 Domain Pack 定义某项职能在什么情况下适用、拥有哪些能力、提供哪些工作流和 Skill、需要哪些工具与权限，以及如何评估其产出。这样，专业实践可以独立于 Harness 底座和任何单一产品项目演进。
 
-仓库当前没有具体业务职能。它首先提供注册表、Schema、模板、治理规则、验证机制和注册工作流，保证新增职能不会被随意创造或静默激活。
+仓库提供注册表、Schema、模板、治理规则、验证机制和注册工作流，保证新增职能先建立稳定身份，再在自动完善和校验通过后激活。
 
 ### 这个仓库是什么
 
@@ -25,7 +25,7 @@
 - 产品项目，不能存放项目专属架构、命令或秘密；
 - 已经运行的生产 Router；
 - 一组没有 Owner 的提示词；
-- 绕过所有权和证据门直接激活职能的捷径。
+- 因 Domain 已激活就自动获得部署、发布或生产权限的捷径。
 
 ## 底座、Domain Pack 与具体项目
 
@@ -58,7 +58,7 @@ Domain Pack 和项目 Overlay 可以细化上层规则，但不能削弱 Kernel 
 
 ### 2. 先有所有权，再谈激活
 
-注册只建立草稿身份。只有明确的 Owner 和 Reviewer 才能补齐专业内容与激活证据。
+注册只建立草稿身份和明确 Owner；完善流程补齐角色、能力与自动化证据，并在通过后自动激活。
 
 ### 3. 发现阶段保持轻量
 
@@ -68,9 +68,9 @@ Domain Pack 和项目 Overlay 可以细化上层规则，但不能削弱 Kernel 
 
 Domain Pack 保存职能级实践。项目路径、命令、架构和例外留在项目 Overlay 中。
 
-### 5. 激活必须有证据
+### 5. 激活由完善结果驱动
 
-`active` Pack 必须通过 Schema，并具备有效 Route、Capability、Workflow、Evaluator、Owner、兼容性声明、激活证据和可解析依赖。
+`active` Pack 必须通过 Schema，并具备有效 Route、Capability、Workflow、Evaluator、Owner、兼容性声明和可解析依赖。Reviewer 与单独激活证据不再构成生命周期卡点。
 
 ### 6. 能力缺失必须显式暴露
 
@@ -81,7 +81,7 @@ Agent 或未来 Router 都不能为了路由成功而虚构未注册职能或能
 | 状态 | 含义 | 路由行为 |
 | --- | --- | --- |
 | `draft` | 已注册但未完成 | 对维护者可见，不能接收生产任务 |
-| `active` | 已拥有、已验证、已批准 | 项目启用精确兼容版本后可被选择 |
+| `active` | 已拥有并通过自动验证 | 项目启用精确兼容版本后可被选择 |
 | `deprecated` | 仅用于迁移期兼容 | 只允许明确固定版本的消费者使用 |
 | `retired` | 不再可用 | 保留审计和迁移历史 |
 
@@ -92,14 +92,14 @@ Agent 或未来 Router 都不能为了路由成功而虚构未注册职能或能
   -> 注册稳定身份和 Owner
   -> 完成 Route 和 Capability
   -> 增加 Workflow、Skill、Tool 和 Evaluator
-  -> 记录兼容性与激活证据
+  -> 记录兼容性与自动评估证据
   -> 运行确定性验证
-  -> Owner 与 Reviewer 审批
-  -> 激活并发布
+  -> 自动激活
+  -> 获得单独授权后发布
   -> 持续观察、版本升级、废弃或退役
 ```
 
-注册和激活是两个不同变更。成功注册后的初始状态始终是 `draft`。
+成功注册后的初始状态始终是 `draft`；自动完善通过后，在同一流程中变为 `active`。
 
 ## 目录和文件职责
 
@@ -167,7 +167,7 @@ domains/<domain-path>/
 | `domain.json` | 稳定身份、版本、生命周期、Owner、适用性、兼容性和激活证据 |
 | `routes.json` | 任务类型、仓库信号、优先级和候选能力 |
 | `capabilities.json` | Workflow、Skill、Tool、Evaluator、权限和依赖 |
-| `owners.json` | 主 Owner 和必需 Reviewer |
+| `owners.json` | 主 Owner 和可选 Reviewer |
 | `rules/` | 细化但不能削弱 Kernel 的专业规则 |
 | `workflows/` | 可重复的专业交付流程 |
 | `evaluators/` | Domain 专属验收与证据契约 |
@@ -200,7 +200,7 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
   --dry-run
 ```
 
-确认身份和 Owner 后再移除 `--dry-run`。注册只创建符合 Schema 的 `draft`，不会自动编造专业内容或启用路由。
+确认身份和 Owner 后再移除 `--dry-run`。注册只创建符合 Schema 的 `draft`；完善流程负责生成专业内容并在校验通过后自动启用路由。
 
 ### 3. 完成 Pack
 
@@ -208,8 +208,7 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 
 ```text
 启动 domain_pack_builder sub-agent，并使用 $complete-domain-pack
-根据 engineering.android 的注册身份自动完善内容。
-不要自动激活。
+根据 engineering.android 的注册身份自动完善内容并激活。
 ```
 
 请在权威 Domain Packs 源码仓库中运行这条内容生产流程。它的 Custom Agent 位于项目级
@@ -226,9 +225,9 @@ Domain ID 是唯一必需输入。只读 Researcher 会查找当前权威公开�
 - `$evaluate-domain-artifact`：生成与内容摘要绑定的独立评估；
 - `$evaluate-domain-pack`：完成最终内容与激活就绪评估。
 
-结果会单独报告 `content_state=content-complete`，以及整体状态 `needs-org-input`、
-`activation-ready`、`blocked` 或 `fail`。公开专业内容可以先于内部 Reviewer、权限和
-未公开政策完成；只有 Domain Owner 和必需 Reviewer 才能批准激活。
+结果必须达到 `content_state=content-complete` 和 `state=activation-ready`，随后自动把
+Registry 与 Manifest 同步为 `active`。内部 Reviewer、权限和未公开项目政策是下游任务
+输入，不阻塞 Domain 生命周期，但依赖这些输入的任务操作和声明仍须 fail-closed。
 
 ### 4. 验证
 
@@ -236,9 +235,9 @@ Domain ID 是唯一必需输入。只读 Researcher 会查找当前权威公开�
 ./scripts/domain-check.sh
 ```
 
-### 5. 评审并激活
+### 5. 发布或采用
 
-激活是独立评审变更。注册表和 Manifest 生命周期必须同步更新，通过全部门禁后发布不可变版本，项目才可以启用。
+完善流程已经把注册表和 Manifest 同步为 `active`。获得仓库适用的 Git 发布授权后发布不可变版本，再由项目 Overlay 启用。
 
 ## 多场景用例流程
 
@@ -308,11 +307,11 @@ Domain ID 是唯一必需输入。只读 Researcher 会查找当前权威公开�
 - 注册表排序、身份、目录、Owner、版本和生命周期一致性；
 - Route、Capability 唯一性和引用；
 - Workflow、Skill、Evaluator、Template 和依赖是否存在；
-- active Pack 的所有权、兼容性、Evaluator 和激活证据；
+- active Pack 的所有权、兼容性、Evaluator、Route、Capability 与引用完整性；
 - 注册编码、暂存、幂等和回滚行为。
 
 ## 当前状态与下一步
 
 仓库底座已经完成，验证套件通过。当前没有已注册或 active 的业务 Domain。
 
-下一项生产里程碑建议注册一个有明确 Owner 的草稿——`engineering.ios`——补齐专业内容，独立评估激活证据，发布不可变 active 版本，并在一个试点项目 Overlay 中启用。
+下一项生产里程碑建议注册一个有明确 Owner 的草稿——`engineering.ios`——自动补齐专业内容并激活，发布不可变版本，再在一个试点项目 Overlay 中启用。

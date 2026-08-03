@@ -155,6 +155,55 @@ class RegistryValidationTests(unittest.TestCase):
         )
         self.assertEqual(VALIDATOR.validate(self.root), [])
 
+    def test_complete_active_pack_does_not_require_reviewer_or_activation_evidence(self) -> None:
+        self.activate_registry_and_manifest()
+        manifest_path = self.domain / "domain.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["activation"]["evidence"] = []
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        self.write(
+            "routes.json",
+            {
+                "schema_version": "1.0",
+                "domain_id": "engineering.ios",
+                "routes": [{
+                    "id": "feature",
+                    "priority": 100,
+                    "task_types": ["feature"],
+                    "signals": ["swift"],
+                    "capabilities": ["delivery"],
+                }],
+            },
+        )
+        self.write(
+            "capabilities.json",
+            {
+                "schema_version": "1.0",
+                "domain_id": "engineering.ios",
+                "capabilities": [{
+                    "id": "delivery",
+                    "description": "Deliver an iOS feature.",
+                    "task_types": ["feature"],
+                    "workflows": ["WORKFLOW.md"],
+                    "skills": [],
+                    "tools": [],
+                    "evaluators": ["EVALUATOR.md"],
+                    "permissions": [],
+                    "dependencies": [],
+                }],
+            },
+        )
+        self.write(
+            "owners.json",
+            {
+                "schema_version": "1.0",
+                "domain_id": "engineering.ios",
+                "primary_owner": "ios-platform-team",
+                "reviewers": [],
+            },
+        )
+        self.assertEqual(VALIDATOR.validate(self.root), [])
+
     def test_unknown_dependency_is_rejected(self) -> None:
         capabilities_path = self.domain / "capabilities.json"
         capabilities = json.loads(capabilities_path.read_text(encoding="utf-8"))

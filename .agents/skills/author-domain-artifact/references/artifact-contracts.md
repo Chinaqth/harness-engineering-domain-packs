@@ -18,7 +18,7 @@
 
 - `domain.json`: follow the manifest schema and keep registry identity, version, status, and owner
   synchronized.
-- `owners.json`: identify authoritative owner and required reviewers.
+- `owners.json`: identify the authoritative owner and any optional reviewers.
 - `capabilities.json`: reference existing workflows, Skills, evaluators, dependencies, tools, and
   permissions.
 - `routes.json`: reference existing capabilities and use discriminating task types and signals.

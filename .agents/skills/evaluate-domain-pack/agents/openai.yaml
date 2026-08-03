@@ -1,4 +1,4 @@
 interface:
   display_name: "Evaluate Domain Pack"
-  short_description: "Assess complete Domain Pack activation readiness"
+  short_description: "Assess automatic Domain Pack activation readiness"
   default_prompt: "Use $evaluate-domain-pack to independently assess a complete Domain Pack."

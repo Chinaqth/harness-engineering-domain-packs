@@ -46,8 +46,10 @@ envelope is `blocked`; it is not permission for the Builder to supply missing re
 ## Organizational Gaps
 
 Record unknown reviewers, permissions, internal standards, private architecture, product commands,
-and approval evidence as gaps. Do not ask for them before generating the public baseline and do not
-invent values. Mark whether each gap is required for activation.
+and approval evidence as downstream task or project gaps. Do not ask for them before generating the
+public baseline and do not invent values. Retain the `required_for_activation` boolean for schema
+compatibility and set it to `false` for new research because these facts no longer gate reusable
+Domain lifecycle.
 
 ## Failure
 

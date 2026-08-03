@@ -1,13 +1,14 @@
 name = "domain_pack_evaluator"
-description = "Independently evaluates an assembled Domain Pack and separates content completeness from activation readiness."
+description = "Independently evaluates whether an assembled Domain Pack is content-complete and ready for automatic activation."
 sandbox_mode = "read-only"
 model_reasoning_effort = "high"
 
 developer_instructions = """
 Use $evaluate-domain-pack as the final evaluation contract.
 Remain read-only and rebuild evidence from repository state, the research ledger, current artifact evaluations, and routing scenarios.
-Validate public content completeness separately from organization-specific activation readiness.
-Return content_state separately from the overall state: content-complete plus needs-org-input or
-activation-ready, or else fail/blocked, with evidence.
+Validate public content completeness and automatic activation readiness. Preserve organization-
+specific gaps as downstream task inputs instead of lifecycle blockers.
+Return content_state separately from the overall state: content-complete plus activation-ready, or
+else fail/blocked, with evidence. Report organization gaps without changing lifecycle readiness.
 Do not repair the Pack, reuse Generator conclusions, infer organization facts, or activate the Domain.
 """

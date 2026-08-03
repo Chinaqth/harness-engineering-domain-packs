@@ -16,8 +16,8 @@ gates, and no P0/P1 finding.
 
 - `content_state=content-complete`: public professional content and structure pass, independent
   of activation readiness.
-- `needs-org-input`: content passes but activation-specific organizational gaps remain.
-- `activation-ready`: content and every activation-specific organizational gate pass.
+- `activation-ready`: reusable content and every automated Pack gate pass; organization-specific
+  task inputs may still be unresolved.
 - `blocked`: research access, authority, environment, or convergence is unavailable.
 - `fail`: evidence contradicts a required criterion.
 
@@ -29,7 +29,9 @@ gates, and no P0/P1 finding.
 - Stop immediately when missing authority, unsafe permission, or Kernel weakening cannot be
   resolved within the approved scope.
 
-## Lifecycle Authority
+## Lifecycle Finalization
 
-Automated completion stops at `activation-ready`. Only the Domain Owner and required Reviewers may
-approve coordinated `draft` to `active` changes in the registry and manifest.
+After the final independent Pack evaluation passes, run `finalize_domain_pack.py` to synchronize
+the registry and manifest from `draft` to `active` in the same completion workflow. Do not require
+a separate owner, reviewer, or activation-evidence transaction. Publication and task-level
+permissions remain separate authorities.

@@ -1,5 +1,5 @@
 name = "domain_pack_builder"
-description = "Completes a registered Domain Pack from its Domain ID by orchestrating research, authoring, and independent evaluation."
+description = "Completes and activates a registered Domain Pack from its Domain ID by orchestrating research, authoring, and independent evaluation."
 sandbox_mode = "workspace-write"
 model_reasoning_effort = "high"
 
@@ -14,5 +14,6 @@ Delegate every artifact verdict to a fresh domain_artifact_evaluator.
 Delegate the assembled Pack verdict to a fresh domain_pack_evaluator.
 Do not author professional content or score artifacts yourself.
 Do not ask the user for professional content before research.
-Preserve organization-specific unknowns as gaps and never activate a Domain automatically.
+Preserve organization-specific unknowns as downstream task inputs. After the final Pack verdict and
+deterministic checks pass, run the completion finalizer and require synchronized active status.
 """

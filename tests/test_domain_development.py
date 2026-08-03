@@ -426,35 +426,12 @@ class RepositoryIntegrationTests(unittest.TestCase):
     def test_project_agents_are_valid(self) -> None:
         self.assertEqual(AGENTS.validate(ROOT), [])
 
-    def test_draft_android_pack_is_not_activation_ready(self) -> None:
+    def test_incomplete_draft_android_pack_is_not_activation_ready(self) -> None:
         result = PACK.check_pack(ROOT, "engineering.android")
         self.assertEqual(result["verdict"], "fail")
         self.assertTrue(
-            any("Activation readiness gate failed" in item for item in result["issues"])
+            any("Research:" in item for item in result["issues"])
         )
-
-    def test_activation_evidence_must_resolve_to_a_file(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            self.assertTrue(
-                PACK.activation_evidence_issues(root, ["changes/missing/evidence.json"])
-            )
-            evidence = root / "changes" / "android" / "evidence.json"
-            evidence.parent.mkdir(parents=True)
-            evidence.write_text("{}\n", encoding="utf-8")
-            readme = root / "README.md"
-            readme.write_text("# Not activation evidence\n", encoding="utf-8")
-            self.assertTrue(PACK.activation_evidence_issues(root, ["README.md"]))
-            self.assertTrue(
-                PACK.activation_evidence_issues(root, ["changes/../README.md"])
-            )
-            self.assertEqual(
-                PACK.activation_evidence_issues(
-                    root, ["changes/android/evidence.json"]
-                ),
-                [],
-            )
-
 
 class ResearchContractTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -697,13 +674,16 @@ class PackStateTests(unittest.TestCase):
                 self.root, "engineering.android", self.ledger
             )
 
-    def test_content_can_pass_while_organization_input_is_missing(self) -> None:
+    def test_organization_input_does_not_block_activation_readiness(self) -> None:
         result = self.run_check()
         self.assertEqual(result["content_state"], "content-complete")
         self.assertEqual(result["content_verdict"], "pass")
-        self.assertEqual(result["state"], "needs-org-input")
+        self.assertEqual(result["state"], "activation-ready")
+        self.assertEqual(result["activation_issues"], [])
+        self.assertEqual(result["organizational_gaps"][0]["id"], "reviewer")
+        self.assertFalse(result["organizational_gaps_block_lifecycle"])
 
-    def test_activation_ready_requires_no_organization_gaps(self) -> None:
+    def test_activation_ready_with_optional_reviewer_and_no_gaps(self) -> None:
         self.write_domain(reviewers=["mobile-architecture"])
         self.write_ledger(with_gap=False)
         result = self.run_check()

@@ -25,7 +25,7 @@ The repository begins with no concrete business function. It provides the regist
 - A product repository or a place for project-specific architecture, commands, or secrets;
 - A production Router;
 - A collection of unowned prompts;
-- Permission to activate a function before its ownership and evidence gates pass.
+- Permission to execute task-level operational actions merely because a Domain is active.
 
 ## Kernel, Domain Packs, and Projects
 
@@ -58,7 +58,8 @@ Published Domain, route, and capability IDs are immutable. Breaking semantic cha
 
 ### 2. Ownership precedes activation
 
-Registration establishes a draft identity. Only a named owner and required reviewers can supply the professional content and evidence needed for activation.
+Registration establishes a draft identity and named owner. Completion automatically activates the
+Pack after its role, capabilities, references, compatibility, and automated evaluation pass.
 
 ### 3. Discovery stays lightweight
 
@@ -68,9 +69,11 @@ Routing begins with the registry and route metadata. Full workflows, Skills, rul
 
 Domain Packs contain function-level practice. Product-specific paths, commands, architecture, and exceptions remain in project overlays.
 
-### 5. Activation is evidence-backed
+### 5. Activation is completion-backed
 
-An `active` Pack must be schema-valid and demonstrate meaningful routes, capabilities, workflow and evaluator coverage, ownership, compatibility, activation evidence, and resolvable dependencies.
+An `active` Pack must be schema-valid and demonstrate meaningful routes, capabilities, workflow and
+evaluator coverage, ownership, compatibility, and resolvable dependencies. Reviewer metadata and
+separate activation evidence are optional and do not block automatic activation.
 
 ### 6. Missing capability is an explicit result
 
@@ -81,7 +84,7 @@ Neither an agent nor a future resolver may invent an unregistered function or ca
 | State | Meaning | Routing behavior |
 | --- | --- | --- |
 | `draft` | Registered but incomplete | Visible to maintainers; unavailable for production routing |
-| `active` | Owned, validated, and approved | Available when a project enables the exact compatible version |
+| `active` | Owned and automatically validated | Available when a project enables the exact compatible version |
 | `deprecated` | Supported only for migration | Resolved only by explicitly pinned consumers |
 | `retired` | No longer available | Retained for audit and migration history |
 
@@ -92,14 +95,15 @@ Need for a reusable function
   -> register stable identity and owner
   -> complete routes and capabilities
   -> add workflows, Skills, tools, and evaluators
-  -> record compatibility and activation evidence
+  -> record compatibility and automated evaluation
   -> run deterministic validation
-  -> owner and reviewer approval
-  -> activate and publish
+  -> automatically activate
+  -> publish when separately authorized
   -> monitor, version, deprecate, or retire
 ```
 
-Registration and activation are separate changes. A successful registration always starts in `draft`.
+Registration always starts in `draft`. Successful completion automatically activates the Pack in
+the same completion transaction.
 
 ## Repository and File Responsibilities
 
@@ -167,7 +171,7 @@ domains/<domain-path>/
 | `domain.json` | Stable identity, version, lifecycle, owner, applicability, compatibility, and activation evidence |
 | `routes.json` | Task types, repository signals, priority, and candidate capabilities |
 | `capabilities.json` | Workflows, Skills, tools, evaluators, permissions, and dependencies |
-| `owners.json` | Primary owner and required reviewers |
+| `owners.json` | Primary owner and optional reviewers |
 | `rules/` | Professional invariants that specialize but do not weaken the Kernel |
 | `workflows/` | Repeatable professional delivery sequences |
 | `evaluators/` | Domain-specific acceptance and evidence contracts |
@@ -200,7 +204,8 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
   --dry-run
 ```
 
-Remove `--dry-run` only after confirming the identity and owner. Registration creates a schema-valid `draft`; it does not invent professional content or activate routing.
+Remove `--dry-run` only after confirming the identity and owner. Registration creates a
+schema-valid `draft`; completion supplies the professional content and automatically activates it.
 
 ### 3. Complete the Pack
 
@@ -208,8 +213,7 @@ Delegate completion when the user knows the registered function but not its prof
 
 ```text
 Spawn the domain_pack_builder subagent and use $complete-domain-pack
-to complete engineering.android from its registered identity.
-Do not activate it automatically.
+to complete and activate engineering.android from its registered identity.
 ```
 
 Run this authoring workflow from the authoritative Domain Packs checkout. Its Custom Agents are
@@ -228,10 +232,10 @@ The supporting Skills are:
 - `$evaluate-domain-artifact` for a digest-bound independent evaluation;
 - `$evaluate-domain-pack` for final content and activation-readiness evaluation.
 
-The result reports `content_state=content-complete` separately from the overall
-`needs-org-input`, `activation-ready`, `blocked`, or `fail` state. Public content may complete
-before internal reviewers, permissions, and unpublished policy are known. Only the Domain Owner
-and required Reviewers may approve activation.
+The result requires `content_state=content-complete` and `state=activation-ready`, then atomically
+sets the registry and manifest to `active`. Internal reviewers, permissions, and unpublished
+project policy remain downstream task inputs; their absence does not block reusable lifecycle but
+does block every dependent task action or claim.
 
 ### 4. Validate
 
@@ -239,9 +243,10 @@ and required Reviewers may approve activation.
 ./scripts/domain-check.sh
 ```
 
-### 5. Review and activate
+### 5. Publish or adopt
 
-Activation is a separate reviewed change. Update registry and manifest lifecycle together, demonstrate all gates, and publish an immutable revision before a project enables the Pack.
+Completion has already synchronized the lifecycle to `active`. Publish the immutable revision only
+with the repository's applicable Git authority, then enable the Pack in a project overlay.
 
 ## Scenario Playbooks
 
@@ -253,7 +258,7 @@ Activation is a separate reviewed change. Update registry and manifest lifecycle
 | Choose identity | Select a stable dotted ID, display name, owner, and durable purpose | Registration contract and registry search |
 | Register | Stage the standard Pack and registry entry atomically | `$register-domain-pack`, `domains/_template/`, `registry/domains.json` |
 | Verify draft | Confirm schema, structure, ownership, and rollback behavior | `scripts/domain-check.sh` |
-| Hand off | Domain Owner receives a visible but unroutable draft | `DOMAIN.md`, `domain.json`, `owners.json` |
+| Complete and activate | Build the role and capabilities, evaluate them, and automatically set `active` | `$complete-domain-pack` |
 
 ### Scenario B: Add a Capability to an Existing Domain
 
@@ -311,11 +316,13 @@ The gate validates:
 - Registry ordering, identity, directory, owner, version, and lifecycle consistency;
 - Route and capability uniqueness and references;
 - Workflow, Skill, evaluator, template, and dependency existence;
-- Active-Pack ownership, compatibility, evaluator, and activation-evidence requirements;
+- Active-Pack ownership, compatibility, evaluator, route, capability, and reference requirements;
 - Registration encoding, staging, idempotency, and rollback behavior.
 
 ## Current State and Next Step
 
 The repository foundation is complete and its validation suite passes. It intentionally contains no registered or active business Domain.
 
-The next production milestone is to register one owner-backed draft—recommended: `engineering.ios`—complete its professional content, independently evaluate its activation evidence, activate an immutable version, and enable it in a pilot product overlay.
+The next production milestone is to register one owner-backed draft—recommended:
+`engineering.ios`—complete and automatically activate its professional content, publish an
+immutable version, and enable it in a pilot product overlay.
