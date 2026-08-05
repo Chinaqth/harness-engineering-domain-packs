@@ -208,7 +208,7 @@ python3 .agents/skills/register-domain-pack/scripts/register_domain_pack.py \
 
 ```text
 启动 domain_pack_builder sub-agent，并使用 $complete-domain-pack
-根据 engineering.android 的注册身份自动完善内容并激活。
+根据 engineering.ios 的注册身份自动完善内容并激活。
 ```
 
 请在权威 Domain Packs 源码仓库中运行这条内容生产流程。它的 Custom Agent 位于项目级

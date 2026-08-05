@@ -152,7 +152,7 @@ class SessionValidationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        self.domain = self.root / "domains" / "engineering" / "android"
+        self.domain = self.root / "domains" / "engineering" / "mobile-test"
         self.domain.mkdir(parents=True)
         (self.root / "registry").mkdir()
         (self.root / "registry" / "domains.json").write_text(
@@ -161,11 +161,11 @@ class SessionValidationTests(unittest.TestCase):
                     "schema_version": "1.0",
                     "domains": [
                         {
-                            "id": "engineering.android",
-                            "path": "domains/engineering/android",
+                            "id": "engineering.mobile-test",
+                            "path": "domains/engineering/mobile-test",
                             "version": "0.1.0",
                             "status": "draft",
-                            "owner": "platform-android",
+                            "owner": "platform-mobile-test",
                         }
                     ],
                 }
@@ -173,7 +173,7 @@ class SessionValidationTests(unittest.TestCase):
             encoding="utf-8",
         )
         self.artifact = self.domain / "DOMAIN.md"
-        self.artifact.write_text("# Android Engineering\n", encoding="utf-8")
+        self.artifact.write_text("# Mobile Test Engineering\n", encoding="utf-8")
         self.change = self.root / "changes" / "android"
         (self.change / "evaluations").mkdir(parents=True)
         (self.change / "research").mkdir()
@@ -188,7 +188,7 @@ class SessionValidationTests(unittest.TestCase):
             json.dumps(
                 {
                     "schema_version": "1.0",
-                    "domain_id": "engineering.android",
+                    "domain_id": "engineering.mobile-test",
                     "generated_at": "2026-07-30T00:00:00Z",
                     "sources": [
                         {
@@ -246,7 +246,7 @@ class SessionValidationTests(unittest.TestCase):
             json.dumps(
                 {
                     "schema_version": "1.0",
-                    "domain_id": "engineering.android",
+                    "domain_id": "engineering.mobile-test",
                     "research_ledger": "research/sources.json",
                     "max_artifact_iterations": 5,
                     "max_pack_iterations": 3,
@@ -270,7 +270,7 @@ class SessionValidationTests(unittest.TestCase):
         self.assertTrue(result["valid"], result["issues"])
 
     def test_changed_artifact_invalidates_evaluation(self) -> None:
-        self.artifact.write_text("# Changed Android Engineering\n", encoding="utf-8")
+        self.artifact.write_text("# Changed Mobile Test Engineering\n", encoding="utf-8")
         result = SESSION.validate_session(self.root, self.session)
         self.assertFalse(result["valid"])
         self.assertTrue(any("stale artifact digest" in item for item in result["issues"]))
@@ -426,13 +426,6 @@ class RepositoryIntegrationTests(unittest.TestCase):
     def test_project_agents_are_valid(self) -> None:
         self.assertEqual(AGENTS.validate(ROOT), [])
 
-    def test_incomplete_draft_android_pack_is_not_activation_ready(self) -> None:
-        result = PACK.check_pack(ROOT, "engineering.android")
-        self.assertEqual(result["verdict"], "fail")
-        self.assertTrue(
-            any("Research:" in item for item in result["issues"])
-        )
-
 class ResearchContractTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
@@ -454,7 +447,7 @@ class ResearchContractTests(unittest.TestCase):
     def valid_ledger(self) -> dict:
         return {
             "schema_version": "1.0",
-            "domain_id": "engineering.android",
+            "domain_id": "engineering.mobile-test",
             "generated_at": "2026-07-30T00:00:00Z",
             "sources": [
                 {
@@ -507,7 +500,7 @@ class ResearchContractTests(unittest.TestCase):
     def test_valid_research_ledger_passes(self) -> None:
         self.ledger.write_text(json.dumps(self.valid_ledger()), encoding="utf-8")
         errors, source_ids = RESEARCH.validate_ledger(
-            self.root, self.ledger, "engineering.android"
+            self.root, self.ledger, "engineering.mobile-test"
         )
         self.assertEqual(errors, [])
         self.assertEqual(source_ids, {"android", "kotlin", "registry"})
@@ -516,7 +509,7 @@ class ResearchContractTests(unittest.TestCase):
         self.ledger.write_text(json.dumps(self.valid_ledger()), encoding="utf-8")
         (self.ledger.parent / "capability-map.md").unlink()
         errors, _ = RESEARCH.validate_ledger(
-            self.root, self.ledger, "engineering.android"
+            self.root, self.ledger, "engineering.mobile-test"
         )
         self.assertTrue(any("Missing research output" in item for item in errors))
 
@@ -526,7 +519,7 @@ class ResearchContractTests(unittest.TestCase):
             "# Capability Map\n\nNo source citation.\n", encoding="utf-8"
         )
         errors, _ = RESEARCH.validate_ledger(
-            self.root, self.ledger, "engineering.android"
+            self.root, self.ledger, "engineering.mobile-test"
         )
         self.assertTrue(any("must cite an authoritative source ID" in item for item in errors))
 
@@ -535,7 +528,7 @@ class ResearchContractTests(unittest.TestCase):
         ledger["sources"] = ledger["sources"][1:]
         self.ledger.write_text(json.dumps(ledger), encoding="utf-8")
         errors, _ = RESEARCH.validate_ledger(
-            self.root, self.ledger, "engineering.android"
+            self.root, self.ledger, "engineering.mobile-test"
         )
         self.assertTrue(any("at least two authoritative HTTPS" in item for item in errors))
 
@@ -546,7 +539,7 @@ class ResearchContractTests(unittest.TestCase):
         ]
         self.ledger.write_text(json.dumps(ledger), encoding="utf-8")
         errors, _ = RESEARCH.validate_ledger(
-            self.root, self.ledger, "engineering.android"
+            self.root, self.ledger, "engineering.mobile-test"
         )
         self.assertTrue(any("repository identity source" in item for item in errors))
 
@@ -555,7 +548,7 @@ class ResearchContractTests(unittest.TestCase):
         ledger["capability_hypotheses"][0]["source_ids"] = ["registry"]
         self.ledger.write_text(json.dumps(ledger), encoding="utf-8")
         errors, _ = RESEARCH.validate_ledger(
-            self.root, self.ledger, "engineering.android"
+            self.root, self.ledger, "engineering.mobile-test"
         )
         self.assertTrue(
             any("authoritative professional web source" in item for item in errors)
@@ -566,7 +559,7 @@ class PackStateTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        self.domain = self.root / "domains" / "engineering" / "android"
+        self.domain = self.root / "domains" / "engineering" / "mobile-test"
         self.domain.mkdir(parents=True)
         (self.root / "registry").mkdir()
         (self.root / "registry" / "domains.json").write_text(
@@ -574,8 +567,8 @@ class PackStateTests(unittest.TestCase):
                 {
                     "domains": [
                         {
-                            "id": "engineering.android",
-                            "path": "domains/engineering/android",
+                            "id": "engineering.mobile-test",
+                            "path": "domains/engineering/mobile-test",
                         }
                     ]
                 }
@@ -671,7 +664,7 @@ class PackStateTests(unittest.TestCase):
             mock.patch.object(PACK, "load_research_validator", return_value=research_validator),
         ):
             return PACK.check_pack(
-                self.root, "engineering.android", self.ledger
+                self.root, "engineering.mobile-test", self.ledger
             )
 
     def test_organization_input_does_not_block_activation_readiness(self) -> None:

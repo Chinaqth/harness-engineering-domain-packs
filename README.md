@@ -213,7 +213,7 @@ Delegate completion when the user knows the registered function but not its prof
 
 ```text
 Spawn the domain_pack_builder subagent and use $complete-domain-pack
-to complete and activate engineering.android from its registered identity.
+to complete and activate engineering.ios from its registered identity.
 ```
 
 Run this authoring workflow from the authoritative Domain Packs checkout. Its Custom Agents are

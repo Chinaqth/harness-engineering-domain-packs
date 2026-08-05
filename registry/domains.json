@@ -2,13 +2,6 @@
   "schema_version": "1.0",
   "domains": [
     {
-      "id": "engineering.android",
-      "path": "domains/engineering/android",
-      "version": "0.1.0",
-      "status": "draft",
-      "owner": "platform-android"
-    },
-    {
       "id": "engineering.web",
       "path": "domains/engineering/web",
       "version": "0.1.0",
