@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "artifact": "capabilities.json",
+  "artifact_sha256": "6fcf9b74e94651823fd3e66171c3ac0c942cee7f0c827718543c1670dfc7b48b",
+  "evaluator": "domain_artifact_evaluator-capabilities-v3-fresh",
+  "iteration": 3,
+  "evaluated_at": "2026-08-07T14:29:58Z",
+  "dimensions": {
+    "contract": 99.0,
+    "professional": 98.0,
+    "boundaries": 99.0,
+    "executability": 86.0,
+    "verifiability": 92.0,
+    "architecture": 98.0,
+    "maintainability": 94.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-STAGE",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-PACKAGES",
+    "HMOS-TESTING"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "Device and UI tool declarations are not exact executable devecocli contracts.",
+      "evidence": "Bare device view, screenshot, swipe/fling/drag/dircfling and other UI operations omit required target/path/coordinates/direction placeholders."
+    }
+  ],
+  "blocked_reasons": [],
+  "overall_score": 95.45,
+  "verdict": "fail"
+}

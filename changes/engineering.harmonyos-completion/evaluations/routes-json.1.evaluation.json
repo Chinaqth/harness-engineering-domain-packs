@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "artifact": "routes.json",
+  "artifact_sha256": "cef8b99efbf01da2489794933882c3b1a8b02394006adb8a7d2f27a328329c86",
+  "evaluator": "domain_artifact_evaluator",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T14:03:04Z",
+  "dimensions": {
+    "contract": 99.0,
+    "professional": 98.0,
+    "boundaries": 99.0,
+    "executability": 97.0,
+    "verifiability": 98.0,
+    "architecture": 99.0,
+    "maintainability": 98.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-STAGE",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-PACKAGES",
+    "HMOS-TESTING"
+  ],
+  "findings": [],
+  "blocked_reasons": [],
+  "overall_score": 98.3,
+  "verdict": "pass"
+}

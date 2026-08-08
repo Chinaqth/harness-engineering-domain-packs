@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "artifact": "workflows/WORKFLOW.md",
+  "artifact_sha256": "4fa27941bbcd518431ee2520e9913baa6e51c12e31305c8e173d8e7786a30551",
+  "evaluator": "domain_artifact_evaluator_workflow_fresh",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T13:37:06Z",
+  "dimensions": {
+    "contract": 99.0,
+    "professional": 98.0,
+    "boundaries": 99.0,
+    "executability": 99.0,
+    "verifiability": 99.0,
+    "architecture": 99.0,
+    "maintainability": 98.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-STAGE",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-PACKAGES",
+    "HMOS-TESTING"
+  ],
+  "findings": [],
+  "blocked_reasons": [],
+  "overall_score": 98.75,
+  "verdict": "pass"
+}

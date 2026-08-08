@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "id": "engineering.harmonyos",
+  "display_name": "HarmonyOS Engineering",
+  "description": "Owns reusable HarmonyOS application delivery practice and evaluation.",
+  "version": "0.1.0",
+  "status": "active",
+  "owner": "platform-harmony",
+  "inherits": [],
+  "applicability": {
+    "task_types": [
+      "harmonyos-stage-architecture",
+      "harmonyos-arkts-implementation",
+      "harmonyos-arkts-review",
+      "harmonyos-arkui-delivery",
+      "harmonyos-state-management-migration",
+      "harmonyos-api-compatibility-analysis",
+      "harmonyos-module-and-package-design",
+      "harmonyos-build-and-verification",
+      "harmonyos-technical-knowledge-retrieval"
+    ],
+    "repository_signals": [
+      "ArkTS source files",
+      "declarative ArkUI component or page source",
+      "HarmonyOS Stage-model application or module configuration",
+      "UIAbility or ExtensionAbility implementation",
+      "HarmonyOS SDK or API compatibility configuration",
+      "HAP, HAR, HSP, or App Pack packaging metadata",
+      "HarmonyOS lint, unit-test, coverage, or self-inspection configuration"
+    ]
+  },
+  "compatibility": {
+    "kernel_protocol_version": "1.0",
+    "statement": "Compatible with Harness Kernel protocol 1.0. This Domain specializes reusable HarmonyOS application engineering practice without weakening Kernel authorization, security, privacy, evidence, approval, or lifecycle requirements; project and organization overlays must supply version, toolchain, device, permission, quality, signing, and release constraints that are not part of the public baseline."
+  },
+  "activation": {
+    "evidence": [
+      "changes/engineering.harmonyos-activation/activation-evidence.json"
+    ]
+  }
+}

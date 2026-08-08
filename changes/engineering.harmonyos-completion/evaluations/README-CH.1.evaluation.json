@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "artifact": "README-CH.md",
+  "artifact_sha256": "d3909676a107418a9d38ed61730d6df4fbf101a3c7554c65b5386dfb2b1a218b",
+  "evaluator": "domain_artifact_evaluator_readme_ch_resume_fresh",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T14:09:13Z",
+  "dimensions": {
+    "contract": 78.0,
+    "professional": 97.0,
+    "boundaries": 99.0,
+    "executability": 96.0,
+    "verifiability": 88.0,
+    "architecture": 97.0,
+    "maintainability": 84.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": false,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-STAGE",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-PACKAGES",
+    "HMOS-TESTING"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "The exact production inventory omits most non-hidden directories required by the README-CH.md artifact contract.",
+      "evidence": "95 non-hidden directories exist; only five top-level directories are exact backticked paths. Enumerate the remaining 90 directories."
+    }
+  ],
+  "blocked_reasons": [],
+  "overall_score": 91.35,
+  "verdict": "fail"
+}

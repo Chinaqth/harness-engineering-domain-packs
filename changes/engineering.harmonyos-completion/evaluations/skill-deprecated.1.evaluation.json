@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "artifact": "skills/hmos-arkts-deprecated-interface-checker",
+  "artifact_sha256": "e5942dc14f75ca94905a528bbebd63ad835cb3de35d46d3ef482a1a3370ac204",
+  "evaluator": "domain_artifact_evaluator_skill_hmos_arkts_deprecated_interface_checker_fresh",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T14:18:00Z",
+  "dimensions": {
+    "contract": 96.0,
+    "professional": 94.0,
+    "boundaries": 97.0,
+    "executability": 95.0,
+    "verifiability": 96.0,
+    "architecture": 97.0,
+    "maintainability": 94.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-TESTING"
+  ],
+  "findings": [],
+  "blocked_reasons": [],
+  "overall_score": 95.6,
+  "verdict": "pass"
+}

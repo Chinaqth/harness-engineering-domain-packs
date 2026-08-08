@@ -1,0 +1,268 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.harmonyos",
+  "capabilities": [
+    {
+      "id": "harmonyos-authoritative-knowledge-retrieval",
+      "description": "Retrieve and reconcile version-relevant HarmonyOS, ArkTS, and ArkUI documentation for a declared SDK and API baseline, preserving document identifiers, locations, retrieval context, and conflicts while treating bundled Skill indexes as discovery aids rather than independent authority.",
+      "task_types": [
+        "harmonyos-technical-knowledge-retrieval"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering/SKILL.md",
+        "hmos-arkts-knowledge-retriever/SKILL.md",
+        "hmos-arkui-knowledge-retriever/SKILL.md"
+      ],
+      "tools": [
+        "devecocli docs search <keywords...>",
+        "devecocli docs read <documentId>",
+        "devecocli docs catalog",
+        "python3 skills/hmos-arkts-knowledge-retriever/scripts/search_docs.py --query <query> [--scope <scope>] [--top-k <n>]",
+        "python3 skills/hmos-arkui-knowledge-retriever/scripts/run.py query <query> [--category <category>] [--top-k <n>] [--include-code]"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires authorization to read the declared project context and retain sanitized documentation-query evidence",
+        "Requires separately authorized access when a required primary source is unavailable through the local devecocli documentation catalog"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "stage-application-and-package-design",
+      "description": "Design and review Stage-model application structure and HAP, HAR, HSP, and App Pack boundaries against declared lifecycle, context, process, thread, delivery, reuse, and publication requirements without inventing project topology or release policy.",
+      "task_types": [
+        "harmonyos-stage-architecture",
+        "harmonyos-module-and-package-design"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering/SKILL.md"
+      ],
+      "tools": [
+        "devecocli docs search <keywords...>",
+        "devecocli docs read <documentId>",
+        "devecocli build --product <product> --modules <module-or-module@target...> --build-mode <mode>"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires task-scoped authorization to inspect and, when implementation is requested, modify the declared Stage configuration, modules, dependencies, and evidence artifacts",
+        "Requires authorization to execute the verified project build matrix; topology exceptions, dependency changes, signing, publication, and release decisions require separate approval"
+      ],
+      "dependencies": [
+        "harmonyos-authoritative-knowledge-retrieval"
+      ]
+    },
+    {
+      "id": "arkts-implementation-and-static-correctness",
+      "description": "Implement, review, and repair scoped ArkTS sources for the declared language and SDK baseline, preserving project conventions and distinguishing lint diagnostics, compilation, packaging, runtime behavior, and compatibility evidence.",
+      "task_types": [
+        "harmonyos-arkts-implementation",
+        "harmonyos-arkts-review"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering/SKILL.md",
+        "hmos-arkts-knowledge-retriever/SKILL.md",
+        "hmos-arkts-syntax-checker/SKILL.md"
+      ],
+      "tools": [
+        "devecocli docs search <keywords...>",
+        "devecocli docs read <documentId>",
+        "devecocli check lint <path>",
+        "devecocli build --product <product> --modules <module-or-module@target...> --build-mode <mode>",
+        "python3 skills/hmos-arkts-knowledge-retriever/scripts/search_docs.py --query <query> [--scope <scope>] [--top-k <n>]"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires task-scoped authorization to read and modify only the declared ArkTS, configuration, test, and evidence surfaces",
+        "Requires authorization to run lint and build procedures in the declared environment; dependency installation, configuration weakening, signing, deployment, and production access require separate approval"
+      ],
+      "dependencies": [
+        "harmonyos-authoritative-knowledge-retrieval"
+      ]
+    },
+    {
+      "id": "arkui-interface-delivery",
+      "description": "Design, implement, repair, and verify scoped ArkUI components and interactions against declared state, navigation, layout, lifecycle, target-device, and accessibility requirements, with API signatures and observed behavior evidenced separately from build success.",
+      "task_types": [
+        "harmonyos-arkui-delivery"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering/SKILL.md",
+        "hmos-arkui-develop-skill/SKILL.md",
+        "hmos-arkui-knowledge-retriever/SKILL.md"
+      ],
+      "tools": [
+        "devecocli docs search <keywords...>",
+        "devecocli docs read <documentId>",
+        "python3 skills/hmos-arkui-knowledge-retriever/scripts/run.py query <query> [--category <category>] [--top-k <n>] [--include-code]",
+        "devecocli check lint <path>",
+        "devecocli build --product <product> --modules <module-or-module@target...> --build-mode <mode>",
+        "devecocli device list",
+        "devecocli device view -t <serialOrName>",
+        "devecocli run --module <module-or-module@target...> --device <device> --product <product> --build-mode <mode> --ability <ability>",
+        "devecocli ui layout --device <name|serial>",
+        "devecocli ui screenshot --device <name|serial> --path <path>",
+        "devecocli ui click <x> <y> --device <name|serial>",
+        "devecocli ui doubleclick <x> <y> --device <name|serial>",
+        "devecocli ui longclick <x> <y> --device <name|serial>",
+        "devecocli ui swipe <x1> <y1> <x2> <y2> --device <name|serial>",
+        "devecocli ui fling <x1> <y1> <x2> <y2> --device <name|serial>",
+        "devecocli ui drag <x1> <y1> <x2> <y2> --device <name|serial>",
+        "devecocli ui dircfling <up|down|left|right> --device <name|serial>",
+        "devecocli ui text <text> [x] [y] --device <name|serial>",
+        "devecocli log --device <device> --bundle-name <bundle-name>"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires task-scoped authorization to inspect and modify the declared ArkUI, ArkTS, configuration, test, and evidence surfaces while preserving business logic and the existing state-management and navigation paradigms unless their change is explicitly requested",
+        "Requires authorization for the named emulator or physical device and interaction scenarios; accessibility acceptance, protected-data handling, signing, distribution, and release require separate authority"
+      ],
+      "dependencies": [
+        "harmonyos-authoritative-knowledge-retrieval",
+        "arkts-implementation-and-static-correctness"
+      ]
+    },
+    {
+      "id": "arkui-state-management-v1-to-v2-migration",
+      "description": "Plan and execute dependency-ordered ArkUI state-management V1-to-V2 migration batches by mapping ownership, initialization, observation, parent-child flow, storage, rendering, reuse, and animation behavior rather than mechanically replacing decorators.",
+      "task_types": [
+        "harmonyos-state-management-migration"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering/SKILL.md",
+        "hmos-arkui-statemgt-migration/SKILL.md",
+        "hmos-arkui-knowledge-retriever/SKILL.md"
+      ],
+      "tools": [
+        "devecocli docs search <keywords...>",
+        "devecocli docs read <documentId>",
+        "python3 skills/hmos-arkui-knowledge-retriever/scripts/run.py query <query> --category 02-state-management [--top-k <n>] [--include-code]",
+        "devecocli check compat versions",
+        "devecocli check compat --source-version <source-version> --target-version <target-version> <files...>",
+        "devecocli check lint <path>",
+        "devecocli build --product <product> --modules <module-or-module@target...> --build-mode <mode>",
+        "devecocli device list",
+        "devecocli run --module <module-or-module@target...> --device <device> --product <product> --build-mode <mode> --ability <ability>",
+        "devecocli ui layout --device <name|serial>",
+        "devecocli ui screenshot --device <name|serial> --path <path>",
+        "devecocli ui click <x> <y> --device <name|serial>",
+        "devecocli ui text <text> [x] [y] --device <name|serial>",
+        "devecocli log --device <device> --bundle-name <bundle-name>"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires explicit authorization for the declared migration scope, batch boundaries, source and target baseline, mixed-mode boundary, test changes, and per-batch rollback procedure",
+        "Requires authorization to execute compatibility, lint, build, and device scenarios; global substitutions, unsupported baseline changes, dependency changes, and release actions require separate approval"
+      ],
+      "dependencies": [
+        "harmonyos-authoritative-knowledge-retrieval",
+        "arkts-implementation-and-static-correctness",
+        "arkui-interface-delivery"
+      ]
+    },
+    {
+      "id": "harmonyos-api-deprecation-and-compatibility",
+      "description": "Inventory and disposition deprecated or compatibility-sensitive HarmonyOS interfaces against explicit source and target SDK/API identifiers, linking each finding to authoritative replacement evidence, behavioral impact, remediation, and post-change verification.",
+      "task_types": [
+        "harmonyos-api-compatibility-analysis"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering/SKILL.md",
+        "hmos-arkts-deprecated-interface-checker/SKILL.md",
+        "hmos-arkts-knowledge-retriever/SKILL.md"
+      ],
+      "tools": [
+        "devecocli check compat versions",
+        "devecocli check compat --source-version <source-version> --target-version <target-version> <files...>",
+        "devecocli docs search <keywords...>",
+        "devecocli docs read <documentId>",
+        "python3 skills/hmos-arkts-knowledge-retriever/scripts/search_docs.py --query <query> [--scope <scope>] [--top-k <n>]",
+        "devecocli check lint <path>",
+        "devecocli build --product <product> --modules <module-or-module@target...> --build-mode <mode>"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires authorization to inspect the declared source scope and supported-version matrix and, when remediation is requested, modify only the approved interfaces and evidence artifacts",
+        "Requires authorization to execute compatibility, lint, and build checks; supported-target removal, compatibility-policy changes, dependency changes, undocumented substitutions, and release decisions require separate approval"
+      ],
+      "dependencies": [
+        "harmonyos-authoritative-knowledge-retrieval",
+        "arkts-implementation-and-static-correctness"
+      ]
+    },
+    {
+      "id": "harmonyos-build-and-runtime-verification",
+      "description": "Collect reproducible, target-bound HarmonyOS lint, compatibility, build, package, launch, UI, and runtime-log evidence while keeping each evidence class distinct. Run project-defined tests, coverage checks, or self-inspection only when the project overlay supplies their executable commands and acceptance criteria; otherwise record them as an explicit handoff or exclusion.",
+      "task_types": [
+        "harmonyos-build-and-verification"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering/SKILL.md",
+        "hmos-arkts-syntax-checker/SKILL.md"
+      ],
+      "tools": [
+        "devecocli check lint <path>",
+        "devecocli check compat versions",
+        "devecocli check compat --source-version <source-version> --target-version <target-version> <files...>",
+        "devecocli build --product <product> --modules <module-or-module@target...> --build-mode <mode>",
+        "devecocli device list",
+        "devecocli device view -t <serialOrName>",
+        "devecocli run --module <module-or-module@target...> --device <device> --product <product> --build-mode <mode> --ability <ability>",
+        "devecocli ui layout --device <name|serial>",
+        "devecocli ui screenshot --device <name|serial> --path <path>",
+        "devecocli ui click <x> <y> --device <name|serial>",
+        "devecocli ui doubleclick <x> <y> --device <name|serial>",
+        "devecocli ui longclick <x> <y> --device <name|serial>",
+        "devecocli ui swipe <x1> <y1> <x2> <y2> --device <name|serial>",
+        "devecocli ui fling <x1> <y1> <x2> <y2> --device <name|serial>",
+        "devecocli ui drag <x1> <y1> <x2> <y2> --device <name|serial>",
+        "devecocli ui dircfling <up|down|left|right> --device <name|serial>",
+        "devecocli ui text <text> [x] [y] --device <name|serial>",
+        "devecocli log --device <device> --bundle-name <bundle-name>"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires authorization to execute only the declared checks, builds, launch actions, UI interactions, and log collection on named non-production environments and devices using sanitized test data",
+        "Project-defined test, coverage, and self-inspection evidence depends on overlay-supplied executable commands, environments, and acceptance criteria; when any are absent they are excluded from execution and handed off explicitly",
+        "Requires task-scoped authorization for source or test remediation and for executing overlay-supplied project checks; dependency installation, signing-material access, device reconfiguration, production access, publication, rollout, rollback execution, and release acceptance require separate approval"
+      ],
+      "dependencies": [
+        "harmonyos-authoritative-knowledge-retrieval"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "artifact": "skills/hmos-arkts-knowledge-retriever",
+  "artifact_sha256": "6088b749419869c5f57da9d41ec14d5d148269f20b8922bd6608ab4328522a59",
+  "evaluator": "domain_artifact_evaluator_skill_hmos_arkts_knowledge_retriever_fresh",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T14:30:00Z",
+  "dimensions": {
+    "contract": 84.0,
+    "professional": 74.0,
+    "boundaries": 82.0,
+    "executability": 68.0,
+    "verifiability": 56.0,
+    "architecture": 78.0,
+    "maintainability": 64.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": false,
+    "professional_sources_traceable": false,
+    "no_invented_authority": false,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "Snippet validation assertions are not traceable or reproducible.",
+      "evidence": "26 of 37 indexed documents claim snippet_validated but only five unsupported snippets exist without commands, versions, timestamps or retained evidence."
+    },
+    {
+      "severity": "p1",
+      "summary": "The cached corpus lacks authoritative provenance and version metadata.",
+      "evidence": "114 documents and indexes omit per-document locators, dates, release/API applicability and hashes."
+    },
+    {
+      "severity": "p1",
+      "summary": "The documented exact-search workflow fails when executed.",
+      "evidence": "The documented class declaration query returns no result due whole-query matching and case-sensitive scope."
+    },
+    {
+      "severity": "p1",
+      "summary": "The declared retrieval index does not cover most of the preserved corpus.",
+      "evidence": "37 of 114 documents are indexed, leaving 77 undiscoverable without disclosure."
+    },
+    {
+      "severity": "p2",
+      "summary": "Snippet paths are inconsistent with document-index paths.",
+      "evidence": "All five omit the arkts-language-guide prefix and are unused by the script."
+    },
+    {
+      "severity": "p2",
+      "summary": "Implementation outputs are narrower than promised.",
+      "evidence": "The script emits metadata and scores but not content-based rationale, guidance or snippets."
+    },
+    {
+      "severity": "p2",
+      "summary": "devecocli reconciliation is not operationalized inside the package.",
+      "evidence": "No adapter or output fields capture official document IDs and version statements."
+    },
+    {
+      "severity": "p2",
+      "summary": "Index loading fails open.",
+      "evidence": "Missing indexes can be reported as valid zero-result queries."
+    },
+    {
+      "severity": "p2",
+      "summary": "Input handling weakens reproducibility.",
+      "evidence": "Non-positive top-k, case-sensitive scope and unordered terms are accepted."
+    },
+    {
+      "severity": "p2",
+      "summary": "Derived Skill content violates repository language policy.",
+      "evidence": "SKILL.md, README.md and script output are primarily Chinese."
+    }
+  ],
+  "blocked_reasons": [
+    "Activation-grade evaluation is blocked until snippet validation claims are evidenced or downgraded.",
+    "Version-sensitive use is blocked until provenance/version metadata and official-doc reconciliation exist.",
+    "Capability correctness is blocked until query behavior, index coverage and reference integrity are corrected."
+  ],
+  "overall_score": 73.5,
+  "verdict": "blocked"
+}

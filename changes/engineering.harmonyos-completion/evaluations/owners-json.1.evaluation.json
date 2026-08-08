@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "artifact": "owners.json",
+  "artifact_sha256": "6022143dee75d8a4aa428c48765f5c23757791d4ccbedc241a571970967c67b0",
+  "evaluator": "domain-artifact-evaluator-owners",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T13:22:12Z",
+  "dimensions": {
+    "contract": 100.0,
+    "professional": 98.0,
+    "boundaries": 100.0,
+    "executability": 98.0,
+    "verifiability": 100.0,
+    "architecture": 100.0,
+    "maintainability": 100.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY"
+  ],
+  "findings": [],
+  "blocked_reasons": [],
+  "overall_score": 99.3,
+  "verdict": "pass"
+}

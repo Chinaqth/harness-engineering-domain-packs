@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.harmonyos",
+  "routes": [
+    {
+      "id": "arkui-state-management-v1-to-v2-migration",
+      "priority": 900,
+      "task_types": [
+        "harmonyos-state-management-migration"
+      ],
+      "signals": [
+        "ArkUI state-management V1 decorators such as @State, @Prop, @Link, @Provide, @Consume, @ObjectLink, or @Observed being migrated to V2",
+        "V1-to-V2 ownership, initialization, observation, parent-child data flow, persistence, or mixed-mode boundary analysis in .ets components",
+        "migration planning, compatibility checking, or rollback for ArkUI state-management decorators and observable models"
+      ],
+      "capabilities": [
+        "arkui-state-management-v1-to-v2-migration"
+      ]
+    },
+    {
+      "id": "harmonyos-api-deprecation-and-compatibility",
+      "priority": 850,
+      "task_types": [
+        "harmonyos-api-compatibility-analysis"
+      ],
+      "signals": [
+        "deprecated HarmonyOS or ArkTS interface requiring an authoritative replacement and behavioral-impact analysis",
+        "source and target HarmonyOS SDK or API versions requiring compatibility comparison",
+        "compatibility-sensitive API usage in .ets sources requiring inventory, remediation, and post-change verification"
+      ],
+      "capabilities": [
+        "harmonyos-api-deprecation-and-compatibility"
+      ]
+    },
+    {
+      "id": "harmonyos-build-and-runtime-verification",
+      "priority": 800,
+      "task_types": [
+        "harmonyos-build-and-verification"
+      ],
+      "signals": [
+        "build-profile.json5 product, target, module, or build-mode configuration requiring a reproducible HarmonyOS build",
+        "HAP, HAR, HSP, or App Pack compilation, packaging, launch, device, UI, or runtime-log verification",
+        "HarmonyOS lint, compatibility, build, test, coverage, or self-inspection evidence requested for a declared target matrix"
+      ],
+      "capabilities": [
+        "harmonyos-build-and-runtime-verification"
+      ]
+    },
+    {
+      "id": "stage-application-architecture",
+      "priority": 750,
+      "task_types": [
+        "harmonyos-stage-architecture"
+      ],
+      "signals": [
+        "HarmonyOS Stage-model application structure involving UIAbility, ExtensionAbility, AbilityStage, context, lifecycle, process, or thread boundaries",
+        "module.json5 application or module metadata requiring Stage-model architecture analysis",
+        "Stage-model application topology requiring lifecycle, context, entry-point, or process-boundary design"
+      ],
+      "capabilities": [
+        "stage-application-and-package-design"
+      ]
+    },
+    {
+      "id": "harmonyos-module-and-package-design",
+      "priority": 700,
+      "task_types": [
+        "harmonyos-module-and-package-design"
+      ],
+      "signals": [
+        "HAP, HAR, HSP, or App Pack boundary, dependency, reuse, delivery, or publication design",
+        "oh-package.json5 dependency metadata requiring HarmonyOS module or package topology analysis",
+        "entry, feature, shared, or library module boundaries requiring packaging and dependency-direction decisions"
+      ],
+      "capabilities": [
+        "stage-application-and-package-design"
+      ]
+    },
+    {
+      "id": "arkui-interface-delivery",
+      "priority": 650,
+      "task_types": [
+        "harmonyos-arkui-delivery"
+      ],
+      "signals": [
+        "declarative ArkUI @Component, @Entry, build() tree, layout, navigation, interaction, or accessibility behavior in .ets source",
+        "ArkUI page or reusable component implementation requiring declared device-state and visual-state verification",
+        "ArkUI lifecycle, rendering, animation, navigation, or user-interaction defect requiring device-observed evidence"
+      ],
+      "capabilities": [
+        "arkui-interface-delivery"
+      ]
+    },
+    {
+      "id": "arkts-source-review",
+      "priority": 600,
+      "task_types": [
+        "harmonyos-arkts-review"
+      ],
+      "signals": [
+        "existing .ets source requiring ArkTS language, type-safety, lifecycle, concurrency, or static-correctness review",
+        "ArkTS lint or compiler diagnostic requiring source-level root-cause analysis without an API-version migration objective",
+        "ArkTS change set requiring correctness review against a declared HarmonyOS SDK baseline"
+      ],
+      "capabilities": [
+        "arkts-implementation-and-static-correctness"
+      ]
+    },
+    {
+      "id": "arkts-source-implementation",
+      "priority": 550,
+      "task_types": [
+        "harmonyos-arkts-implementation"
+      ],
+      "signals": [
+        "new or modified .ets source implementing scoped ArkTS application behavior",
+        "ArkTS class, function, type, asynchronous operation, worker, or service logic requiring implementation or repair",
+        "HarmonyOS feature request whose primary deliverable is statically correct ArkTS source rather than an ArkUI interface"
+      ],
+      "capabilities": [
+        "arkts-implementation-and-static-correctness"
+      ]
+    },
+    {
+      "id": "harmonyos-authoritative-knowledge-retrieval",
+      "priority": 500,
+      "task_types": [
+        "harmonyos-technical-knowledge-retrieval"
+      ],
+      "signals": [
+        "HarmonyOS, ArkTS, or ArkUI technical question requiring an authoritative SDK-version-specific documentation answer",
+        "HarmonyOS API, component, decorator, lifecycle, or configuration semantics requiring document identifiers and source reconciliation",
+        "request to locate or compare official HarmonyOS development guidance without implementing or modifying project artifacts"
+      ],
+      "capabilities": [
+        "harmonyos-authoritative-knowledge-retrieval"
+      ]
+    }
+  ]
+}

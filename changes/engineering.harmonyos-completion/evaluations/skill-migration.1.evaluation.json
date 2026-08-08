@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "artifact": "skills/hmos-arkui-statemgt-migration",
+  "artifact_sha256": "e83efdada9b90326c4df3715c801529f0589ed32148df84d91a405ee52e99977",
+  "evaluator": "domain_artifact_evaluator_skill_hmos_arkui_statemgt_migration_fresh",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T16:00:00+08:00",
+  "dimensions": {
+    "contract": 70.0,
+    "professional": 52.0,
+    "boundaries": 43.0,
+    "executability": 54.0,
+    "verifiability": 38.0,
+    "architecture": 48.0,
+    "maintainability": 55.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": false,
+    "no_invented_authority": false,
+    "kernel_constraints_preserved": false,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "HMOS-ARKTS",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-TESTING"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "Migration is presented as mechanical substitution.",
+      "evidence": "Unconditional mappings omit data-flow, lifecycle, ownership and before/after behavior analysis."
+    },
+    {
+      "severity": "p1",
+      "summary": "Version-sensitive guidance is underconstrained.",
+      "evidence": "Only API >=12 is asserted despite API 20/22 qualifications; toolchain/device baselines are absent."
+    },
+    {
+      "severity": "p1",
+      "summary": "Migration corpus lacks activation-grade sources.",
+      "evidence": "References and tests lack locators, dates, ranges, hashes and claim-level source IDs."
+    },
+    {
+      "severity": "p1",
+      "summary": "Test cases are unexecuted examples.",
+      "evidence": "No fixtures, commands, baselines, observed results or artifacts; uncertainty markers remain."
+    },
+    {
+      "severity": "p1",
+      "summary": "Verification lacks operational tool adapter/evidence contract.",
+      "evidence": "No devecocli/project commands, diagnostics, device selection or negative paths."
+    },
+    {
+      "severity": "p1",
+      "summary": "Mutation and rollback controls are incomplete.",
+      "evidence": "No permissions, last-known-good state, retry limits or stop/handoff rules."
+    },
+    {
+      "severity": "p2",
+      "summary": "Triggers overlap neighboring units.",
+      "evidence": "Broad migration and question triggers lack routing boundaries."
+    },
+    {
+      "severity": "p2",
+      "summary": "Stable inputs and evidence outputs are absent.",
+      "evidence": "No normalized scope/baseline/data-flow/authority inputs or behavior evidence output."
+    },
+    {
+      "severity": "p2",
+      "summary": "Uncertainty and editorial defects remain.",
+      "evidence": "todo uncertainty markers and malformed mapping text undermine reuse."
+    },
+    {
+      "severity": "p2",
+      "summary": "Repository language policy is unmet.",
+      "evidence": "Derived production guidance is predominantly Chinese."
+    }
+  ],
+  "blocked_reasons": [
+    "Blocked until migration rules are reconciled with primary sources and version constraints.",
+    "Blocked until behavioral inventories, scenario mappings and regression evidence are required.",
+    "Blocked until executable tool/test/device evidence exists.",
+    "Blocked until corpus provenance, freshness and uncertainty are resolved.",
+    "Blocked until authorization, rollback, retry and handoff controls align with Domain policy."
+  ],
+  "overall_score": 52.2,
+  "verdict": "blocked"
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "artifact": "skills/hmos-arkts-syntax-checker",
+  "artifact_sha256": "7e37eb9208bd58671b43cb7e59b96ac9f402f01660a623583b805d8e92ba649e",
+  "evaluator": "domain_artifact_evaluator_skill_hmos_arkts_syntax_checker_fresh",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T14:12:29Z",
+  "dimensions": {
+    "contract": 68.0,
+    "professional": 55.0,
+    "boundaries": 42.0,
+    "executability": 31.0,
+    "verifiability": 35.0,
+    "architecture": 48.0,
+    "maintainability": 49.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": false,
+    "no_invented_authority": false,
+    "kernel_constraints_preserved": false,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-PACKAGES",
+    "HMOS-TESTING"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "Not executable through the stabilized Domain tool boundary.",
+      "evidence": "Requires unavailable mcp_codegenie tools and has no devecocli adapter."
+    },
+    {
+      "severity": "p1",
+      "summary": "Repair loop is pseudocode rather than reproducible execution.",
+      "evidence": "No implementation scripts or command/evidence capture exist."
+    },
+    {
+      "severity": "p1",
+      "summary": "Automatic mutation and dependency guidance bypasses authorization.",
+      "evidence": "Promises fixes and ohpm install without task-scoped permission."
+    },
+    {
+      "severity": "p1",
+      "summary": "Evidence classes are conflated.",
+      "evidence": "Static, build, signing, package and runtime outcomes are not separated."
+    },
+    {
+      "severity": "p1",
+      "summary": "Version-sensitive claims lack traceable evidence.",
+      "evidence": "Diagnostic mappings and API substitutions lack exact sources and baselines."
+    },
+    {
+      "severity": "p1",
+      "summary": "Artifact locations and example results are asserted without project evidence.",
+      "evidence": "Hard-coded paths and synthetic output are presented as defaults."
+    },
+    {
+      "severity": "p2",
+      "summary": "Skill inputs and outputs are incomplete.",
+      "evidence": "Project/toolchain/scope/permission inputs and structured evidence outputs are missing."
+    },
+    {
+      "severity": "p2",
+      "summary": "Severity policy is invented.",
+      "evidence": "Universal P1/P2 mappings lack project policy and safety controls."
+    },
+    {
+      "severity": "p2",
+      "summary": "Repair examples can change semantics.",
+      "evidence": "Examples invent values, types and control flow without verification."
+    },
+    {
+      "severity": "p2",
+      "summary": "Legacy dependency instructions conflict.",
+      "evidence": "CodeGenie and deveco-mcp dependencies differ and are unpinned."
+    },
+    {
+      "severity": "p2",
+      "summary": "Provenance and language policy are unmet.",
+      "evidence": "Derived Chinese guidance and synthetic references lack claim-level sources."
+    }
+  ],
+  "blocked_reasons": [
+    "Blocked until executable devecocli delegation and inputs exist.",
+    "Automated repair blocked until explicit permissions and semantic verification exist.",
+    "Version-sensitive claims blocked until sourced against applicable baselines.",
+    "Verification blocked until outcome classes are separated and retained."
+  ],
+  "overall_score": 48.05,
+  "verdict": "blocked"
+}

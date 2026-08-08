@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.harmonyos",
+  "research_ledger": "research/sources.json",
+  "max_artifact_iterations": 5,
+  "max_pack_iterations": 3,
+  "artifacts": [
+    {"path":"DOMAIN.md","evaluations":["evaluations/DOMAIN.2.evaluation.json"]},
+    {"path":"domain.json","evaluations":["evaluations/domain-json.1.evaluation.json"]},
+    {"path":"owners.json","evaluations":["evaluations/owners-json.1.evaluation.json"]},
+    {"path":"rules/BASE.md","evaluations":["evaluations/rules-BASE.1.evaluation.json"]},
+    {"path":"workflows/WORKFLOW.md","evaluations":["evaluations/workflows-WORKFLOW.1.evaluation.json"]},
+    {"path":"evaluators/EVALUATOR.md","evaluations":["evaluations/evaluators-EVALUATOR.1.evaluation.json"]},
+    {"path":"skills/README.md","evaluations":["evaluations/skills-README.1.evaluation.json"]},
+    {"path":"skills/hmos-arkts-deprecated-interface-checker","evaluations":["evaluations/skill-deprecated.1.evaluation.json"]},
+    {"path":"skills/hmos-arkts-knowledge-retriever","evaluations":["evaluations/skill-arkts-retriever.1.evaluation.json"]},
+    {"path":"skills/hmos-arkts-syntax-checker","evaluations":["evaluations/skill-syntax.1.evaluation.json"]},
+    {"path":"skills/hmos-arkui-develop-skill","evaluations":["evaluations/skill-arkui-develop.1.evaluation.json"]},
+    {"path":"skills/hmos-arkui-knowledge-retriever","evaluations":["evaluations/skill-arkui-retriever.1.evaluation.json"]},
+    {"path":"skills/hmos-arkui-statemgt-migration","evaluations":["evaluations/skill-migration.1.evaluation.json"]},
+    {"path":"templates/delivery-evidence.md","evaluations":["evaluations/templates-delivery-evidence.1.evaluation.json"]},
+    {"path":"capabilities.json","evaluations":["evaluations/capabilities-json.1.evaluation.json","evaluations/capabilities-json.2.evaluation.json"]},
+    {"path":"routes.json","evaluations":["evaluations/routes-json.1.evaluation.json"]},
+    {"path":"README-CH.md","evaluations":["evaluations/README-CH.1.evaluation.json","evaluations/README-CH.2.evaluation.json"]}
+  ],
+  "final_evaluations": []
+}

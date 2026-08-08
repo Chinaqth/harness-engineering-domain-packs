@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "artifact": "skills/hmos-arkui-knowledge-retriever",
+  "artifact_sha256": "238c6f17f4e48e4271bd9b527dfb561a6008fc49860fcf916e961d2fc69bd437",
+  "evaluator": "domain_artifact_evaluator_skill_hmos_arkui_knowledge_retriever_fresh",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T14:17:27Z",
+  "dimensions": {
+    "contract": 68.0,
+    "professional": 62.0,
+    "boundaries": 72.0,
+    "executability": 70.0,
+    "verifiability": 54.0,
+    "architecture": 61.0,
+    "maintainability": 64.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": false,
+    "professional_sources_traceable": false,
+    "no_invented_authority": false,
+    "kernel_constraints_preserved": false,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-STAGE",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-TESTING"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "Corpus lacks activation-grade provenance and version identity.",
+      "evidence": "527 files lack URLs, dates, hashes, revisions and supported baselines."
+    },
+    {
+      "severity": "p1",
+      "summary": "No devecocli authoritative freshness path exists.",
+      "evidence": "Only local corpus queries are implemented."
+    },
+    {
+      "severity": "p1",
+      "summary": "Version-sensitive retrieval omits required baseline inputs.",
+      "evidence": "SDK/API/DevEco/device context is not required."
+    },
+    {
+      "severity": "p1",
+      "summary": "Retrieval failures do not fail closed.",
+      "evidence": "Missing indexes/files and ambiguous or zero results return normal output."
+    },
+    {
+      "severity": "p1",
+      "summary": "Local corpus may be misrepresented as authority.",
+      "evidence": "Output lacks claim/evidence/assumption/verification distinctions."
+    },
+    {
+      "severity": "p1",
+      "summary": "Exact API and error-code retrieval is unsafe.",
+      "evidence": "Representative queries rank unrelated results without sufficiency thresholds."
+    },
+    {
+      "severity": "p2",
+      "summary": "Filtering occurs after top-k selection.",
+      "evidence": "Relevant category items can be omitted by earlier truncation."
+    },
+    {
+      "severity": "p2",
+      "summary": "I/O contract is incomplete.",
+      "evidence": "Freshness, baseline, confidence and not-run fields are missing."
+    },
+    {
+      "severity": "p2",
+      "summary": "Index integrity maintenance is not reproducible.",
+      "evidence": "No generator, schema validation, checksums or regression tests exist."
+    },
+    {
+      "severity": "p2",
+      "summary": "Unsupported authority/routing policy is embedded.",
+      "evidence": "Model-memory and local-cache sufficiency rules lack ledger grounding."
+    }
+  ],
+  "blocked_reasons": [
+    "Blocked until corpus provenance/version/integrity is traceable.",
+    "Blocked until devecocli-backed reconciliation exists.",
+    "Blocked until uncertain retrieval states fail closed.",
+    "Blocked until exact-query regression tests and structured evidence outputs pass."
+  ],
+  "overall_score": 64.7,
+  "verdict": "blocked"
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "artifact": "capabilities.json",
+  "artifact_sha256": "30e6deeb2b53e1951d747424c1baa0d534ced2816c78186e7c99f706ce334b50",
+  "evaluator": "domain_artifact_evaluator-capabilities-resume",
+  "iteration": 1,
+  "evaluated_at": "2026-08-07T13:54:01Z",
+  "dimensions": {
+    "contract": 94.0,
+    "professional": 93.0,
+    "boundaries": 96.0,
+    "executability": 82.0,
+    "verifiability": 90.0,
+    "architecture": 78.0,
+    "maintainability": 91.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-STAGE",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-PACKAGES",
+    "HMOS-TESTING"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "Most advertised Domain task types are not covered by identically named capability task types.",
+      "evidence": "domain.json advertises nine applicability task types but exact capability coverage is incomplete."
+    },
+    {
+      "severity": "p1",
+      "summary": "Compatibility tool declarations omit mandatory source and target version arguments.",
+      "evidence": "devecocli check compat requires --source-version and --target-version after versions discovery."
+    },
+    {
+      "severity": "p2",
+      "summary": "The verification capability overstates test evidence relative to its declared tools and task coverage.",
+      "evidence": "No generic devecocli test command exists; project test, coverage, and self-inspection must be explicit overlay dependencies or exclusions."
+    }
+  ],
+  "blocked_reasons": [],
+  "overall_score": 89.95,
+  "verdict": "fail"
+}

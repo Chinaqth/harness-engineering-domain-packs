@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.harmonyos",
+  "version": "0.1.0",
+  "decision": "approved",
+  "approved_at": "2026-08-08",
+  "owner": "platform-harmony",
+  "reviewers": ["platform-harmony"],
+  "authority": "On 2026-08-08 the user, acting as the Domain owner and a HarmonyOS practitioner, explicitly directed activation of engineering.harmonyos and waived the per-Skill artifact scoring stage, stating the six bundled Skill packages are owner-trusted inputs from their familiar profession.",
+  "scope": "Activate the reusable HarmonyOS application delivery baseline for routing eligibility.",
+  "gates": {
+    "registry_validation": "scripts/validate_registry.py passes",
+    "research_ledger": "changes/engineering.harmonyos-completion/research/sources.json validated with 7 approved source IDs",
+    "pack_structural_check": "check_pack.py with the validated ledger reports content_state=content-complete and state=activation-ready",
+    "repository_check": "./scripts/domain-check.sh passes (48 tests)",
+    "skill_scoring": "Waived by explicit owner direction; recorded in changes/engineering.harmonyos-completion/progress.md. The strict finalize_domain_pack.py gate was not used; previously recorded blocked Skill evaluations remain as historical evidence under changes/engineering.harmonyos-completion/evaluations/."
+  },
+  "constraints": [
+    "Activation grants routing eligibility only; it grants no deployment, device, signing, distribution, production, dependency, policy-change, exception, release, or risk-acceptance permission.",
+    "The six bundled Skill packages remain non-authoritative discovery aids under the harmonyos-engineering wrapper quarantine policy; version-sensitive claims must still be reconciled through devecocli docs evidence.",
+    "Project SDK/API/device matrices, commands, permissions, quality thresholds, signing material, and release criteria remain mandatory project-overlay or task-contract inputs.",
+    "A capability must fail closed at every claim or action that depends on a missing organization or project input."
+  ],
+  "rollback": "Revert registry/domains.json and domains/engineering/harmonyos/domain.json to status draft and remove this evidence reference."
+}
