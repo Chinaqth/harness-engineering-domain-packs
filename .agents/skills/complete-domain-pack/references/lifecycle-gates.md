@@ -35,3 +35,23 @@ After the final independent Pack evaluation passes, run `finalize_domain_pack.py
 the registry and manifest from `draft` to `active` in the same completion workflow. Do not require
 a separate owner, reviewer, or activation-evidence transaction. Publication and task-level
 permissions remain separate authorities.
+
+## Intervention Mode Gates
+
+Default mode (默认模式) requires every gate above. When the user explicitly directs Intervention
+mode (介入模式), the scoring gates above — artifact
+evaluations, evaluation granularity, iteration budgets, and the final Pack evaluation — may be
+waived per the recorded direction. The following deterministic gates remain mandatory in every
+mode and must pass before lifecycle synchronization:
+
+- `scripts/validate_registry.py` (schema, reference, and lifecycle validation);
+- `./scripts/domain-check.sh`;
+- `check_pack.py` with a validated research ledger, or an explicit recorded waiver of the ledger
+  requirement naming the owner's substitute authority;
+- documentation and registry consistency for every lifecycle statement;
+- Kernel policy, capability permission clauses, and fail-closed behavior, which no mode may waive.
+
+The intervention record must name every waived gate alongside the retained gate results.
+Intervention-mode activation is a manual registry and manifest synchronization recorded under
+`changes/<domain-id>-activation/`; it must not be represented as passing the automated evaluation
+gates.

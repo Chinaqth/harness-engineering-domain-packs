@@ -27,6 +27,32 @@ capability with workflow and evaluator coverage, a named owner, a compatibility 
 resolvable references and dependencies, and passing automated evaluation. Reviewer presence and a
 separate activation-evidence transaction are not lifecycle prerequisites.
 
+## Completion and Activation Modes
+
+Two modes govern how a registered draft becomes `active`:
+
+| Mode | Trigger | Flow |
+| --- | --- | --- |
+| Default mode (默认模式) | No explicit user direction; the normal path | Full completion workflow: validated research ledger, per-artifact authoring with independent evaluation, final Pack evaluation, and automatic activation through `finalize_domain_pack.py` |
+| Intervention mode (介入模式) | The user explicitly directs it, acting as the Domain owner and naming the stages to skip | Owner-directed flow: the direction and waived stages are recorded, deterministic gates still run, and lifecycle is synchronized manually |
+
+Intervention mode requirements:
+
+- It is never inferred or defaulted. The user must explicitly direct it, and the direction,
+  claimed authority, and date are recorded verbatim in the change record.
+- Waivable stages: per-artifact scoring evaluations, evaluation granularity, iteration budgets,
+  and the final independent Pack evaluation.
+- Never waivable: schema and registry validation (`scripts/validate_registry.py`,
+  `./scripts/domain-check.sh`), route, capability, and reference integrity, documentation and
+  registry consistency, Kernel policy, capability permission clauses, fail-closed behavior, and
+  the non-authoritative status of bundled corpora.
+- Activation in intervention mode is a manual, rollback-safe synchronization of
+  `registry/domains.json` and the manifest, with `activation.evidence` pointing at an
+  intervention record under `changes/<domain-id>-activation/` that states the authority, waived
+  gates, retained gate results, and rollback path.
+- The user-facing completion report must name every waived gate. An intervention-mode activation
+  must never be reported as passing the automated evaluation gates.
+
 A non-breaking registration and completion that changes only reusable routing metadata is G1 by
 default. Round up under Kernel governance when permissions, security boundaries, compatibility, or
 production configuration change.

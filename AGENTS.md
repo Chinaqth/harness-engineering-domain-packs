@@ -13,6 +13,10 @@ This repository is the authoritative source for enterprise function-level capabi
 7. Run `./scripts/domain-check.sh` before completing a change. Do not treat a non-empty route or
    capability list as activation readiness unless schema, reference, and lifecycle validation pass.
 8. Keep registry metadata and Domain Pack files consistent.
+9. Completion runs in Default mode (默认模式, full evaluation workflow) unless the user explicitly directs
+   Intervention mode (介入模式) as the Domain owner. Intervention mode may waive evaluation stages
+   only, must be recorded with authority, waived gates, and rollback, and never waives schema,
+   reference, or registry validation, Kernel policy, or fail-closed behavior.
 
 ## Read on Demand
 
@@ -34,4 +38,6 @@ This repository is the authoritative source for enterprise function-level capabi
 - Capabilities identify workflows, Skills, tools, evaluators, and permission needs.
 - Documentation and actual registry state agree.
 - Autonomous completion cites a validated research ledger and automatically activates only after
-  its automated content, routing, reference, and evaluation gates pass.
+  its automated content, routing, reference, and evaluation gates pass; an intervention-mode
+  activation instead cites its recorded owner direction, waived gates, and passing deterministic
+  gates.

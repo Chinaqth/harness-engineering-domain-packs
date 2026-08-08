@@ -15,6 +15,30 @@ Require only the registered Domain ID, for example `engineering.android`. Read d
 description, owner, version, status, and path from the registry and manifest. Do not require the
 user to provide professional scope, capabilities, sources, or non-goals.
 
+## Completion Modes
+
+This workflow runs in one of two modes defined in `docs/GOVERNANCE.md`:
+
+- **Default mode (默认模式)**: the normal path below, with per-artifact independent evaluation,
+  the final Pack evaluation, and automatic activation through `finalize_domain_pack.py`.
+- **Intervention mode (介入模式)**: only when the user explicitly directs it as the Domain owner
+  and names the stages to skip (for example, waiving per-Skill scoring for owner-trusted Skill
+  packages in their familiar profession). In intervention mode:
+  1. Record the direction, claimed authority, and date verbatim in
+     `changes/<domain-id>-completion/decision.md` before skipping anything.
+  2. Run only the mandatory deterministic gates in
+     [lifecycle-gates.md](references/lifecycle-gates.md): `scripts/validate_registry.py`,
+     `./scripts/domain-check.sh`, `check_pack.py` with the validated ledger, and
+     documentation-registry consistency.
+  3. Synchronize `registry/domains.json` and the manifest to `active` manually and write the
+     intervention record under `changes/<domain-id>-activation/` naming every waived gate,
+     retained gate results, and the rollback path.
+  4. Report the result as an owner-directed intervention-mode activation and name every waived
+     gate. Never report it as passing the automated evaluation gates.
+  5. Never waive Kernel policy, evaluator independence for artifacts still being evaluated,
+     capability permission clauses, fail-closed behavior, or the non-authoritative status of
+     bundled corpora.
+
 ## Workflow
 
 1. Locate the authoritative checkout containing `registry/domains.json`, `domains/_template/`,
@@ -108,3 +132,6 @@ Domain completion or activation, but every dependent task action and claim must 
 - Do not place research or evaluation evidence inside the production Domain directory.
 - Do not create content merely to cross the score threshold.
 - Do not weaken Kernel policy, scoring, hard gates, evaluator independence, or iteration budgets.
+- Do not enter intervention mode without an explicit user direction recorded before any stage is
+  skipped, and do not waive deterministic validation, Kernel policy, or fail-closed behavior in
+  any mode.
