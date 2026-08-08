@@ -12,9 +12,9 @@
         "WORKFLOW.md"
       ],
       "skills": [
-        "harmonyos-engineering/SKILL.md",
-        "hmos-arkts-knowledge-retriever/SKILL.md",
-        "hmos-arkui-knowledge-retriever/SKILL.md"
+        "harmonyos-engineering",
+        "hmos-arkts-knowledge-retriever",
+        "hmos-arkui-knowledge-retriever"
       ],
       "tools": [
         "devecocli docs search <keywords...>",
@@ -43,7 +43,7 @@
         "WORKFLOW.md"
       ],
       "skills": [
-        "harmonyos-engineering/SKILL.md"
+        "harmonyos-engineering"
       ],
       "tools": [
         "devecocli docs search <keywords...>",
@@ -72,9 +72,9 @@
         "WORKFLOW.md"
       ],
       "skills": [
-        "harmonyos-engineering/SKILL.md",
-        "hmos-arkts-knowledge-retriever/SKILL.md",
-        "hmos-arkts-syntax-checker/SKILL.md"
+        "harmonyos-engineering",
+        "hmos-arkts-knowledge-retriever",
+        "hmos-arkts-syntax-checker"
       ],
       "tools": [
         "devecocli docs search <keywords...>",
@@ -104,9 +104,9 @@
         "WORKFLOW.md"
       ],
       "skills": [
-        "harmonyos-engineering/SKILL.md",
-        "hmos-arkui-develop-skill/SKILL.md",
-        "hmos-arkui-knowledge-retriever/SKILL.md"
+        "harmonyos-engineering",
+        "hmos-arkui-develop-skill",
+        "hmos-arkui-knowledge-retriever"
       ],
       "tools": [
         "devecocli docs search <keywords...>",
@@ -151,9 +151,9 @@
         "WORKFLOW.md"
       ],
       "skills": [
-        "harmonyos-engineering/SKILL.md",
-        "hmos-arkui-statemgt-migration/SKILL.md",
-        "hmos-arkui-knowledge-retriever/SKILL.md"
+        "harmonyos-engineering",
+        "hmos-arkui-statemgt-migration",
+        "hmos-arkui-knowledge-retriever"
       ],
       "tools": [
         "devecocli docs search <keywords...>",
@@ -194,9 +194,9 @@
         "WORKFLOW.md"
       ],
       "skills": [
-        "harmonyos-engineering/SKILL.md",
-        "hmos-arkts-deprecated-interface-checker/SKILL.md",
-        "hmos-arkts-knowledge-retriever/SKILL.md"
+        "harmonyos-engineering",
+        "hmos-arkts-deprecated-interface-checker",
+        "hmos-arkts-knowledge-retriever"
       ],
       "tools": [
         "devecocli check compat versions",
@@ -229,8 +229,8 @@
         "WORKFLOW.md"
       ],
       "skills": [
-        "harmonyos-engineering/SKILL.md",
-        "hmos-arkts-syntax-checker/SKILL.md"
+        "harmonyos-engineering",
+        "hmos-arkts-syntax-checker"
       ],
       "tools": [
         "devecocli check lint <path>",
