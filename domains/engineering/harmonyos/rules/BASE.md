@@ -91,9 +91,10 @@ isolate accidental topology changes and retain the diff and impact analysis.
 
 - Establish the declared baseline and obtain the actual diagnostic or documented compatibility
   finding before changing an interface.
-- Use `devecocli check compat` when that interface is available and authorized. Treat its output as
-  observed diagnostic evidence for the exercised project and environment, not as a universal
-  compatibility guarantee.
+- Do not run `devecocli check compat` as a default or final delivery gate. Run it only when the
+  task contract or user explicitly requires compatibility evidence and the interface is available
+  and authorized. Treat its output as observed diagnostic evidence for the exercised project and
+  environment, not as a universal compatibility guarantee.
 - Map every finding to its location, affected behavior, authoritative replacement evidence, and
   disposition. Verify the replacement against the declared baseline.
 - Do not perform blind name substitution, signature guessing, bulk deletion, or behavior-changing
@@ -158,11 +159,16 @@ never fabricate an execution or passing result.
 **Applies to:** every correctness, quality, compatibility, package, deployment, and readiness
 claim.
 
-- Use `devecocli check lint` and `devecocli build` when available and authorized, alongside the
-  project-defined tests and inspections appropriate to risk [HMOS-TESTING].
+- Use `devecocli build` as the only default final compilation gate when available and authorized.
+  Do not run `devecocli check lint` or `devecocli check compat` by default and do not make either a
+  prerequisite for the default final compilation result. Run them only when the task contract or
+  user explicitly requires their distinct evidence. Project-defined tests and inspections remain
+  conditional on explicit task requirements and authorization [HMOS-TESTING].
 - Report lint success, compatibility results, compilation, build, unit tests, coverage,
   self-inspection, emulator behavior, physical-device behavior, packaging, signing, and release
   authorization as distinct evidence classes.
+- Record lint and compatibility checks omitted under the default gate as `skipped`, never as
+  `passed`. A successful build establishes only the configured compilation and artifact outcome.
 - Exercise material expected and negative paths on the declared targets. A passing lint or build
   does not prove runtime behavior, compatibility, accessibility, security, performance, power,
   package installability, signature validity, or release readiness.

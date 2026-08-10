@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "change_id": "harmonyos-verification-gate-adjustment",
+  "risk": "G2",
+  "criteria": [
+    {
+      "id": "AC-1",
+      "description": "Rule, workflow, and wrapper define devecocli build as the only default final compilation gate.",
+      "status": "passed",
+      "evidence": [
+        "../../domains/engineering/harmonyos/rules/BASE.md",
+        "../../domains/engineering/harmonyos/workflows/WORKFLOW.md",
+        "../../domains/engineering/harmonyos/skills/harmonyos-engineering/SKILL.md"
+      ]
+    },
+    {
+      "id": "AC-2",
+      "description": "Omitted lint and compatibility checks are recorded as skipped and do not support passing claims.",
+      "status": "passed",
+      "evidence": [
+        "../../domains/engineering/harmonyos/rules/BASE.md"
+      ]
+    },
+    {
+      "id": "AC-3",
+      "description": "Deterministic repository validation passes.",
+      "status": "passed",
+      "evidence": [
+        "validation.md"
+      ]
+    },
+    {
+      "id": "AC-4",
+      "description": "An independent evaluator confirms that Kernel controls and evidence boundaries remain intact.",
+      "status": "passed",
+      "evidence": [
+        "evaluations/rules-BASE.1.evaluation.json"
+      ]
+    }
+  ]
+}

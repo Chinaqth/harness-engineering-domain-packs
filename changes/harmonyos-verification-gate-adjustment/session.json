@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.harmonyos",
+  "research_ledger": "../engineering.harmonyos-completion/research/sources.json",
+  "max_artifact_iterations": 3,
+  "max_pack_iterations": 1,
+  "artifacts": [
+    {
+      "path": "rules/BASE.md",
+      "evaluations": [
+        "evaluations/rules-BASE.1.evaluation.json"
+      ]
+    }
+  ],
+  "final_evaluations": []
+}

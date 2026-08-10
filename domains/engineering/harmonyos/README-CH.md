@@ -1,6 +1,6 @@
 # HarmonyOS Engineering Domain 中文导览
 
-本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `0.1.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
+本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `1.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
 
 ## 核心职责与运行方式
 

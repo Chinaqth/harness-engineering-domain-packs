@@ -19,7 +19,7 @@ an ArkUI screen as an isolated artifact. [HMOS-STAGE]
 - Domain ID: `engineering.harmonyos`
 - Display name: `HarmonyOS Engineering`
 - Primary owner: `platform-harmony`
-- Version: `0.1.0`
+- Version: `1.0.0`
 - Lifecycle: `active`
 
 These values are registered repository facts; this document does not assign additional reviewers,
@@ -202,7 +202,7 @@ or recommendation is not marked verified unless the recorded check actually exer
 
 ## Maturity and Organization Inputs
 
-This Domain is an active source-supported professional baseline at version `0.1.0`. Activation
+This Domain is an active source-supported professional baseline at version `1.0.0`. Activation
 establishes routing eligibility only; per-Skill artifact scoring was waived by explicit owner
 direction and the six added Skills remain non-authoritative discovery aids under the quarantine
 policy. [REPO-HARMONYOS-IDENTITY]
