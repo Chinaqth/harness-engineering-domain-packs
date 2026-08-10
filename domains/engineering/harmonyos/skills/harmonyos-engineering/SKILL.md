@@ -24,7 +24,7 @@ Before any mutation or execution, obtain or discover and record:
 | Scope | Project root, current revision, product, module, target files, exclusions, and package intent | Do not scan or change an unbounded workspace. |
 | Baseline | Current and target SDK/API versions, DevEco/devecocli version, build mode, architecture, state-management generation, device or emulator matrix, and last-known-good result | Do not make version, compatibility, migration, or regression claims. |
 | Permissions | Explicit authority for source edits, generated-file changes, dependency installation, build, device access, app install/run, UI interaction, logs, credentials/signing, and rollback | Perform only the authorized read-only subset; never infer permission from tool availability. |
-| Project commands and policy | Project overlay, build/test/lint conventions, supported matrix, evidence location, retry bound, and rollback procedure | Do not invent commands, thresholds, or organizational standards. |
+| Project commands and policy | Project overlay, build conventions, explicitly requested optional checks, supported matrix, evidence location, retry bound, and rollback procedure | Do not invent commands, thresholds, or organizational standards. |
 | Sensitive-data boundary | Allowed device/account/test data, log redaction rules, and security/privacy escalation route | Do not collect logs, operate accounts, or expose protected values. |
 
 Capture a pre-change baseline using the same applicable checks planned for final verification.
@@ -106,10 +106,10 @@ targets from `devecocli` help and the project overlay; do not invent arguments. 
 are:
 
 1. `devecocli docs search` and `devecocli docs read` for authoritative reconciliation;
-2. `devecocli check lint` for static lint diagnostics on the explicit scope;
-3. `devecocli check compat versions` followed by `devecocli check compat` for an explicit source and
-   target compatibility baseline;
-4. `devecocli build` for configured compilation and package creation;
+2. `devecocli build` for the default final configured compilation and package creation gate;
+3. `devecocli check lint` for static lint diagnostics only when explicitly requested;
+4. `devecocli check compat versions` followed by `devecocli check compat` for an explicit source and
+   target compatibility baseline only when explicitly requested;
 5. `devecocli run` for an authorized selected device or emulator;
 6. `devecocli ui` for authorized UI inspection or interaction; and
 7. `devecocli log` for bounded, redacted runtime evidence.
@@ -123,13 +123,13 @@ target, stop that operation and retain the failure. Do not substitute legacy `mc
 
 After an authorized minimal edit:
 
-1. run `devecocli check lint` on the changed scope;
-2. run `devecocli check compat` when the change or baseline is version-sensitive;
-3. run the configured `devecocli build` for compile/package evidence;
-4. run project-defined tests if separately available and authorized;
-5. use `devecocli run`, `devecocli ui`, and `devecocli log` only when the acceptance claim requires
+1. run the configured `devecocli build` as the only default final compilation gate;
+2. do not run `devecocli check lint` or `devecocli check compat` unless the task contract or user
+   explicitly requests the corresponding evidence; otherwise record each as `skipped`;
+3. run project-defined tests only when explicitly required, separately available, and authorized;
+4. use `devecocli run`, `devecocli ui`, and `devecocli log` only when the acceptance claim requires
    device/runtime evidence and permissions name the target; and
-6. compare the same applicable checks with the captured baseline.
+5. compare the same applicable checks with the captured baseline.
 
 Respect the declared retry bound. Each repair must be explained by a current diagnostic or reconciled
 official claim, remain inside scope, and preserve a rollback unit. If a repair changes the failure,
@@ -165,8 +165,8 @@ Stop the affected work and report `blocked` when:
 - a package claim lacks provenance or passed evaluation and no authoritative replacement is found;
 - the proposed fix requires a blind migration, bulk replacement, unrelated refactor, dependency or
   signing change, or architecture/policy decision outside authorization;
-- lint, compatibility, build, test, run, UI, or log evidence is unavailable for a claim that depends
-  on it;
+- build, test, run, UI, log, or explicitly requested lint or compatibility evidence is unavailable
+  for a claim that depends on it;
 - diagnostics persist after the authorized retry bound; or
 - secrets, personal data, production access, or unsafe device state would be required.
 
@@ -181,8 +181,9 @@ Return one reconciled packet containing:
 - selected package inputs plus every quarantined claim and reason;
 - ledger IDs and `devecocli docs` queries/document IDs used for each version-sensitive decision;
 - changed-file and decision inventory;
-- exact lint, compatibility, build, test, run, UI, and log procedures with target identifiers,
-  statuses, diagnostics, artifacts, and sanitized evidence locations, kept in separate classes;
+- exact build and any explicitly requested lint, compatibility, test, run, UI, and log procedures
+  with target identifiers, statuses, diagnostics, artifacts, and sanitized evidence locations,
+  kept in separate classes;
 - baseline-versus-final comparison and requirement-to-evidence mapping;
 - unresolved failures, unavailable checks, residual risks, rollback instructions, and named handoffs;
   and

@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "evaluator": "independent-agent-evaluate-harmonyos-rule",
+  "iteration": 1,
+  "evaluated_at": "2026-08-10T13:43:55Z",
+  "source_ids": [
+    "REPO-HARMONYOS-IDENTITY",
+    "HMOS-ARKTS",
+    "HMOS-STAGE",
+    "HMOS-ARKUI-V2",
+    "HMOS-ARKUI-MIGRATION",
+    "HMOS-PACKAGES",
+    "HMOS-TESTING"
+  ],
+  "dimensions": {
+    "contract": 97,
+    "professional": 95,
+    "boundaries": 98,
+    "executability": 96,
+    "verifiability": 97,
+    "architecture": 98,
+    "maintainability": 96
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "findings": [],
+  "blocked_reasons": []
+}

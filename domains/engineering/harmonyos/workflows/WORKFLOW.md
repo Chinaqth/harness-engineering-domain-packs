@@ -130,18 +130,19 @@ decisions to the named platform or architecture owner.
    retry, lifecycle re-entry, and other material expected or negative paths.
 4. Make the smallest scoped change. Preserve business logic, navigation architecture, V1/V2
    generation, lifecycle contracts, and unrelated modules unless explicitly authorized.
-5. Inspect changed files and run the narrow authorized lint procedure from step 7. Repair only
-   findings caused by or blocking the scoped change.
+5. Inspect changed files. Run lint only when the task contract or user explicitly requires lint
+   evidence; repair only findings caused by or blocking the scoped change.
 6. Exercise at least one accepted regression path for an incremental change and record any path
    that cannot be executed.
 
 **Output and evidence:** scoped patch, changed-file inventory, API decision references, state-flow
-description, lint results, expected and negative-path observations, known limitations, and rollback
-guidance.
+description, requested check results, expected and negative-path observations, known limitations,
+and rollback guidance.
 
-**Bounded retry:** permit no more than three diagnose-fix-lint iterations, including the first
-repair attempt. A task contract may lower this bound. Every iteration records diagnostics, edits,
-and result; it may not widen scope or weaken checks.
+**Bounded retry:** when lint is explicitly requested, permit no more than three
+diagnose-fix-lint iterations, including the first repair attempt. A task contract may lower this
+bound. Every iteration records diagnostics, edits, and result; it may not widen scope or weaken
+checks.
 
 **Negative paths:** if an API signature is uncertain, state behavior changes unexpectedly, or the
 repair loop fails to converge, stop. Revert or isolate the unsafe batch when authorized, retain
@@ -152,8 +153,9 @@ or compile pass.
 
 1. Declare source and target SDK/API versions, supported matrix, file scope, exclusions, and
    remediation authority.
-2. Confirm the compatibility interface and obtain valid identifiers with
-   `devecocli check compat versions` when available.
+2. Only when the task contract or user explicitly requires compatibility evidence, confirm the
+   compatibility interface and obtain valid identifiers with `devecocli check compat versions`
+   when available.
 3. Run `devecocli check compat` with explicit, verified source and target identifiers and exact
    project scope. Persist the report when evidence is required.
 4. Reconcile findings with `devecocli check lint` diagnostics and authoritative documentation.
@@ -188,9 +190,9 @@ evidence and block the dependent compatibility claim.
 4. Identify unsupported or unverified V1/V2 mixing boundaries. Order migration batches by data-flow
    dependency and risk; define a rollback point for every batch.
 5. Migrate one bounded batch. Avoid global token or decorator substitution.
-6. Run lint and build checks as applicable, then exercise reads, writes, nested changes, parent-child
-   propagation, refresh, initialization, persistence, reuse, and material performance or regression
-   paths for that batch.
+6. Run the configured build check. Run lint only when explicitly required, then exercise reads,
+   writes, nested changes, parent-child propagation, refresh, initialization, persistence, reuse,
+   and material performance or regression paths for that batch.
 7. Compare observations with the baseline before continuing to the next batch.
 
 **Output and evidence:** V1 inventory, V1-to-V2 behavior map, dependency-ordered batch plan,
@@ -205,20 +207,20 @@ other dependent batches proceed.
 error, persistence change, performance regression, or unsupported mixing blocks the batch. Preserve
 the reproduction and hand unresolved semantics to the ArkUI or architecture owner.
 
-### 7. Run static, build, and package verification through `devecocli`
+### 7. Run final compilation verification through `devecocli`
 
 1. Confirm the installed `devecocli` version, authorization, project identity, and availability of
-   each required subcommand. Resolve exact syntax from the tool; project overlays supply product,
-   module, profile, mode, and output expectations.
-2. Run `devecocli check lint <path>` for the authorized changed-file or project scope. Record exact
-   invocation, configuration, exit status, diagnostics, and report path.
-3. When compatibility is relevant, run the step 5 procedure; do not translate lint codes into
-   compatibility findings without evidence.
-4. Run `devecocli build` only with verified project, product, module, and build-mode inputs. Record
+   `devecocli build`. Resolve exact syntax from the tool; project overlays supply product, module,
+   profile, mode, and output expectations.
+2. Run `devecocli build` as the only default final compilation gate, using verified project,
+   product, module, and build-mode inputs. Record
    invocation, environment, exit status, diagnostics, and located artifacts.
-5. Run project-defined unit, coverage, self-inspection, emulator, physical-device, accessibility,
+3. Do not run `devecocli check lint` or `devecocli check compat` by default. Run either only when
+   the task contract or user explicitly requests its distinct evidence; otherwise record it as
+   `skipped`, not `passed`.
+4. Run project-defined unit, coverage, self-inspection, emulator, physical-device, accessibility,
    security, performance, power, and stability checks required by the task contract.
-6. Exercise material expected and negative paths on declared targets. Keep static, compile, build,
+5. Exercise material expected and negative paths on declared targets. Keep static, compile, build,
    package, install, runtime, device, signing, and release results separate. [HMOS-TESTING]
 
 **Output and evidence:** command ledger, environment and target identities, raw or linked reports,
@@ -265,7 +267,7 @@ decided a blocker. Preserve the last known good state and reproducible failure.
 | Required API signature or replacement is unverified | Do not invent or substitute it. | Dependent change is blocked. |
 | State migration changes data flow or observation | Stop, isolate or revert the batch, and preserve reproduction evidence. | Batch and dependents remain failed. |
 | Tool, command, project scope, permission, device, or environment is unavailable | Do not guess or bypass it; provide a reproducible manual or owner handoff. | Corresponding evidence class is unavailable or blocked. |
-| Lint passes but build or runtime was not run | Report only lint success. | Compile, runtime, device, and release claims remain unverified. |
+| Lint or compatibility was not explicitly requested | Record the check as `skipped`; do not run it as a default gate. | Lint or compatibility claims remain unverified. |
 | Build succeeds but artifact cannot be located | Preserve command output and investigate only within the retry bound. | Packaging claim remains unverified. |
 | Automated repair reaches its bound | Stop mutation, retain every iteration and the last known good state. | Hand remaining diagnosis to the accountable engineer. |
 | Signing, distribution, or production action is requested without explicit authority | Stop before the controlled action. | Hand the verified candidate to the authorized release owner. |
