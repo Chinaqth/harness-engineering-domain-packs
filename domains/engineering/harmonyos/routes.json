@@ -85,6 +85,7 @@
       ],
       "signals": [
         "declarative ArkUI @Component, @Entry, build() tree, layout, navigation, interaction, or accessibility behavior in .ets source",
+        "new HarmonyOS project or ArkUI component architecture requiring State Management V2",
         "ArkUI page or reusable component implementation requiring declared device-state and visual-state verification",
         "ArkUI lifecycle, rendering, animation, navigation, or user-interaction defect requiring device-observed evidence"
       ],

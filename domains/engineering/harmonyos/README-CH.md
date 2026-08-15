@@ -1,10 +1,10 @@
 # HarmonyOS Engineering Domain 中文导览
 
-本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `1.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
+本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `2.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
 
 ## 核心职责与运行方式
 
-本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析，以及构建和运行时证据收集。执行前必须获得任务所需的 SDK/API、工具链、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
+本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析，以及构建和运行时证据收集。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
 
 六个用户添加的 Skill 包按包级粒度原样保留，连同其嵌套参考语料、索引、脚本和测试案例一起作为非权威候选输入。Domain 的七项能力除统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper 外，还按 `capabilities.json` 的接线将相关保留包绑定为对应能力的 Skill 输入；wrapper 仍按隔离政策使用这些包，只能用它们生成搜索词、检索线索或待验证假设。早期的逐 Skill 制品评分阶段已被 Owner 明确豁免，先前记录的 `blocked` 评估仅作为历史证据保留，不再作为门槛；六个包均不因接线或激活而获得政策、版本或平台权威性。
 
@@ -20,7 +20,7 @@
 | `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 七类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper，并按职责接线相关保留包与其本地检索脚本；wrapper 再按需隔离使用保留包的非权威输入，并通过 `devecocli` 组装执行证据。 |
 | `routes.json` | 定义任务类型、识别信号和候选能力。 | 为兼容的 HarmonyOS 请求提供候选路由；Domain 已激活，具备路由资格。 |
 | `README-CH.md` | 提供中文导览和完整生产文件清单。 | 解释英文制品，不产生新的规范。 |
-| `rules/BASE.md` | 定义可执行的专业不变量。 | 约束版本基线、权威来源、Stage/ArkTS/ArkUI、迁移、兼容性、工具、证据、权限和交接。 |
+| `rules/BASE.md` | 定义可执行的专业不变量。 | 强制新架构使用状态管理 V2，并约束版本基线、权威来源、Stage/ArkTS/ArkUI、V1 迁移、兼容性、工具、证据、权限和交接。 |
 | `workflows/WORKFLOW.md` | 定义统一端到端工作流。 | 从任务归类和基线确认，经文档查证、设计/实现/迁移，到 `devecocli` 检查与证据交付。 |
 | `evaluators/EVALUATOR.md` | 定义独立验收标准。 | 按证据类别、负向路径、严重度与硬门槛判定结果，不由作者自评。 |
 | `templates/delivery-evidence.md` | 提供交付证据记录模板。 | 记录基线、来源、命令、诊断、迁移、运行场景、风险、交接和回滚信息。 |
@@ -40,7 +40,7 @@
 
 ### `harmonyos-engineering`：能力统一绑定的执行 wrapper
 
-这是 Domain 的可执行 Skill 入口。它强制输入契约、权威来源核验、最小可回滚改动、`devecocli` 操作边界、证据类别分离和失败关闭交接。它不继承保留包的工具可用性、严重度、版本或验收结论；对六个保留包的任何声明都先隔离，只允许其作为搜索词或假设，直到获得适用版本的官方文档与项目实证。
+这是 Domain 的可执行 Skill 入口。它强制新项目、新增组件和重写状态界面采用状态管理 V2，将 V1 限定为遗留迁移输入；同时执行输入契约、权威来源核验、最小可回滚改动、`devecocli` 操作边界、证据类别分离和失败关闭交接。它不继承保留包的工具可用性、严重度、版本或验收结论；对六个保留包的任何声明都先隔离，只允许其作为搜索词或假设，直到获得适用版本的官方文档与项目实证。
 
 以下六个包按 `capabilities.json` 接线到相应能力，但仍不是英文核心制品之上的权威来源。
 
@@ -54,7 +54,7 @@
 
 ### `hmos-arkui-develop-skill`：ArkUI 开发
 
-组织 ArkUI 页面与组件的需求澄清、API 查证、实现、诊断和验证，并使用保留的快速 API、规则、常见错误和检查清单。任何缓存示例都须服从声明的 SDK/API 基线、项目约定和实际编译或运行证据。
+组织 ArkUI 页面与组件的需求澄清、API 查证、实现、诊断和验证，并使用保留的快速 API、规则、常见错误和检查清单。该包始终受 wrapper 的 V2 架构政策约束；其中任何 V1 示例只能作为迁移候选材料。任何缓存示例都须服从声明的 SDK/API 基线、项目约定和实际编译或运行证据。
 
 ### `hmos-arkts-syntax-checker`：ArkTS 语法与构建诊断
 

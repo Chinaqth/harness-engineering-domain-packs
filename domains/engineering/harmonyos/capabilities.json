@@ -96,7 +96,7 @@
     },
     {
       "id": "arkui-interface-delivery",
-      "description": "Design, implement, repair, and verify scoped ArkUI components and interactions against declared state, navigation, layout, lifecycle, target-device, and accessibility requirements, with API signatures and observed behavior evidenced separately from build success.",
+      "description": "Design, implement, repair, and verify scoped ArkUI components and interactions using State Management V2 for new or rewritten state-managed surfaces, against declared navigation, layout, lifecycle, target-device, and accessibility requirements, with API signatures and observed behavior evidenced separately from build success.",
       "task_types": [
         "harmonyos-arkui-delivery"
       ],
@@ -133,7 +133,7 @@
         "EVALUATOR.md"
       ],
       "permissions": [
-        "Requires task-scoped authorization to inspect and modify the declared ArkUI, ArkTS, configuration, test, and evidence surfaces while preserving business logic and the existing state-management and navigation paradigms unless their change is explicitly requested",
+        "Requires task-scoped authorization to inspect and modify the declared ArkUI, ArkTS, configuration, test, and evidence surfaces while preserving business logic and navigation; new or rewritten state-managed surfaces must use V2, and existing V1 may be changed only within an authorized V1-to-V2 migration scope",
         "Requires authorization for the named emulator or physical device and interaction scenarios; accessibility acceptance, protected-data handling, signing, distribution, and release require separate authority"
       ],
       "dependencies": [

@@ -68,6 +68,25 @@ Record the query, document ID, applicable version statement, retrieval context, 
 ledger ID. If official evidence is absent, ambiguous, stale, or conflicts with a package, stop the
 dependent action and report the conflict; do not choose the more convenient claim.
 
+## ArkUI State-Management Architecture Policy
+
+Enforce `HMOS-RULE-05` before selecting an ArkUI state architecture or changing state-managed
+code:
+
+- new HarmonyOS projects, new ArkUI components, and rewritten state-managed surfaces must use
+  State Management V2;
+- State Management V1 is deprecated by this Domain as a target architecture and must not be
+  introduced in new code;
+- inventory V1 constructs in the affected surface before editing, and route authorized legacy work
+  through `hmos-arkui-statemgt-migration` as a behavioral migration rather than a decorator rename;
+- when migration is outside the authorized scope, keep the smallest existing V1 boundary unchanged,
+  add no V1 usage, and record a migration handoff; and
+- when the declared baseline cannot support the required V2 behavior, stop and request an
+  architecture decision instead of falling back to V1.
+
+Treat cached package examples that generate V1 code as quarantined legacy material. They may help
+identify migration inputs but must not justify new implementation.
+
 ## Execution Procedure
 
 ### 1. Establish the evidence spine
@@ -94,10 +113,11 @@ reduced to decorator replacement. [HMOS-ARKUI-V2] [HMOS-ARKUI-MIGRATION]
 ### 3. Plan the smallest reversible unit
 
 Define affected files, expected behavior, negative paths, rollback point, and check sequence. Keep
-unrelated refactoring out of scope. Do not change state-management generation, navigation
-architecture, package boundaries, signing, dependencies, permissions, or security/privacy behavior
-without explicit authority. Do not apply a global replacement, generated speculative API, bulk
-autofix, or blind migration.
+unrelated refactoring out of scope. Enforce the V2 architecture policy for new work; do not change
+an existing state-management generation except through an authorized V1-to-V2 migration. Do not
+change navigation architecture, package boundaries, signing, dependencies, permissions, or
+security/privacy behavior without explicit authority. Do not apply a global replacement, generated
+speculative API, bulk autofix, or blind migration.
 
 ### 4. Execute only through the authorized boundary
 

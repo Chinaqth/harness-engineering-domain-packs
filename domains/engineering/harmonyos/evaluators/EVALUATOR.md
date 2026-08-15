@@ -139,8 +139,11 @@ an applicable lint failure.
   target.
 - API signatures, decorators, event contracts, and version support are traceable to the selected
   baseline; generated or cached snippets are independently checked before being called verified.
+- New projects, new ArkUI components, and rewritten state-managed surfaces use State Management V2
+  and introduce no V1 components, decorators, storage, or observation mechanisms.
 - State changes produce the expected UI transitions without stale, lost, duplicated, or unintended
-  updates, and existing project paradigms are preserved unless migration was explicitly authorized.
+  updates. Existing V2 paradigms are preserved; affected V1 surfaces follow the migration criterion
+  or remain an explicitly unchanged, bounded legacy dependency outside the authorized scope.
 
 **Required evidence:** component and state-flow inventory; source-backed API record; inspectable
 implementation; per-target render captures where assertions are insufficient; interaction and
@@ -171,10 +174,13 @@ disposition; exception or owner decision where replacement is unavailable.
 change, transitive use, and mixed-version dependency when applicable. A deprecated interface without
 a verified safe disposition is `fail`; an absent required baseline, tool, or decision is `blocked`.
 
-### HMOS-EVAL-06 — ArkUI V1-to-V2 behavioral migration
+### HMOS-EVAL-06 — ArkUI V2 architecture and V1-to-V2 behavioral migration
 
 **Pass conditions**
 
+- The evaluated architecture identifies State Management V2 as the only target for new projects,
+  new components, and rewritten state-managed surfaces. V1 appears only as inventoried legacy
+  migration input or an unchanged boundary outside the authorized scope.
 - Migration maps each original V1 state owner, initialization rule, observation boundary, parent-child
   flow, bidirectional update, application storage behavior, monitor, render loop, reuse lifecycle, and
   animation behavior to an explicit intended V2 behavior [HMOS-ARKUI-V2]
@@ -185,14 +191,16 @@ a verified safe disposition is `fail`; an absent required baseline, tool, or dec
 - Each migration batch independently passes applicable static, build, and behavioral regression
   checks before dependent batches are accepted.
 
-**Required evidence:** before/after state and data-flow map; V1 construct inventory; V2 mapping and
-official references; mixed-mode boundary record; batch identities; compile/build results; runtime
-state-transition and regression results; rollback unit for each batch.
+**Required evidence:** architecture-generation decision; changed-surface scan for V1 constructs;
+before/after state and data-flow map; V1 construct inventory; V2 mapping and official references;
+mixed-mode boundary record; out-of-scope legacy boundary and handoff record; batch identities;
+compile/build results; runtime state-transition and regression results; rollback unit for each batch.
 
 **Negative paths:** exercise nested mutation, parent-to-child and child-to-parent updates,
 reinitialization, repeated rendering, storage reconnect or restoration, reuse, and animation timing
 when applicable. Lost observation, changed ownership, unintended update, or unverified mixed-mode
-behavior is `fail`, even when compilation succeeds.
+behavior is `fail`, even when compilation succeeds. Any newly introduced V1 state-management usage
+is `fail`; a baseline that cannot support required V2 behavior is `blocked`, not a V1 exception.
 
 ### HMOS-EVAL-07 — Module, HAP/HAR/HSP, and App Pack integrity
 

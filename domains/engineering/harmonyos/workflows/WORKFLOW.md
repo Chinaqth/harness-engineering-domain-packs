@@ -128,11 +128,16 @@ decisions to the named platform or architecture owner.
    constraints. [HMOS-ARKTS]
 3. Define state ownership and data flow for loading, empty, success, invalid input, failure,
    retry, lifecycle re-entry, and other material expected or negative paths.
-4. Make the smallest scoped change. Preserve business logic, navigation architecture, V1/V2
-   generation, lifecycle contracts, and unrelated modules unless explicitly authorized.
-5. Inspect changed files. Run lint only when the task contract or user explicitly requires lint
+4. For a new project, new component, or rewritten state-managed surface, use State Management V2
+   and introduce no V1 decorators, storage, or observation mechanisms. [HMOS-ARKUI-V2]
+5. Inventory V1 usage in the affected surface. When authorized work touches V1, route the affected
+   state flow through the V1-to-V2 migration track. If migration is outside scope, keep the smallest
+   existing V1 boundary unchanged, add no V1 usage, and record the migration handoff.
+6. Make the smallest scoped change. Preserve business logic, navigation architecture, lifecycle
+   contracts, and unrelated modules unless explicitly authorized.
+7. Inspect changed files. Run lint only when the task contract or user explicitly requires lint
    evidence; repair only findings caused by or blocking the scoped change.
-6. Exercise at least one accepted regression path for an incremental change and record any path
+8. Exercise at least one accepted regression path for an incremental change and record any path
    that cannot be executed.
 
 **Output and evidence:** scoped patch, changed-file inventory, API decision references, state-flow

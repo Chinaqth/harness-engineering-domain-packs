@@ -108,11 +108,19 @@ remaining findings.
 as appropriate, record compatibility and user impact, and obtain an owner decision. Do not suppress
 the diagnostic or silently narrow supported targets.
 
-### HMOS-RULE-05 — Migrate ArkUI state by behavior, not decorator substitution
+### HMOS-RULE-05 — Require ArkUI State Management V2 and migrate V1 by behavior
 
 **Applies to:** ArkUI state-management V1/V2 use, especially `Observed`, `ObjectLink`, `Track`,
 `ObservedV2`, and `Trace`.
 
+- Use State Management V2 for every new HarmonyOS project architecture, newly authored ArkUI
+  component, and rewritten state-managed surface. State Management V1 is legacy migration input,
+  not an allowed target architecture. Do not introduce new V1 components, decorators, storage, or
+  observation mechanisms, including `@Component`, `@State`, `@Prop`, `@Link`, `@Observed`,
+  `@ObjectLink`, `@Provide`, `@Consume`, or `@Watch`.
+- Confirm that the declared SDK/API baseline supports the required V2 behavior before design or
+  implementation. If it does not, stop the affected work and hand the architecture decision to the
+  project or platform owner; do not fall back to V1 silently.
 - Inventory state ownership, initialization, read/write paths, nested-object observation,
   component boundaries, lifecycle, and expected refresh behavior before migration.
 - Apply the scenario-specific Huawei migration guidance. `ObservedV2` and `Trace` behavior, nested
@@ -120,6 +128,9 @@ the diagnostic or silently narrow supported targets.
   [HMOS-ARKUI-MIGRATION].
 - Map each original behavior to an intended V2 behavior and migrate in bounded, reversible batches.
   Do not treat a textual decorator replacement as evidence of preserved data flow or rendering.
+- When authorized work touches an existing V1 surface, route it through the V1-to-V2 migration
+  procedure. If the required migration exceeds the authorized scope, retain the smallest unchanged
+  legacy boundary, introduce no additional V1 usage, and record the migration handoff.
 - Do not introduce a mixed V1/V2 boundary unless its compatibility is established for the declared
   baseline and its behavior is explicitly verified.
 
@@ -129,7 +140,9 @@ nested changes, and refresh; and any intentional mixed-mode boundary.
 
 **Failure and handoff:** on changed observation, stale UI, excess refresh, initialization failure,
 or an unsupported decorator boundary, stop the batch and revert or isolate it. Preserve the
-reproduction and hand unresolved design questions to the ArkUI or architecture owner.
+reproduction and hand unresolved design questions to the ArkUI or architecture owner. Newly
+introduced V1 state management is a policy failure; an unsupported V2 baseline is a blocker, not
+permission to generate V1 code.
 
 ### HMOS-RULE-06 — Use tools through verified, bounded interfaces
 

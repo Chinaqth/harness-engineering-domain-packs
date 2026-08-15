@@ -19,7 +19,7 @@ an ArkUI screen as an isolated artifact. [HMOS-STAGE]
 - Domain ID: `engineering.harmonyos`
 - Display name: `HarmonyOS Engineering`
 - Primary owner: `platform-harmony`
-- Version: `1.0.0`
+- Version: `2.0.0`
 - Lifecycle: `active`
 
 These values are registered repository facts; this document does not assign additional reviewers,
@@ -38,6 +38,10 @@ grant operational permissions. [REPO-HARMONYOS-IDENTITY]
 - Develop and review declarative ArkUI interfaces and state-driven interactions while tracing
   version-sensitive API signatures and behavior to authoritative documentation rather than
   relying on recalled syntax. [HMOS-ARKTS]
+- Use State Management V2 for new HarmonyOS projects, newly authored ArkUI components, and
+  rewritten state-managed surfaces. Treat V1 as legacy migration input only; do not introduce new
+  V1 state-management usage, and block rather than silently falling back to V1 when the declared
+  baseline cannot support required V2 behavior. [HMOS-ARKUI-V2]
 - Plan, implement, and verify scenario-specific ArkUI state-management migration. In particular,
   migration of data-object observation from V1 patterns such as `Observed`, `ObjectLink`, and
   `Track` to V2 patterns such as `ObservedV2` and `Trace` must preserve data flow and observation
@@ -116,7 +120,7 @@ Each Skill feeds specific registered capabilities as discovery and structuring i
 | --- | --- | --- |
 | `hmos-arkts-knowledge-retriever` | `harmonyos-authoritative-knowledge-retrieval`, `arkts-implementation-and-static-correctness`, `harmonyos-api-deprecation-and-compatibility` | Read-only ArkTS language, library, concurrency, runtime, toolchain, and TypeScript-migration retrieval through `scripts/search_docs.py` and its local indexes. |
 | `hmos-arkui-knowledge-retriever` | `harmonyos-authoritative-knowledge-retrieval`, `arkui-interface-delivery`, `arkui-state-management-v1-to-v2-migration` | Read-only ArkUI retrieval across seventeen knowledge categories through `scripts/run.py`, including API signatures, V1/V2 distinctions, and error codes. |
-| `hmos-arkui-develop-skill` | `arkui-interface-delivery` | ArkUI page and component creation, incremental modification, and diagnostic-driven repair using quick API references plus targeted retrieval, while preserving the existing state-management and navigation paradigm. |
+| `hmos-arkui-develop-skill` | `arkui-interface-delivery` | ArkUI page and component creation, incremental modification, and diagnostic-driven repair using quick API references plus targeted retrieval, executed under the Domain wrapper's mandatory V2 target-architecture policy. |
 | `hmos-arkui-statemgt-migration` | `arkui-state-management-v1-to-v2-migration` | V1-to-V2 decorator, application-storage, rendering-control, and reuse mappings plus dependency-ordered batch planning. |
 | `hmos-arkts-deprecated-interface-checker` | `harmonyos-api-deprecation-and-compatibility` | Deprecated-API detection, P0/P1/P2 remediation classification, and documented replacement proposals. |
 | `hmos-arkts-syntax-checker` | `arkts-implementation-and-static-correctness`, `harmonyos-build-and-runtime-verification` | A bounded diagnose-fix-build loop with retry limits and HAP/App artifact reporting. |
@@ -202,7 +206,7 @@ or recommendation is not marked verified unless the recorded check actually exer
 
 ## Maturity and Organization Inputs
 
-This Domain is an active source-supported professional baseline at version `1.0.0`. Activation
+This Domain is an active source-supported professional baseline at version `2.0.0`. Activation
 establishes routing eligibility only; per-Skill artifact scoring was waived by explicit owner
 direction and the six added Skills remain non-authoritative discovery aids under the quarantine
 policy. [REPO-HARMONYOS-IDENTITY]
