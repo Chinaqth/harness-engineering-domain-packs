@@ -33,6 +33,21 @@
       ]
     },
     {
+      "id": "harmonyos-business-module-initialization",
+      "priority": 825,
+      "task_types": [
+        "harmonyos-business-module-initialization"
+      ],
+      "signals": [
+        "create, scaffold, or initialize a HarmonyOS business HAR module and its empty provider companion",
+        "new HarmonyOS business module requiring a standard skeleton, providers/<module_id>provider, two root build-profile.json5 registrations, and a relative local provider dependency",
+        "HarmonyOS module-pair initialization explicitly excluding business or provider ETS implementation, application-specific routing, external dependencies, build, or runtime integration"
+      ],
+      "capabilities": [
+        "harmonyos-business-module-initialization"
+      ]
+    },
+    {
       "id": "harmonyos-build-and-runtime-verification",
       "priority": 800,
       "task_types": [

@@ -1,0 +1,4 @@
+interface:
+  display_name: "HarmonyOS 业务模块初始化"
+  short_description: "创建 HarmonyOS 业务 HAR 与空 Provider 配对模块"
+  default_prompt: "Use $hmos-init-business-module to initialize a HarmonyOS business HAR module and its empty provider companion."

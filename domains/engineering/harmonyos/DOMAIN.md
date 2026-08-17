@@ -5,7 +5,8 @@
 `engineering.harmonyos` owns reusable professional practice for designing, implementing,
 migrating, verifying, and handing off HarmonyOS applications. Its public baseline covers the
 Stage application model, ArkTS, ArkUI, state-management migration, API compatibility, module and
-package design, and evidence-bearing verification. The registered description is "Owns reusable
+package design, deterministic HarmonyOS business-and-provider module initialization, and evidence-bearing
+verification. The registered description is "Owns reusable
 HarmonyOS application delivery practice and evaluation." [REPO-HARMONYOS-IDENTITY]
 
 The Domain favors the Stage model as the long-term application model, with `UIAbility` for
@@ -19,7 +20,7 @@ an ArkUI screen as an isolated artifact. [HMOS-STAGE]
 - Domain ID: `engineering.harmonyos`
 - Display name: `HarmonyOS Engineering`
 - Primary owner: `platform-harmony`
-- Version: `2.0.0`
+- Version: `2.1.0`
 - Lifecycle: `active`
 
 These values are registered repository facts; this document does not assign additional reviewers,
@@ -50,6 +51,11 @@ grant operational permissions. [REPO-HARMONYOS-IDENTITY]
 - Detect deprecated, incompatible, or invalid ArkTS and HarmonyOS API use against a declared SDK
   and API baseline; identify a documented replacement or record the absence of one; and verify the
   change through static checks and relevant tests. [HMOS-ARKTS] [HMOS-TESTING]
+- Initialize a HarmonyOS business HAR module and its empty `<module_id>provider` HAR companion only
+  when the declared project contains the requested module directory and root `build-profile.json5`,
+  using registered templates and a bounded transaction. Register both modules and add only their
+  relative local dependency without inventing business/provider behavior, external dependencies,
+  routing, or runtime wiring.
 - Select and review module boundaries using the distinct delivery and reuse semantics of HAP, HAR,
   and HSP artifacts, and account for the App Pack publication unit when release packaging is in
   scope. [HMOS-PACKAGES]
@@ -107,9 +113,9 @@ be guessed. They become explicit assumptions, blockers, or organization-input re
 
 ## Use of Added Skills
 
-The six added Skills provide owner-trusted operating procedures for ArkTS and ArkUI knowledge retrieval,
-ArkUI implementation, syntax and build diagnostics, deprecated-interface analysis, and state
-management migration. They may help inventory files, narrow a documentation query, structure a
+The seven added Skills provide owner-trusted operating procedures for ArkTS and ArkUI knowledge retrieval,
+ArkUI implementation, syntax and build diagnostics, deprecated-interface analysis, state
+management migration, and bounded HarmonyOS business-and-provider module initialization. They may help inventory files, narrow a documentation query, structure a
 migration batch, classify diagnostics, or bound a repair loop. Their embedded examples, local
 indexes, commands, tool names, version statements, and severity labels are not independent
 platform or organization policy.
@@ -124,8 +130,9 @@ Each Skill feeds specific registered capabilities as discovery and structuring i
 | `hmos-arkui-statemgt-migration` | `arkui-state-management-v1-to-v2-migration` | V1-to-V2 decorator, application-storage, rendering-control, and reuse mappings plus dependency-ordered batch planning. |
 | `hmos-arkts-deprecated-interface-checker` | `harmonyos-api-deprecation-and-compatibility` | Deprecated-API detection, P0/P1/P2 remediation classification, and documented replacement proposals. |
 | `hmos-arkts-syntax-checker` | `arkts-implementation-and-static-correctness`, `harmonyos-build-and-runtime-verification` | A bounded diagnose-fix-build loop with retry limits and HAP/App artifact reporting. |
+| `hmos-init-business-module` | `harmonyos-business-module-initialization` | Deterministically creates the reusable business HAR plus an empty `providers/<module_id>provider` HAR, registers both, and adds their local dependency while excluding implementation and runtime integration. |
 
-No added Skill covers Stage-model architecture or HAP/HAR/HSP topology design;
+No added Skill independently decides Stage-model architecture or HAP/HAR/HSP topology design;
 `stage-application-and-package-design` operates through the Domain wrapper and authoritative
 documentation only.
 
@@ -206,9 +213,9 @@ or recommendation is not marked verified unless the recorded check actually exer
 
 ## Maturity and Organization Inputs
 
-This Domain is an active source-supported professional baseline at version `2.0.0`. Activation
+This Domain is an active source-supported professional baseline at version `2.1.0`. Activation
 establishes routing eligibility only; per-Skill artifact scoring was waived by explicit owner
-direction and the six added Skills remain non-authoritative discovery aids under the quarantine
+direction and the seven added Skills remain non-authoritative inputs under the quarantine
 policy. [REPO-HARMONYOS-IDENTITY]
 
 The following are `needs-org-input` and must be supplied through project overlays, task contracts,

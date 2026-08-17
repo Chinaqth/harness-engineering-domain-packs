@@ -214,6 +214,13 @@ is `fail`; a baseline that cannot support required V2 behavior is `blocked`, not
   combination, and located artifacts are tied to the exact invocation and revision.
 - Packaging success is not represented as installability, signature validity, runtime success,
   device compatibility, publication authorization, or release readiness.
+- For `harmonyos-business-module-initialization`, the target is a confirmed HarmonyOS project; the
+  module ID and derived `<module_id>provider` are valid; both template-derived HAR skeletons are
+  complete; provider `src/main/ets/` is empty; all tokens are resolved; the business package has
+  exactly one correctly resolved local provider dependency; the root `build-profile.json5` contains
+  exactly one matching entry for each module; and no implementation, external dependency,
+  application-specific routing, generated output, build, or runtime wiring is introduced outside
+  the authorized transaction.
 
 **Required evidence:** module and dependency map; package decision; relevant configuration;
 `devecocli build` availability, version, invocation, exit status, raw diagnostics, and artifact
@@ -222,7 +229,11 @@ inventory with identity or digest; required matrix results; signing and release 
 **Negative paths:** inspect missing dependency, invalid or unavailable configuration, absent expected
 artifact, wrong module boundary, and failed required build combination when applicable. A missing
 artifact after a zero exit status is `fail`; unavailable signing permission leaves signing unverified
-and must not trigger a bypass.
+and must not trigger a bypass. For business-module initialization, also exercise or inspect invalid
+module ID or module directory, missing root structure, escaped providers symlink, existing business
+or provider target, duplicate registration, invalid local dependency, non-empty provider ETS,
+unresolved tokens, excluded paths, and rollback after dependency, manifest-write, or post-write
+validation failure.
 
 ### HMOS-EVAL-08 — Runtime, emulator, and physical-device evidence
 

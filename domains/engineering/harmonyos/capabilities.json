@@ -220,6 +220,33 @@
       ]
     },
     {
+      "id": "harmonyos-business-module-initialization",
+      "description": "Initialize a bounded HarmonyOS business HAR module and its empty <module_id>provider companion from registered reusable templates, register both in the root build-profile.json5, and add the provider as a relative local business-module dependency without generating business behavior, provider ETS implementations, external dependencies, routing, generated outputs, or runtime integration.",
+      "task_types": [
+        "harmonyos-business-module-initialization"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering",
+        "hmos-init-business-module"
+      ],
+      "tools": [
+        "python3 skills/hmos-init-business-module/scripts/init_business_module.py --project-root <harmonyos-project-root> --module-id <module_id> [--display-name <display_name>] [--modules-dir <relative-directory>]"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires task-scoped authorization to create <modules_dir>/<module_id>, ensure providers/, create providers/<module_id>provider, add their two root build-profile.json5 registrations, and add the generated provider's relative local dependency to the business module",
+        "Business or provider implementation, external or unrelated dependency changes, application-specific routing, provider assembly outside the generated pair, build, dependency installation, device execution, signing, and release require separate explicit authorization"
+      ],
+      "dependencies": [
+        "stage-application-and-package-design"
+      ]
+    },
+    {
       "id": "harmonyos-build-and-runtime-verification",
       "description": "Collect reproducible, target-bound HarmonyOS lint, compatibility, build, package, launch, UI, and runtime-log evidence while keeping each evidence class distinct. Run project-defined tests, coverage checks, or self-inspection only when the project overlay supplies their executable commands and acceptance criteria; otherwise record them as an explicit handoff or exclusion.",
       "task_types": [

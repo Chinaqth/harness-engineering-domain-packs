@@ -3,7 +3,7 @@
   "id": "engineering.harmonyos",
   "display_name": "HarmonyOS Engineering",
   "description": "Owns reusable HarmonyOS application delivery practice and evaluation.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "status": "active",
   "owner": "platform-harmony",
   "inherits": [],
@@ -16,6 +16,7 @@
       "harmonyos-state-management-migration",
       "harmonyos-api-compatibility-analysis",
       "harmonyos-module-and-package-design",
+      "harmonyos-business-module-initialization",
       "harmonyos-build-and-verification",
       "harmonyos-technical-knowledge-retrieval"
     ],
@@ -26,6 +27,7 @@
       "UIAbility or ExtensionAbility implementation",
       "HarmonyOS SDK or API compatibility configuration",
       "HAP, HAR, HSP, or App Pack packaging metadata",
+      "HarmonyOS business-module and providers/ companion layout with root build-profile.json5 registrations",
       "HarmonyOS lint, unit-test, coverage, or self-inspection configuration"
     ]
   },

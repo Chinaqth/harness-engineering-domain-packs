@@ -1,12 +1,12 @@
 # HarmonyOS Engineering Domain 中文导览
 
-本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `2.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
+本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `2.1.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
 
 ## 核心职责与运行方式
 
 本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析，以及构建和运行时证据收集。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
 
-六个用户添加的 Skill 包按包级粒度原样保留，连同其嵌套参考语料、索引、脚本和测试案例一起作为非权威候选输入。Domain 的七项能力除统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper 外，还按 `capabilities.json` 的接线将相关保留包绑定为对应能力的 Skill 输入；wrapper 仍按隔离政策使用这些包，只能用它们生成搜索词、检索线索或待验证假设。早期的逐 Skill 制品评分阶段已被 Owner 明确豁免，先前记录的 `blocked` 评估仅作为历史证据保留，不再作为门槛；六个包均不因接线或激活而获得政策、版本或平台权威性。
+七个用户添加的 Skill 包作为非权威输入保留。Domain 的八项能力除统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper 外，还按 `capabilities.json` 将相关包接线为对应能力输入；其中 `hmos-init-business-module` 只能在明确授权的 HarmonyOS 业务模块与空 provider 配对初始化任务中运行包内确定性脚本，其他包仍仅用于生成检索线索或待验证假设。早期逐 Skill 制品评分阶段的 Owner 豁免仍作为历史事实保留；任何包都不因接线或激活获得政策、版本或平台权威性。
 
 `devecocli` 是 Domain 的组装适配器：统一承接文档检索、兼容性检查、lint、构建、设备发现与运行、UI 检查和日志采集。调用前要验证安装版本、子命令、参数和授权；Skill 中遗留的 `mcp_codegenie-*`、`deveco-mcp` 或示例命令不构成可用性保证，也不能绕过现有权限和证据要求。静态检查、构建、打包、运行和发布是彼此独立的证据类别，某一类成功不证明其他类别通过。
 
@@ -17,7 +17,7 @@
 | `DOMAIN.md` | 定义目的、边界、输入、输出、交接、失败模式和成熟度。 | 为所有 HarmonyOS 工作提供稳定专业基线，并明确 Skill 语料的辅助地位。 |
 | `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，激活证据见 `changes/engineering.harmonyos-activation/activation-evidence.json`。 |
 | `owners.json` | 声明责任归属。 | 将主 Owner 绑定到 `platform-harmony`，不隐含额外审批权。 |
-| `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 七类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper，并按职责接线相关保留包与其本地检索脚本；wrapper 再按需隔离使用保留包的非权威输入，并通过 `devecocli` 组装执行证据。 |
+| `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 八类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper，并按职责接线相关包；通用业务/provider 模块配对初始化能力使用受限事务脚本，其余项目验证通过 `devecocli` 组装证据。 |
 | `routes.json` | 定义任务类型、识别信号和候选能力。 | 为兼容的 HarmonyOS 请求提供候选路由；Domain 已激活，具备路由资格。 |
 | `README-CH.md` | 提供中文导览和完整生产文件清单。 | 解释英文制品，不产生新的规范。 |
 | `rules/BASE.md` | 定义可执行的专业不变量。 | 强制新架构使用状态管理 V2，并约束版本基线、权威来源、Stage/ArkTS/ArkUI、V1 迁移、兼容性、工具、证据、权限和交接。 |
@@ -34,15 +34,19 @@
 | `workflows/` | 保存可重复执行的前置条件、步骤、验证、失败处理与交接。 |
 | `evaluators/` | 保存独立验收、负向路径、严重度和 verdict 语义。 |
 | `templates/` | 保存不含项目私有事实的可复用交付结构。 |
-| `skills/` | 保存能力统一绑定的执行 wrapper，以及六个按能力接线、仅供隔离候选输入的原样保留包。 |
+| `skills/` | 保存能力统一绑定的执行 wrapper，以及七个按能力接线的非权威输入包。 |
 
-## 执行 wrapper 与六个保留包
+## 执行 wrapper 与七个保留包
 
 ### `harmonyos-engineering`：能力统一绑定的执行 wrapper
 
-这是 Domain 的可执行 Skill 入口。它强制新项目、新增组件和重写状态界面采用状态管理 V2，将 V1 限定为遗留迁移输入；同时执行输入契约、权威来源核验、最小可回滚改动、`devecocli` 操作边界、证据类别分离和失败关闭交接。它不继承保留包的工具可用性、严重度、版本或验收结论；对六个保留包的任何声明都先隔离，只允许其作为搜索词或假设，直到获得适用版本的官方文档与项目实证。
+这是 Domain 的可执行 Skill 入口。它强制新项目、新增组件和重写状态界面采用状态管理 V2，将 V1 限定为遗留迁移输入；同时执行输入契约、权威来源核验、最小可回滚改动、证据类别分离和失败关闭交接。它不继承保留包的工具可用性、严重度、版本或验收结论；通用业务/provider 配对初始化脚本仅能执行声明的两个骨架、局部依赖与根清单变更，其余包声明必须先获得适用版本的官方文档与项目实证。
 
-以下六个包按 `capabilities.json` 接线到相应能力，但仍不是英文核心制品之上的权威来源。
+以下七个包按 `capabilities.json` 接线到相应能力，但仍不是英文核心制品之上的权威来源。
+
+### `hmos-init-business-module`：HarmonyOS 业务模块与 provider 配对初始化
+
+在确认项目根目录、声明的相对模块目录、根 `build-profile.json5`、合法模块 ID、两个目标均不存在及写入授权后，运行包内 Python 脚本创建业务 HAR 和 `providers/<module_id>provider` HAR，登记两个根模块，并在业务包中添加 provider 的相对 `file:` 依赖；未指定业务目录时默认使用 `features/`。Provider 的 `src/main/ets/` 与 `Index.ets` 保持空，不生成 Service、接口、Router 或其他实现，也不复制参考工程的锁文件和依赖缓存；失败时必须验证两个模块、根清单和新建的空 `providers/` 目录均已回滚。
 
 ### `hmos-arkts-knowledge-retriever`：ArkTS 语言知识检索
 
@@ -74,11 +78,31 @@
 
 ### 完整生产目录清单
 
-以下 96 个路径是当前 Domain 根目录下的全部非隐藏生产目录。每个路径均精确相对于 Domain 根目录并以 `/` 结尾；嵌套目录沿用所属 Skill 的职责说明。`scripts/__pycache__/` 是当前仓库中实际存在的非隐藏目录，仅作为现状清点，不表示应依赖其中的生成缓存。
+以下路径是当前 Domain 根目录下的全部非隐藏生产目录。每个路径均精确相对于 Domain 根目录并以 `/` 结尾；嵌套目录沿用所属 Skill 的职责说明。`scripts/__pycache__/` 是当前仓库中实际存在的非隐藏目录，仅作为现状清点，不表示应依赖其中的生成缓存。
 
 - `evaluators/`
 - `rules/`
 - `skills/`
+- `skills/hmos-init-business-module/`
+- `skills/hmos-init-business-module/agents/`
+- `skills/hmos-init-business-module/assets/`
+- `skills/hmos-init-business-module/assets/module-template/`
+- `skills/hmos-init-business-module/assets/module-template/src/`
+- `skills/hmos-init-business-module/assets/module-template/src/main/`
+- `skills/hmos-init-business-module/assets/module-template/src/main/resources/`
+- `skills/hmos-init-business-module/assets/module-template/src/main/resources/base/`
+- `skills/hmos-init-business-module/assets/module-template/src/main/resources/base/element/`
+- `skills/hmos-init-business-module/assets/module-template/src/ohosTest/`
+- `skills/hmos-init-business-module/assets/module-template/src/ohosTest/ets/`
+- `skills/hmos-init-business-module/assets/module-template/src/ohosTest/ets/test/`
+- `skills/hmos-init-business-module/assets/module-template/src/test/`
+- `skills/hmos-init-business-module/assets/provider-template/`
+- `skills/hmos-init-business-module/assets/provider-template/src/`
+- `skills/hmos-init-business-module/assets/provider-template/src/main/`
+- `skills/hmos-init-business-module/assets/provider-template/src/main/resources/`
+- `skills/hmos-init-business-module/assets/provider-template/src/main/resources/base/`
+- `skills/hmos-init-business-module/assets/provider-template/src/main/resources/base/element/`
+- `skills/hmos-init-business-module/scripts/`
 - `skills/harmonyos-engineering/`
 - `skills/hmos-arkts-deprecated-interface-checker/`
 - `skills/hmos-arkts-deprecated-interface-checker/references/`
@@ -187,6 +211,35 @@
 - `skills/harmonyos-engineering/SKILL.md`
 - `templates/delivery-evidence.md`
 - `workflows/WORKFLOW.md`
+
+### HarmonyOS 业务模块与 provider 配对初始化包文件
+
+- `skills/hmos-init-business-module/SKILL.md`
+- `skills/hmos-init-business-module/agents/openai.yaml`
+- `skills/hmos-init-business-module/assets/module-template/.gitignore`
+- `skills/hmos-init-business-module/assets/module-template/Index.ets`
+- `skills/hmos-init-business-module/assets/module-template/build-profile.json5`
+- `skills/hmos-init-business-module/assets/module-template/hvigorfile.ts`
+- `skills/hmos-init-business-module/assets/module-template/obfuscation-rules.txt`
+- `skills/hmos-init-business-module/assets/module-template/oh-package.json5`
+- `skills/hmos-init-business-module/assets/module-template/src/main/module.json5`
+- `skills/hmos-init-business-module/assets/module-template/src/main/resources/base/element/float.json`
+- `skills/hmos-init-business-module/assets/module-template/src/main/resources/base/element/string.json`
+- `skills/hmos-init-business-module/assets/module-template/src/ohosTest/ets/test/Ability.test.ets`
+- `skills/hmos-init-business-module/assets/module-template/src/ohosTest/ets/test/List.test.ets`
+- `skills/hmos-init-business-module/assets/module-template/src/ohosTest/module.json5`
+- `skills/hmos-init-business-module/assets/module-template/src/test/List.test.ets`
+- `skills/hmos-init-business-module/assets/module-template/src/test/LocalUnit.test.ets`
+- `skills/hmos-init-business-module/assets/provider-template/.gitignore`
+- `skills/hmos-init-business-module/assets/provider-template/Index.ets`
+- `skills/hmos-init-business-module/assets/provider-template/build-profile.json5`
+- `skills/hmos-init-business-module/assets/provider-template/hvigorfile.ts`
+- `skills/hmos-init-business-module/assets/provider-template/obfuscation-rules.txt`
+- `skills/hmos-init-business-module/assets/provider-template/oh-package.json5`
+- `skills/hmos-init-business-module/assets/provider-template/src/main/module.json5`
+- `skills/hmos-init-business-module/assets/provider-template/src/main/resources/base/element/float.json`
+- `skills/hmos-init-business-module/assets/provider-template/src/main/resources/base/element/string.json`
+- `skills/hmos-init-business-module/scripts/init_business_module.py`
 
 ### ArkTS 语言知识检索包文件
 

@@ -5,7 +5,7 @@ Domain: `engineering.harmonyos`
 Owner: `platform-harmony`  
 Lifecycle: `active`
 
-This inventory assembles the six user-supplied Skill packages as capability units. It does not modify, endorse, or make the bundled corpora authoritative. The original Skill files and references remain implementation inputs; current, version-specific Huawei documentation and project verification control whenever cached guidance conflicts with the selected SDK or API baseline. [REPO-HARMONYOS-IDENTITY] [HMOS-ARKTS] [HMOS-ARKUI-V2] [HMOS-ARKUI-MIGRATION] [HMOS-TESTING]
+This inventory assembles the seven user-supplied Skill packages as capability units. It does not endorse or make bundled content authoritative. The original Skill files, references, scripts, and assets remain implementation inputs; current, version-specific Huawei documentation and project verification control whenever cached guidance conflicts with the selected SDK or API baseline. [REPO-HARMONYOS-IDENTITY] [HMOS-ARKTS] [HMOS-ARKUI-V2] [HMOS-ARKUI-MIGRATION] [HMOS-TESTING]
 
 ## Assembly Contract
 
@@ -20,6 +20,17 @@ Domain assembly uses `devecocli` as the available execution boundary. This is an
 | Deprecated or target-version compatibility checking | `devecocli check compat`, after obtaining real version identifiers with `devecocli check compat versions` | Supply explicit source and target versions. Compatibility results require documented replacement review and follow-up verification. |
 | `mcp_codegenie-mcp_build_project` or a generic DevEco MCP build | `devecocli build` with the project product, module, and build mode | A build passes only when the command exits successfully and its requested artifacts are located. Signing, installation, device execution, and release remain separate concerns. |
 | Missing tool or unsupported operation | Stop the affected automated step, preserve partial evidence, and report `needs_input` or a manual-review fallback explicitly | Never represent a manual review, local-corpus search, lint pass, or compatibility scan as a compile, test, device, or release pass. |
+
+The `hmos-init-business-module` package is a narrower exception to the project-operation adapter: its package-local Python script may perform only the explicitly authorized business/provider scaffold creation, local dependency update, and root manifest registration described by its Skill contract. It does not replace `devecocli` for documentation, lint, compatibility, build, device, UI, or runtime evidence.
+
+## `hmos-init-business-module`
+
+- **Responsibility:** Create the reusable HarmonyOS business HAR under `<modules_dir>/<module_id>`, create an empty companion HAR under `providers/<module_id>provider`, register both, and add the provider as a relative local business dependency.
+- **Triggers:** Requests to create, scaffold, or initialize a HarmonyOS business module and its provider convention without implementing their behavior or runtime integration.
+- **Inputs:** A HarmonyOS project root containing `build-profile.json5`; an existing relative module directory, defaulting to `features`; a lowercase underscore-compatible module ID; and an optional display name.
+- **Outputs:** Template-derived business and provider files, an empty provider `src/main/ets/`, the business local dependency, two root registrations, and a JSON summary separating both created trees from the manifest update.
+- **Declared tool dependencies:** Python 3, the package-local `scripts/init_business_module.py`, `assets/module-template/`, and `assets/provider-template/`. No external package installation or MCP dependency is declared.
+- **Safety and version boundaries:** Refuse invalid or duplicate modules, absolute or parent-traversing module directories, and roll back both modules plus a newly created empty providers directory when any step fails. Do not add business/provider implementations, external dependencies, application-specific routing, generated output, build evidence, device execution, signing, or release claims.
 
 ## `hmos-arkts-knowledge-retriever`
 
@@ -45,7 +56,7 @@ Domain assembly uses `devecocli` as the available execution boundary. This is an
 - **Triggers:** Requests to create an ArkUI page/component, change an existing `.ets` feature, repair ArkUI code from diagnostics or screenshots, or implement state, layout, navigation, or interaction behavior.
 - **Inputs:** Requirements; for existing work, the actual target files and project conventions; selected API baseline; current V1/V2 and navigation approach; intended regression path.
 - **Outputs:** A design and uncertainty list, evidence-linked API decisions, scoped code or patch, lint diagnostics, up to three bounded repair iterations, and at least one stated regression path for incremental work.
-- **Declared tool dependencies:** The sibling `hmos-arkui-knowledge-retriever`; local quick API, quick rule, style, search-strategy, common-mistake, and checklist references; plus corpus references to `deveco-mcp_check_ets_files` and documentation search. The front matter also mentions `hmos-arkui-mvvm-pattern`, which is not one of the six assembled packages and is therefore an optional unavailable collaborator, not a required Domain capability.
+- **Declared tool dependencies:** The sibling `hmos-arkui-knowledge-retriever`; local quick API, quick rule, style, search-strategy, common-mistake, and checklist references; plus corpus references to `deveco-mcp_check_ets_files` and documentation search. The front matter also mentions `hmos-arkui-mvvm-pattern`, which is not one of the seven assembled packages and is therefore an optional unavailable collaborator, not a required Domain capability.
 - **Safety and version boundaries:** Do not overwrite business logic, replace V1/V2 state management, change navigation architecture, or refactor unrelated modules without authorization. Never invent an API signature. Map documentation queries to `devecocli docs`; map changed-file diagnostics to `devecocli check lint`, then use the project build when compile evidence is required. A manual checklist fallback must be labeled manual and cannot establish compilation success. [HMOS-ARKUI-V2] [HMOS-TESTING]
 
 ## `hmos-arkui-statemgt-migration`
@@ -77,6 +88,6 @@ Domain assembly uses `devecocli` as the available execution boundary. This is an
 
 ## Composition and Handoffs
 
-Knowledge retrieval feeds implementation, migration, deprecated-interface remediation, and build diagnosis. Implementation and migration feed lint and compatibility checks; only a successful configured build can supply compile/package evidence. Stage architecture, HAP/HAR/HSP design, device verification, signing, distribution, security/privacy approval, and production rollout require their owning capability or organizational handoff and must not be inferred from these six packages. [HMOS-STAGE] [HMOS-PACKAGES] [HMOS-TESTING]
+Knowledge retrieval feeds implementation, migration, deprecated-interface remediation, and build diagnosis. Implementation and migration feed lint and compatibility checks; only a successful configured build can supply compile/package evidence. Stage architecture, HAP/HAR/HSP design, device verification, signing, distribution, security/privacy approval, and production rollout require their owning capability or organizational handoff and must not be inferred from these packages. [HMOS-STAGE] [HMOS-PACKAGES] [HMOS-TESTING]
 
-The six units are owner-trusted inputs whose per-Skill artifact scoring was waived by explicit owner direction at Pack activation. They remain non-authoritative discovery aids under the assembly contract above; this inventory neither evaluates them nor changes Domain lifecycle state. [REPO-HARMONYOS-IDENTITY]
+The seven units are owner-trusted inputs whose per-Skill artifact scoring was waived by explicit owner direction at Pack activation. They remain non-authoritative inputs under the assembly contract above; this inventory neither evaluates them nor changes Domain lifecycle state. [REPO-HARMONYOS-IDENTITY]
