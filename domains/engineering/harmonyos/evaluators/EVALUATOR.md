@@ -304,6 +304,52 @@ known good revision or artifact where supplied.
 release authority, or evidence store. Silence, an empty reviewer list, a successful build, or a
 generated package never constitutes approval.
 
+### HMOS-EVAL-11 — Business-module MVVM and provider-boundary integrity
+
+**Pass conditions**
+
+- Pages, dialogs and components are classified by navigability and presentation behavior, render
+  state, and forward intent without initiating network requests or owning business orchestration.
+- ViewModels own business actions, asynchronous sequencing and mutable presentation state. New or
+  rewritten ViewModels and mutable UI-facing objects use `@ObservedV2`, with every refresh-driving
+  property intentionally marked `@Trace`; no V1 decorator is introduced.
+- Endpoint declarations, repository contracts, request execution and network-facing services
+  remain under the business module's `api/` boundary; request/response data models may remain in an
+  established module model boundary.
+- Business route paths, page metadata and parameters remain under `router/`; host-shell adaptation
+  remains under `hmdelegate/` or one documented project equivalent without duplicating business
+  state, networking or route ownership.
+- When `<module>provider` exists, it declares `XxxServiceProvider`, `XxxComponentProvider` and one
+  `XxxProvider` factory/access point; the business HAR implements the interfaces; external consumers
+  depend on provider contracts rather than business implementation-internal paths.
+- Scaffold state is explicit: pair initialization is used only when neither HAR exists; an optional
+  absent provider is recorded not applicable; and an existing business HAR that requires a missing
+  provider remains blocked unless a separately authorized provider-only procedure supplies
+  creation, registration, dependency-update, validation and rollback evidence.
+- A provider-only half-state remains blocked and preserved until an authorized owner selects a
+  recovery or business-only reconstruction procedure with provider-compatibility, registration,
+  dependency-direction and rollback evidence.
+- Public exports expose only deliberate module, routing, shell or provider contracts, and the
+  required business-module build and behavior checks pass for the declared target.
+- The delivery identifies `hmos-business-module-development` as the cross-layer orchestrator and
+  records initialization, ArkUI, ArkTS, Stage/package and verification work as subordinate tracks;
+  no subordinate result silently overrides an accepted architecture decision.
+
+**Required evidence:** directory-to-responsibility inventory; View/ViewModel state and event map;
+traced-property rationale; network-entry inventory; route and shell-delegate ownership map;
+provider declaration, implementation, registration/factory and external-import map; public export
+diff; orchestrator/subordinate capability map; conflict dispositions; configured build and
+task-required scenario results.
+
+**Negative paths:** inspect direct network access from View code, business logic in the provider HAR,
+external imports of ViewModels/repositories/internal pages, duplicate provider access points,
+refresh-driving untraced state, V1 decorators in new work, route definitions in shell delegates,
+required-but-missing provider beside an existing business HAR, unknown provider lifecycle or
+component-builder conventions, plus a provider-only half-state and any attempted implicit deletion,
+overwrite or repurposing. Structural inspection cannot by
+itself pass behavior, a successful build cannot excuse a violated dependency direction, and a
+subordinate Skill recommendation cannot substitute for an architecture-owner decision.
+
 ## Cross-Criterion Evidence Rules
 
 ### Freshness and version relevance
@@ -422,5 +468,7 @@ This evaluator uses the validated `engineering.harmonyos` research ledger at
 [REPO-HARMONYOS-IDENTITY], ArkTS language and API behavior [HMOS-ARKTS], Stage application model
 [HMOS-STAGE], ArkUI state management V2 [HMOS-ARKUI-V2], V1-to-V2 migration guidance
 [HMOS-ARKUI-MIGRATION], HarmonyOS package semantics [HMOS-PACKAGES], and testing and verification
-guidance [HMOS-TESTING]. Source IDs resolve through that ledger; this artifact introduces no new
-source authority.
+guidance [HMOS-TESTING]. HMOS-EVAL-11 additionally uses `USER-BUSINESS-MODULE-CONTRACT` and
+`PROJECT-UGC-EXEMPLAR` from
+`changes/20260817-harmonyos-business-module-development/research/sources.json`; the local exemplar
+is structural project evidence, not platform authority.

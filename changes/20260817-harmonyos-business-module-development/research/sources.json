@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "change_id": "20260817-harmonyos-business-module-development",
+  "sources": [
+    {
+      "id": "USER-BUSINESS-MODULE-CONTRACT",
+      "kind": "owner-requirement",
+      "title": "HarmonyOS business-module development contract supplied in task context",
+      "authority": "domain-requirement-pending-review",
+      "retrieved_at": "2026-08-17",
+      "claims": [
+        "Business modules use MVVM and State Management V2.",
+        "Network access belongs under the business module api directory.",
+        "UI artifacts are classified as components, dialogs, and pages.",
+        "Shell-project delegate content and business routing metadata have dedicated directories.",
+        "An optional xxxprovider module is the sole external bridge and declares service and component contracts implemented by xxx."
+      ]
+    },
+    {
+      "id": "PROJECT-UGC-EXEMPLAR",
+      "kind": "local-project-exemplar",
+      "title": "drill-hm features/ugc and provider/ugcprovider architecture",
+      "locator": "/Users/albertq/zyc-wrok-space/Dirll/drill-hm/features/ugc",
+      "authority": "project-evidence-not-platform-authority",
+      "retrieved_at": "2026-08-17",
+      "claims": [
+        "The exemplar separates api, components, dialogs, pages, models, uistate, viewmodels, router, hmrouter, and shell delegate code.",
+        "ViewModels and mutable UI models use ObservedV2 with traced properties.",
+        "Network repository interfaces, implementations, endpoints, and services remain under api.",
+        "The provider HAR declares an external router interface and service key while the business HAR implements the interface."
+      ]
+    },
+    {
+      "id": "HMOS-ARKUI-V2",
+      "kind": "existing-research-ledger-reference",
+      "locator": "changes/engineering.harmonyos-completion/research/sources.json#HMOS-ARKUI-V2",
+      "authority": "primary",
+      "retrieved_at": "2026-08-17"
+    },
+    {
+      "id": "REPO-HARMONYOS-IDENTITY",
+      "kind": "existing-research-ledger-reference",
+      "locator": "changes/engineering.harmonyos-completion/research/sources.json#REPO-HARMONYOS-IDENTITY",
+      "authority": "repository-fact",
+      "retrieved_at": "2026-08-17"
+    }
+  ]
+}

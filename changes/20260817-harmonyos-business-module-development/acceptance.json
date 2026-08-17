@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "change_id": "20260817-harmonyos-business-module-development",
+  "risk": "G1",
+  "status": "done",
+  "criteria": [
+    {
+      "id": "AC-01",
+      "description": "业务模块开发 Skill 完整定义 MVVM、V2、目录、provider、验证和失败关闭契约。",
+      "status": "passing",
+      "evidence": [
+        "domains/engineering/harmonyos/skills/hmos-business-module-development/SKILL.md",
+        "domains/engineering/harmonyos/skills/hmos-business-module-development/references/business-module-architecture.md"
+      ]
+    },
+    {
+      "id": "AC-02",
+      "description": "provider 契约声明在 provider HAR，实现在业务 HAR，外部依赖方向唯一且可评估。",
+      "status": "passing",
+      "evidence": [
+        "domains/engineering/harmonyos/skills/hmos-business-module-development/references/business-module-architecture.md",
+        "domains/engineering/harmonyos/evaluators/EVALUATOR.md#hmos-eval-11--business-module-mvvm-and-provider-boundary-integrity"
+      ]
+    },
+    {
+      "id": "AC-03",
+      "description": "初始化能力保持窄边界，完整开发使用独立 task type、能力和路由。",
+      "status": "passing",
+      "evidence": [
+        "domains/engineering/harmonyos/capabilities.json",
+        "domains/engineering/harmonyos/routes.json"
+      ]
+    },
+    {
+      "id": "AC-04",
+      "description": "HarmonyOS manifest、registry、workflow、evaluator、Skill 清单和导览一致。",
+      "status": "passing",
+      "evidence": [
+        "changes/20260817-harmonyos-business-module-development/validation.md"
+      ]
+    },
+    {
+      "id": "AC-05",
+      "description": "Domain 全量确定性检查通过。",
+      "status": "passing",
+      "evidence": [
+        "changes/20260817-harmonyos-business-module-development/validation.md"
+      ]
+    },
+    {
+      "id": "AC-06",
+      "description": "非 Generator 的 Harmony Domain reviewer 完成专业正确性评审。",
+      "status": "passing",
+      "evidence": [
+        "changes/20260817-harmonyos-business-module-development/evaluations/skill-business-module.3.evaluation.json",
+        "changes/20260817-harmonyos-business-module-development/evaluations/capabilities-json.2.evaluation.json",
+        "changes/20260817-harmonyos-business-module-development/evaluations/routes-json.1.evaluation.json",
+        "changes/20260817-harmonyos-business-module-development/evaluations/workflow.2.evaluation.json",
+        "changes/20260817-harmonyos-business-module-development/evaluations/evaluator.1.evaluation.json"
+      ]
+    }
+  ]
+}

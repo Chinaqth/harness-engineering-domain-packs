@@ -10,7 +10,8 @@ This workflow turns an authorized HarmonyOS task into a reviewable architecture 
 implementation or migration, and an evidence-bearing handoff. It covers authoritative knowledge
 retrieval, ArkTS and ArkUI delivery, Stage-model and package design, deprecated-interface and
 compatibility work, ArkUI state-management V1-to-V2 migration, deterministic HarmonyOS business/provider-module
-initialization, and verification through verified `devecocli` interfaces.
+initialization, MVVM business-module development, and verification through verified `devecocli`
+interfaces.
 
 The workflow applies `engineering.harmonyos` rules. It does not select an organization's SDK or
 API baseline, grant repository or device access, authorize dependency changes, handle signing
@@ -30,6 +31,7 @@ revision, affected application and modules, evidence location, and accountable h
 | ArkUI state model | Existing V1/V2 generation, observed data flow, ownership, initialization, persistence, reuse, and intentional mixed boundaries | Do not infer decorator conversions or change observation behavior. |
 | Package intent | Product, modules, intended HAP/HAR/HSP boundaries, App Pack scope, reuse and runtime expectations | Do not redesign module topology or claim package suitability. |
 | Business-module initialization inputs | Confirmed HarmonyOS project root, existing relative module directory, root `build-profile.json5`, valid module ID, optional display name, provider naming convention, and excluded integration scope | Do not run the initializer or infer business/provider behavior, external dependencies, routing, build, or runtime integration. |
+| Business-module development inputs | Existing business HAR, optional provider HAR, MVVM ownership map, V2 baseline, required UI/API/routes/shell integration, external consumers, public contracts, build target, and rollback boundary | Do not invent provider lifecycle, routing framework, public methods, dependency changes, or host-shell behavior. |
 | Authorized execution contract | Permitted reads and writes, verified `devecocli` availability and subcommands, project configuration, tests, device access, retry bound, and rollback procedure | Do not invent commands, install tools, mutate files, or cross the missing permission boundary. |
 | Quality and handoff contract | Required lint, compatibility, build, unit, coverage, runtime, device, accessibility, security, performance, power, stability, signing, and release checks; named decision owners | Run only applicable authorized baseline checks and leave dependent claims unverified. |
 
@@ -150,7 +152,58 @@ directory, escaped providers symlink, existing business/provider target, duplica
 unwritable manifest, invalid dependency update, non-empty provider ETS, unresolved template token,
 missing required path, and any excluded generated or integration path. Do not repair a failure by widening scope.
 
-### 5. Implement ArkTS and ArkUI behavior
+### 5. Develop a HarmonyOS business module
+
+Use this track for `harmonyos-business-module-development`; keep scaffold-only requests in track 4.
+
+1. Load `hmos-business-module-development` and its architecture reference. Inventory the business
+   HAR, optional `<module>provider` HAR, public exports, external imports, UI artifacts, ViewModels,
+   mutable UI state, network entry points, routes, host-shell delegates and tests.
+2. Resolve scaffold state: initialize only when neither HAR exists; proceed without provider when
+   it is optional and absent; when an existing business HAR requires a missing provider, block
+   unless a separately authorized provider-only capability or project procedure defines creation,
+   registration, dependency update, validation and rollback. Never run the pair initializer against
+   an existing business target. When only the provider HAR exists, preserve it and block until an
+   owner-approved recovery or business-only reconstruction procedure verifies compatibility,
+   registrations, dependency direction and rollback; never delete, overwrite or repurpose it.
+3. Record initialization, ArkUI, ArkTS, Stage/package and verification capabilities as subordinate
+   tracks. They retain authority over their professional checks but may not independently change
+   the accepted MVVM ownership, directory classification, route/shell separation, provider
+   dependency direction or public exports.
+4. Map each scoped file to one responsibility. Treat `pages/`, `dialogs/` and `components/` as the
+   View; keep business actions, asynchronous orchestration and mutable presentation state in
+   `viewmodels/`; keep endpoints, repositories, request execution and network-facing services in
+   `api/`, while preserving an established `models/request` and `models/response` boundary.
+5. Apply `HMOS-RULE-05`. New or rewritten ViewModels and mutable UI-facing objects use
+   `@ObservedV2`; fields whose mutation drives UI refresh use `@Trace`. Do not make transport
+   objects observable by default or introduce V1 decorators.
+6. Keep module paths, page metadata and route parameters under `router/`. Keep host-shell adapters
+   under `hmdelegate/` or the recorded project-equivalent directory without duplicating canonical
+   business state, network execution or route definitions.
+7. When a provider HAR exists, declare `XxxServiceProvider`, `XxxComponentProvider` and one
+   `XxxProvider` singleton factory/access point there. Implement the contracts in the business HAR;
+   external consumers depend on provider contracts and do not import business internals.
+8. Implement the smallest vertical slice, update public exports deliberately, then verify directory
+   responsibility, View-to-ViewModel flow, API containment, route/shell ownership, provider
+   declaration-to-implementation mapping and external dependency direction.
+9. Run the affected configured build and every task-required negative, test or runtime scenario.
+   Keep structural inspection, compilation and observed behavior as separate evidence classes.
+
+**Output and evidence:** responsibility inventory; primary-orchestrator and subordinate-capability
+map; MVVM and state-ownership map; traced-property
+rationale; network entry-point inventory; route and shell-delegate changes; provider interfaces,
+implementations and external imports; public export diff; build/scenario results; deviations and
+rollback instructions.
+
+**Negative paths:** stop when an existing business HAR requires a missing provider without an
+approved provider-only path, only a provider HAR exists without an authorized recovery path, a
+subordinate capability recommends a conflicting architecture, the
+provider lifecycle or component-builder convention is unknown,
+the project mandates a conflicting topology, external consumers already bypass the provider and
+migration is outside scope, or a change requires unapproved dependencies, navigation framework,
+host-shell behavior, public contract migration, signing or production access.
+
+### 6. Implement ArkTS and ArkUI behavior
 
 1. Confirm the target files, accepted UI states, current navigation and state-management model,
    project conventions, and permissions to edit.
@@ -185,7 +238,7 @@ repair loop fails to converge, stop. Revert or isolate the unsafe batch when aut
 diagnostics, and hand off root-cause or design questions. A manual checklist never becomes a lint
 or compile pass.
 
-### 6. Analyze deprecation and compatibility
+### 7. Analyze deprecation and compatibility
 
 1. Declare source and target SDK/API versions, supported matrix, file scope, exclusions, and
    remediation authority.
@@ -213,7 +266,7 @@ a verified replacement. If versions are invalid, the tool is unavailable, a repl
 verified, or compatibility results conflict with compilation or runtime evidence, retain all
 evidence and block the dependent compatibility claim.
 
-### 7. Migrate ArkUI state management from V1 to V2
+### 8. Migrate ArkUI state management from V1 to V2
 
 1. Confirm that V2 is supported by the declared target baseline; do not rely solely on the Skill
    corpus assumption that V2 guidance targets API 12 or later. [HMOS-ARKUI-V2]
@@ -243,7 +296,7 @@ other dependent batches proceed.
 error, persistence change, performance regression, or unsupported mixing blocks the batch. Preserve
 the reproduction and hand unresolved semantics to the ArkUI or architecture owner.
 
-### 8. Run final compilation verification through `devecocli`
+### 9. Run final compilation verification through `devecocli`
 
 1. Confirm the installed `devecocli` version, authorization, project identity, and availability of
    `devecocli build`. Resolve exact syntax from the tool; project overlays supply product, module,
@@ -273,7 +326,7 @@ or absent target remains failed or unverified. Never invent flags or output path
 diagnostic, loosen configuration, delete a test, broaden an ignore, alter signing, or change an
 unrelated file to obtain a pass.
 
-### 9. Reconcile evidence and hand off
+### 10. Reconcile evidence and hand off
 
 1. Rerun the narrow checks affected by the final remediation, then the full authorized check set
    required by the task contract.
@@ -362,4 +415,8 @@ migration [HMOS-ARKUI-MIGRATION], package semantics [HMOS-PACKAGES], testing ser
 [HMOS-TESTING], and registered identity [REPO-HARMONYOS-IDENTITY]. It also composes the seven
 user-supplied capability units summarized in `skills/README.md` as provisional workflow input;
 their bundled corpora, tool names, examples, and version claims are not independently promoted to
-authority by this document.
+authority by this document. The business-module track additionally uses
+`USER-BUSINESS-MODULE-CONTRACT` and `PROJECT-UGC-EXEMPLAR` from
+`changes/20260817-harmonyos-business-module-development/research/sources.json`; the exemplar proves
+only the observed project structure, while the supplied contract remains subject to Domain-owner
+review.

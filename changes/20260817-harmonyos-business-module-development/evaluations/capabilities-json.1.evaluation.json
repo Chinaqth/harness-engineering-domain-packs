@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "artifact": "capabilities.json",
+  "artifact_sha256": "16eb8e6da750aedf1c6b8be1f7bfbdb2023c3db53c7bdf3591535185072898c5",
+  "evaluator": "/root/eval_business_capability",
+  "iteration": 1,
+  "evaluated_at": "2026-08-17T13:24:13Z",
+  "dimensions": {
+    "contract": 86.0,
+    "professional": 94.0,
+    "boundaries": 98.0,
+    "executability": 84.0,
+    "verifiability": 96.0,
+    "architecture": 84.0,
+    "maintainability": 96.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "USER-BUSINESS-MODULE-CONTRACT",
+    "PROJECT-UGC-EXEMPLAR",
+    "HMOS-ARKUI-V2",
+    "REPO-HARMONYOS-IDENTITY"
+  ],
+  "findings": [
+    {
+      "severity": "p1",
+      "summary": "The business-module capability declares initialization as a subordinate concern but does not wire the initialization capability as a dependency.",
+      "evidence": "In domains/engineering/harmonyos/capabilities.json, harmonyos-business-module-development states that initialization remains subordinate, but its dependencies contain only stage-application-and-package-design, arkts-implementation-and-static-correctness, arkui-interface-delivery, and harmonyos-build-and-runtime-verification; its skills likewise omit hmos-init-business-module. This conflicts with requirements.md AC-04, workflows/WORKFLOW.md track 5 step 2, and skills/hmos-business-module-development/SKILL.md, which conditionally invokes hmos-init-business-module when the module pair is absent. A resolver that selects Skills through declared capability dependencies cannot discover that conditional prerequisite from this capability record, leaving the missing-scaffold journey incompletely wired."
+    }
+  ],
+  "blocked_reasons": [],
+  "overall_score": 90.9,
+  "verdict": "fail"
+}

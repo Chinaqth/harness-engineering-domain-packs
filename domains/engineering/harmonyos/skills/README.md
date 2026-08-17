@@ -5,7 +5,7 @@ Domain: `engineering.harmonyos`
 Owner: `platform-harmony`  
 Lifecycle: `active`
 
-This inventory assembles the seven user-supplied Skill packages as capability units. It does not endorse or make bundled content authoritative. The original Skill files, references, scripts, and assets remain implementation inputs; current, version-specific Huawei documentation and project verification control whenever cached guidance conflicts with the selected SDK or API baseline. [REPO-HARMONYOS-IDENTITY] [HMOS-ARKTS] [HMOS-ARKUI-V2] [HMOS-ARKUI-MIGRATION] [HMOS-TESTING]
+This inventory assembles the seven user-supplied Skill packages as capability units and documents two Domain-authored business-module Skills. It does not endorse or make bundled content authoritative. The original bundled Skill files, references, scripts, and assets remain implementation inputs; current, version-specific Huawei documentation and project verification control whenever cached guidance conflicts with the selected SDK or API baseline. [REPO-HARMONYOS-IDENTITY] [HMOS-ARKTS] [HMOS-ARKUI-V2] [HMOS-ARKUI-MIGRATION] [HMOS-TESTING]
 
 ## Assembly Contract
 
@@ -31,6 +31,15 @@ The `hmos-init-business-module` package is a narrower exception to the project-o
 - **Outputs:** Template-derived business and provider files, an empty provider `src/main/ets/`, the business local dependency, two root registrations, and a JSON summary separating both created trees from the manifest update.
 - **Declared tool dependencies:** Python 3, the package-local `scripts/init_business_module.py`, `assets/module-template/`, and `assets/provider-template/`. No external package installation or MCP dependency is declared.
 - **Safety and version boundaries:** Refuse invalid or duplicate modules, absolute or parent-traversing module directories, and roll back both modules plus a newly created empty providers directory when any step fails. Do not add business/provider implementations, external dependencies, application-specific routing, generated output, build evidence, device execution, signing, or release claims.
+
+## `hmos-business-module-development`
+
+- **Responsibility:** Implement or revise a complete HarmonyOS business HAR with an explicit MVVM, State Management V2, API containment, UI classification, module routing, host-shell delegate, and optional provider-bridge contract.
+- **Triggers:** Business-module feature work after scaffolding that spans ViewModels, network access, pages/dialogs/components, routes, shell integration, or externally consumed service/component contracts.
+- **Inputs:** Existing business/provider modules; SDK/API and V2 baseline; required behavior and external consumers; current routing, network and registration conventions; authorized files, build target, scenarios and rollback boundary.
+- **Outputs:** Responsibility and dependency maps, primary-orchestrator/subordinate-capability map, bounded implementation, deliberate public exports, provider declaration-to-implementation mapping, configured build/scenario evidence, conflict dispositions, deviations and recovery instructions.
+- **Declared dependencies:** The Domain workflow and rules, `hmos-arkui-develop-skill`, `hmos-arkui-knowledge-retriever`, the Domain-authored architecture reference, and verified `devecocli` documentation/build interfaces.
+- **Safety and version boundaries:** Do not use it for scaffold-only initialization. Pair initialization applies only when neither HAR exists; a required missing provider beside an existing business HAR blocks until an authorized provider-only path exists, while a provider-only half-state is preserved and blocked pending authorized recovery. ArkUI, ArkTS, Stage/package and verification Skills are subordinate within this route and cannot silently change its cross-layer architecture. Do not invent provider lifecycle, public methods, route frameworks or directory aliases; stop when a project conflict or public-contract migration requires an architecture decision. New or rewritten state-managed surfaces use V2.
 
 ## `hmos-arkts-knowledge-retriever`
 
@@ -88,6 +97,6 @@ The `hmos-init-business-module` package is a narrower exception to the project-o
 
 ## Composition and Handoffs
 
-Knowledge retrieval feeds implementation, migration, deprecated-interface remediation, and build diagnosis. Implementation and migration feed lint and compatibility checks; only a successful configured build can supply compile/package evidence. Stage architecture, HAP/HAR/HSP design, device verification, signing, distribution, security/privacy approval, and production rollout require their owning capability or organizational handoff and must not be inferred from these packages. [HMOS-STAGE] [HMOS-PACKAGES] [HMOS-TESTING]
+Knowledge retrieval feeds implementation, business-module delivery, migration, deprecated-interface remediation, and build diagnosis. The initialization Skill may precede the business-module development Skill, but neither may silently inherit the other's permissions. Implementation and migration feed lint and compatibility checks; only a successful configured build can supply compile/package evidence. Stage architecture, HAP/HAR/HSP design, device verification, signing, distribution, security/privacy approval, and production rollout require their owning capability or organizational handoff and must not be inferred from these packages. [HMOS-STAGE] [HMOS-PACKAGES] [HMOS-TESTING]
 
 The seven units are owner-trusted inputs whose per-Skill artifact scoring was waived by explicit owner direction at Pack activation. They remain non-authoritative inputs under the assembly contract above; this inventory neither evaluates them nor changes Domain lifecycle state. [REPO-HARMONYOS-IDENTITY]

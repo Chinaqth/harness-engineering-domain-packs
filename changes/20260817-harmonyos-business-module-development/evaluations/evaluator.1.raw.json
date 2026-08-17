@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "evaluator": "/root/eval_business_capability",
+  "iteration": 1,
+  "evaluated_at": "2026-08-17T13:30:42Z",
+  "source_ids": [
+    "USER-BUSINESS-MODULE-CONTRACT",
+    "PROJECT-UGC-EXEMPLAR",
+    "HMOS-ARKUI-V2",
+    "REPO-HARMONYOS-IDENTITY"
+  ],
+  "dimensions": {
+    "contract": 98,
+    "professional": 96,
+    "boundaries": 99,
+    "executability": 97,
+    "verifiability": 98,
+    "architecture": 98,
+    "maintainability": 97
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "findings": [],
+  "blocked_reasons": []
+}

@@ -1,12 +1,12 @@
 # HarmonyOS Engineering Domain 中文导览
 
-本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `2.1.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
+本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `2.2.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
 
 ## 核心职责与运行方式
 
-本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析，以及构建和运行时证据收集。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
+本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析、业务/provider 模块初始化、MVVM 业务模块开发，以及构建和运行时证据收集。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
 
-七个用户添加的 Skill 包作为非权威输入保留。Domain 的八项能力除统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper 外，还按 `capabilities.json` 将相关包接线为对应能力输入；其中 `hmos-init-business-module` 只能在明确授权的 HarmonyOS 业务模块与空 provider 配对初始化任务中运行包内确定性脚本，其他包仍仅用于生成检索线索或待验证假设。早期逐 Skill 制品评分阶段的 Owner 豁免仍作为历史事实保留；任何包都不因接线或激活获得政策、版本或平台权威性。
+七个用户添加的 Skill 包作为非权威输入保留；另有两个 Domain 自有 Skill 分别负责模块配对初始化和完整业务模块开发。Domain 的九项能力统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper，并按 `capabilities.json` 接线到适用 Skill。`hmos-init-business-module` 只执行两个骨架、局部依赖与根清单变更；`hmos-business-module-development` 负责初始化后的 MVVM、V2、API/UI/router/hmdelegate/provider 架构与交付流程。早期七个保留包的逐 Skill 制品评分 Owner 豁免仍作为历史事实保留；任何保留包都不因接线或激活获得政策、版本或平台权威性。
 
 `devecocli` 是 Domain 的组装适配器：统一承接文档检索、兼容性检查、lint、构建、设备发现与运行、UI 检查和日志采集。调用前要验证安装版本、子命令、参数和授权；Skill 中遗留的 `mcp_codegenie-*`、`deveco-mcp` 或示例命令不构成可用性保证，也不能绕过现有权限和证据要求。静态检查、构建、打包、运行和发布是彼此独立的证据类别，某一类成功不证明其他类别通过。
 
@@ -15,9 +15,9 @@
 | 路径 | 职责 | 实际行为 |
 | --- | --- | --- |
 | `DOMAIN.md` | 定义目的、边界、输入、输出、交接、失败模式和成熟度。 | 为所有 HarmonyOS 工作提供稳定专业基线，并明确 Skill 语料的辅助地位。 |
-| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，激活证据见 `changes/engineering.harmonyos-activation/activation-evidence.json`。 |
+| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，初始激活证据和 2.2.0 变更验收记录均由 manifest 引用。 |
 | `owners.json` | 声明责任归属。 | 将主 Owner 绑定到 `platform-harmony`，不隐含额外审批权。 |
-| `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 八类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper，并按职责接线相关包；通用业务/provider 模块配对初始化能力使用受限事务脚本，其余项目验证通过 `devecocli` 组装证据。 |
+| `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 九类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper；初始化与完整业务开发使用独立能力，其余项目验证通过 `devecocli` 组装证据。 |
 | `routes.json` | 定义任务类型、识别信号和候选能力。 | 为兼容的 HarmonyOS 请求提供候选路由；Domain 已激活，具备路由资格。 |
 | `README-CH.md` | 提供中文导览和完整生产文件清单。 | 解释英文制品，不产生新的规范。 |
 | `rules/BASE.md` | 定义可执行的专业不变量。 | 强制新架构使用状态管理 V2，并约束版本基线、权威来源、Stage/ArkTS/ArkUI、V1 迁移、兼容性、工具、证据、权限和交接。 |
@@ -34,15 +34,19 @@
 | `workflows/` | 保存可重复执行的前置条件、步骤、验证、失败处理与交接。 |
 | `evaluators/` | 保存独立验收、负向路径、严重度和 verdict 语义。 |
 | `templates/` | 保存不含项目私有事实的可复用交付结构。 |
-| `skills/` | 保存能力统一绑定的执行 wrapper，以及七个按能力接线的非权威输入包。 |
+| `skills/` | 保存能力统一绑定的执行 wrapper、七个按能力接线的非权威输入包，以及两个 Domain 自有业务模块 Skill。 |
 
-## 执行 wrapper 与七个保留包
+## 执行 wrapper、Domain 自有 Skill 与七个保留包
 
 ### `harmonyos-engineering`：能力统一绑定的执行 wrapper
 
 这是 Domain 的可执行 Skill 入口。它强制新项目、新增组件和重写状态界面采用状态管理 V2，将 V1 限定为遗留迁移输入；同时执行输入契约、权威来源核验、最小可回滚改动、证据类别分离和失败关闭交接。它不继承保留包的工具可用性、严重度、版本或验收结论；通用业务/provider 配对初始化脚本仅能执行声明的两个骨架、局部依赖与根清单变更，其余包声明必须先获得适用版本的官方文档与项目实证。
 
 以下七个包按 `capabilities.json` 接线到相应能力，但仍不是英文核心制品之上的权威来源。
+
+### `hmos-business-module-development`：HarmonyOS 业务模块完整开发
+
+用于业务 HAR 初始化后的完整功能开发，并作为该 task type 的跨层主编排入口。ArkUI、ArkTS、Stage/package、初始化和验证能力只承担各自子任务，不能静默改写已接受的 MVVM、目录、路由/壳分离、provider 依赖方向或公共接口决策。它要求 View 只负责 `components/`、`dialogs/`、`pages/` 的声明式 UI 与事件转发，ViewModel 负责业务动作、异步编排和可变展示状态，并对新写或重写状态使用 `@ObservedV2` 与有刷新需求的 `@Trace`。网络入口收敛到 `api/`，模块路由收敛到 `router/`，壳工程适配收敛到 `hmdelegate/` 或显式项目映射目录。存在 `<module>provider` 时，provider 只声明 `XxxServiceProvider`、`XxxComponentProvider` 和唯一 `XxxProvider` 工厂/访问点，实际实现位于业务 HAR，外部消费者不得直接依赖业务内部实现路径。
 
 ### `hmos-init-business-module`：HarmonyOS 业务模块与 provider 配对初始化
 
@@ -83,6 +87,8 @@
 - `evaluators/`
 - `rules/`
 - `skills/`
+- `skills/hmos-business-module-development/`
+- `skills/hmos-business-module-development/references/`
 - `skills/hmos-init-business-module/`
 - `skills/hmos-init-business-module/agents/`
 - `skills/hmos-init-business-module/assets/`
@@ -209,6 +215,8 @@
 - `rules/BASE.md`
 - `skills/README.md`
 - `skills/harmonyos-engineering/SKILL.md`
+- `skills/hmos-business-module-development/SKILL.md`
+- `skills/hmos-business-module-development/references/business-module-architecture.md`
 - `templates/delivery-evidence.md`
 - `workflows/WORKFLOW.md`
 

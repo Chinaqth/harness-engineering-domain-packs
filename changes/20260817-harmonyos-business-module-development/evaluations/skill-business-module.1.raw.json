@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "evaluator": "/root/eval_business_skill",
+  "iteration": 1,
+  "evaluated_at": "2026-08-17T13:24:16Z",
+  "source_ids": [
+    "USER-BUSINESS-MODULE-CONTRACT",
+    "PROJECT-UGC-EXEMPLAR",
+    "HMOS-ARKUI-V2",
+    "REPO-HARMONYOS-IDENTITY"
+  ],
+  "dimensions": {
+    "contract": 96,
+    "professional": 93,
+    "boundaries": 97,
+    "executability": 89,
+    "verifiability": 95,
+    "architecture": 96,
+    "maintainability": 95
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "findings": [
+    {
+      "severity": "p2",
+      "summary": "The required-but-missing provider case has no explicit executable branch.",
+      "evidence": "The Skill requires the executor to determine whether a companion provider exists or is required, but invokes hmos-init-business-module only when the entire module pair does not exist and applies the provider workflow only when the provider already exists. The initializer contract refuses an existing business target. Consequently, an existing business HAR that newly requires a missing provider has no defined safe creation, registration, dependency-update, or rollback path. This is an executability gap at the boundary of the conditional provider contract in USER-BUSINESS-MODULE-CONTRACT; PROJECT-UGC-EXEMPLAR demonstrates a provider companion but does not resolve this missing-provider transition."
+    }
+  ],
+  "blocked_reasons": []
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "artifact": "workflows/WORKFLOW.md",
+  "artifact_sha256": "f8705881ee594295b3a2ce76401d25e6db9e6510cf47792f645c27808a835d7d",
+  "evaluator": "independent-domain-artifact-evaluator-workflow",
+  "iteration": 1,
+  "evaluated_at": "2026-08-17T13:28:13Z",
+  "dimensions": {
+    "contract": 97.0,
+    "professional": 96.0,
+    "boundaries": 98.0,
+    "executability": 91.0,
+    "verifiability": 92.0,
+    "architecture": 98.0,
+    "maintainability": 95.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "USER-BUSINESS-MODULE-CONTRACT",
+    "PROJECT-UGC-EXEMPLAR",
+    "HMOS-ARKUI-V2",
+    "REPO-HARMONYOS-IDENTITY"
+  ],
+  "findings": [
+    {
+      "severity": "p2",
+      "summary": "The provider-only scaffold state has no explicit workflow disposition.",
+      "evidence": "Track 5 step 2 explicitly handles neither HAR existing, an existing business HAR with an optional absent provider, and an existing business HAR with a required absent provider, but it does not state what to do when the provider HAR exists and the business HAR is absent. Track 4 refuses initialization when either target already exists, so the pair initializer cannot resolve that state. The Skill and HMOS-EVAL-11 repeat the same branch set. The 'initialize only when neither HAR exists' guard prevents unsafe initialization, but the workflow should explicitly classify the provider-only state as blocked or route it to an authorized recovery procedure so execution and evaluation do not depend on inference."
+    }
+  ],
+  "blocked_reasons": [],
+  "overall_score": 95.3,
+  "verdict": "pass"
+}

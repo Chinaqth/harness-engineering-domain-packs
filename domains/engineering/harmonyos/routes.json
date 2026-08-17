@@ -33,6 +33,21 @@
       ]
     },
     {
+      "id": "harmonyos-business-module-development",
+      "priority": 830,
+      "task_types": [
+        "harmonyos-business-module-development"
+      ],
+      "signals": [
+        "implement or revise a complete HarmonyOS business HAR using MVVM and State Management V2 after scaffolding",
+        "business-module work spanning api, viewmodels, components, dialogs, pages, router, hmdelegate, or provider contracts",
+        "HarmonyOS module requiring XxxServiceProvider and XxxComponentProvider contracts declared in an optional provider HAR and implemented in the business HAR"
+      ],
+      "capabilities": [
+        "harmonyos-business-module-development"
+      ]
+    },
+    {
       "id": "harmonyos-business-module-initialization",
       "priority": 825,
       "task_types": [

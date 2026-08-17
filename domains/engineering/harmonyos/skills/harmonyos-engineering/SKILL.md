@@ -1,6 +1,6 @@
 ---
 name: harmonyos-engineering
-description: Deliver bounded HarmonyOS and ArkTS/ArkUI work through an evidence-preserving workflow, using the seven bundled packages only as quarantined non-authoritative input and permitting the registered business-and-provider module initializer solely for its scoped transactional scaffold operation.
+description: Deliver bounded HarmonyOS and ArkTS/ArkUI work through an evidence-preserving workflow, including separate contracts for business/provider scaffolding and full MVVM business-module development, while using the seven bundled packages only as quarantined non-authoritative input.
 ---
 
 # HarmonyOS Engineering
@@ -55,6 +55,7 @@ Select at most the package or packages needed for the task from `skills/README.m
 | Deprecated or incompatible API investigation | `hmos-arkts-deprecated-interface-checker` |
 | ArkTS/ETS diagnosis and bounded repair | `hmos-arkts-syntax-checker` |
 | HarmonyOS business and empty provider HAR initialization | `hmos-init-business-module` |
+| Complete MVVM business-module development after scaffolding | `hmos-business-module-development` |
 
 Package content is candidate material only. Do not execute its MCP installation instructions, trust
 its cached documentation as current, inherit its severity labels, or treat its examples and tests as
@@ -68,6 +69,13 @@ HarmonyOS scaffold operation after confirming the project root, declared module 
 provider, dependency, and root-registration mutations, and rollback boundary. Its templates are a
 project convention, not platform authority. Do not extend the script's scope to business/provider
 behavior, external dependencies, routing, builds, devices, or runtime integration.
+
+For `harmonyos-business-module-development`, load the Domain-authored
+`hmos-business-module-development` Skill and its architecture reference. It is an operational
+contract backed by `USER-BUSINESS-MODULE-CONTRACT`, `PROJECT-UGC-EXEMPLAR`, and
+`HMOS-ARKUI-V2`; unlike the seven bundled packages, it is not a quarantined corpus. Preserve its
+MVVM, API containment, UI classification, route, shell-delegate and provider dependency direction,
+while treating concrete directory aliases and framework mechanisms as project facts.
 
 Every version-sensitive claim, including API availability, deprecation, replacement, decorator
 mixing, lifecycle, package behavior, tool syntax, and minimum SDK, must be reconciled through
@@ -112,6 +120,10 @@ model context, HAP/HAR/HSP role, navigation and state architecture, SDK/API base
 and relevant existing tests. Use package retrieval only to form candidates, then reconcile every
 material candidate with `devecocli docs` and the project baseline. [HMOS-ARKTS] [HMOS-STAGE]
 [HMOS-PACKAGES]
+
+For complete business-module work, additionally inventory `api/`, `viewmodels/`, mutable UI models,
+`components/`, `dialogs/`, `pages/`, `router/`, the `hmdelegate/` project mapping, provider
+contracts/implementations, public exports and external imports before choosing a change.
 
 For a defect, reproduce or preserve the original diagnostic before editing. For migration, inventory
 data ownership, observation paths, component dependencies, storage, rendering, lifecycle, and

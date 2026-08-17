@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "artifact": "skills/hmos-business-module-development/SKILL.md",
+  "artifact_sha256": "89e855e37ce80db4e4ac7c0608956b9426a137f6ef5535fd7b7dbae5974e3375",
+  "evaluator": "/root/eval_business_skill",
+  "iteration": 3,
+  "evaluated_at": "2026-08-17T13:30:49Z",
+  "dimensions": {
+    "contract": 98.0,
+    "professional": 95.0,
+    "boundaries": 99.0,
+    "executability": 98.0,
+    "verifiability": 97.0,
+    "architecture": 98.0,
+    "maintainability": 97.0
+  },
+  "weights": {
+    "contract": 20,
+    "professional": 20,
+    "boundaries": 15,
+    "executability": 15,
+    "verifiability": 15,
+    "architecture": 10,
+    "maintainability": 5
+  },
+  "hard_gates": {
+    "schema_passed": true,
+    "references_resolved": true,
+    "professional_sources_traceable": true,
+    "no_invented_authority": true,
+    "kernel_constraints_preserved": true,
+    "owner_facts_authoritative": true
+  },
+  "source_ids": [
+    "USER-BUSINESS-MODULE-CONTRACT",
+    "PROJECT-UGC-EXEMPLAR",
+    "HMOS-ARKUI-V2",
+    "REPO-HARMONYOS-IDENTITY"
+  ],
+  "findings": [],
+  "blocked_reasons": [],
+  "overall_score": 97.35,
+  "verdict": "pass"
+}

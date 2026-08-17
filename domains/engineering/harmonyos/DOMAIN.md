@@ -5,8 +5,9 @@
 `engineering.harmonyos` owns reusable professional practice for designing, implementing,
 migrating, verifying, and handing off HarmonyOS applications. Its public baseline covers the
 Stage application model, ArkTS, ArkUI, state-management migration, API compatibility, module and
-package design, deterministic HarmonyOS business-and-provider module initialization, and evidence-bearing
-verification. The registered description is "Owns reusable
+package design, deterministic HarmonyOS business-and-provider module initialization, MVVM
+business-module development with an optional provider bridge, and evidence-bearing verification.
+The registered description is "Owns reusable
 HarmonyOS application delivery practice and evaluation." [REPO-HARMONYOS-IDENTITY]
 
 The Domain favors the Stage model as the long-term application model, with `UIAbility` for
@@ -20,7 +21,7 @@ an ArkUI screen as an isolated artifact. [HMOS-STAGE]
 - Domain ID: `engineering.harmonyos`
 - Display name: `HarmonyOS Engineering`
 - Primary owner: `platform-harmony`
-- Version: `2.1.0`
+- Version: `2.2.0`
 - Lifecycle: `active`
 
 These values are registered repository facts; this document does not assign additional reviewers,
@@ -56,6 +57,11 @@ grant operational permissions. [REPO-HARMONYOS-IDENTITY]
   using registered templates and a bounded transaction. Register both modules and add only their
   relative local dependency without inventing business/provider behavior, external dependencies,
   routing, or runtime wiring.
+- Develop or revise a business HAR through an explicit MVVM and State Management V2 contract:
+  ViewModels own business actions and mutable presentation state; network access is contained by
+  `api/`; Views are classified as `components/`, `dialogs/`, and `pages/`; module routes and
+  host-shell delegates remain separated; and an optional provider HAR is the sole external contract
+  bridge whose service and component interfaces are implemented by the business HAR.
 - Select and review module boundaries using the distinct delivery and reuse semantics of HAP, HAR,
   and HSP artifacts, and account for the App Pack publication unit when release packaging is in
   scope. [HMOS-PACKAGES]
@@ -113,9 +119,11 @@ be guessed. They become explicit assumptions, blockers, or organization-input re
 
 ## Use of Added Skills
 
-The seven added Skills provide owner-trusted operating procedures for ArkTS and ArkUI knowledge retrieval,
-ArkUI implementation, syntax and build diagnostics, deprecated-interface analysis, state
-management migration, and bounded HarmonyOS business-and-provider module initialization. They may help inventory files, narrow a documentation query, structure a
+The seven bundled Skills provide owner-trusted operating procedures for ArkTS and ArkUI knowledge
+retrieval, ArkUI implementation, syntax and build diagnostics, deprecated-interface analysis, and
+state-management migration. Two Domain-authored Skills cover bounded HarmonyOS business/provider
+initialization and complete business-module development. These units may help inventory files,
+narrow a documentation query, structure a
 migration batch, classify diagnostics, or bound a repair loop. Their embedded examples, local
 indexes, commands, tool names, version statements, and severity labels are not independent
 platform or organization policy.
@@ -131,6 +139,7 @@ Each Skill feeds specific registered capabilities as discovery and structuring i
 | `hmos-arkts-deprecated-interface-checker` | `harmonyos-api-deprecation-and-compatibility` | Deprecated-API detection, P0/P1/P2 remediation classification, and documented replacement proposals. |
 | `hmos-arkts-syntax-checker` | `arkts-implementation-and-static-correctness`, `harmonyos-build-and-runtime-verification` | A bounded diagnose-fix-build loop with retry limits and HAP/App artifact reporting. |
 | `hmos-init-business-module` | `harmonyos-business-module-initialization` | Deterministically creates the reusable business HAR plus an empty `providers/<module_id>provider` HAR, registers both, and adds their local dependency while excluding implementation and runtime integration. |
+| `hmos-business-module-development` | `harmonyos-business-module-development` | Orchestrates the MVVM, V2, API containment, UI classification, module routing, shell-delegate and optional provider-bridge contract after scaffolding; composed ArkUI, ArkTS, package and verification work cannot silently override that cross-layer architecture. |
 
 No added Skill independently decides Stage-model architecture or HAP/HAR/HSP topology design;
 `stage-application-and-package-design` operates through the Domain wrapper and authoritative
@@ -167,6 +176,9 @@ Depending on the task, the Domain produces one or more of the following:
 - A module and packaging decision that states why code belongs in an entry or feature HAP, a HAR,
   or an HSP, and records resulting publication, installation, runtime, and reuse implications.
   [HMOS-PACKAGES]
+- A business-module responsibility map covering View/ViewModel state flow, traced properties, API
+  containment, UI classification, route and host-shell ownership, provider interfaces and business
+  implementations, external dependency direction, public exports, build evidence and deviations.
 - A verification record listing the exact checks run, relevant configuration and environment,
   observed results, coverage or self-inspection artifacts where applicable, unresolved warnings,
   and checks not run. [HMOS-TESTING]
@@ -213,9 +225,9 @@ or recommendation is not marked verified unless the recorded check actually exer
 
 ## Maturity and Organization Inputs
 
-This Domain is an active source-supported professional baseline at version `2.1.0`. Activation
+This Domain is an active source-supported professional baseline at version `2.2.0`. Activation
 establishes routing eligibility only; per-Skill artifact scoring was waived by explicit owner
-direction and the seven added Skills remain non-authoritative inputs under the quarantine
+direction and the seven bundled Skills remain non-authoritative inputs under the quarantine
 policy. [REPO-HARMONYOS-IDENTITY]
 
 The following are `needs-org-input` and must be supplied through project overlays, task contracts,
@@ -252,3 +264,9 @@ source IDs:
 - `HMOS-ARKUI-MIGRATION`
 - `HMOS-PACKAGES`
 - `HMOS-TESTING`
+
+Business-module development additionally uses the change-local ledger at
+`changes/20260817-harmonyos-business-module-development/research/sources.json`:
+
+- `USER-BUSINESS-MODULE-CONTRACT`
+- `PROJECT-UGC-EXEMPLAR`

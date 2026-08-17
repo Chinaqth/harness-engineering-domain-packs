@@ -247,6 +247,42 @@
       ]
     },
     {
+      "id": "harmonyos-business-module-development",
+      "description": "Orchestrate development or revision of a HarmonyOS business HAR through an explicit MVVM and State Management V2 contract, containing network access under api, classifying UI as components/dialogs/pages, isolating business routing and host-shell delegation, and keeping an optional <module>provider HAR as the sole external contract bridge whose service and component interfaces are implemented by the business HAR; composed ArkUI, ArkTS, Stage/package, initialization, and verification concerns remain subordinate to the accepted cross-layer architecture.",
+      "task_types": [
+        "harmonyos-business-module-development"
+      ],
+      "workflows": [
+        "WORKFLOW.md"
+      ],
+      "skills": [
+        "harmonyos-engineering",
+        "hmos-business-module-development",
+        "hmos-arkui-develop-skill",
+        "hmos-arkui-knowledge-retriever"
+      ],
+      "tools": [
+        "devecocli docs search <keywords...>",
+        "devecocli docs read <documentId>",
+        "devecocli check lint <path>",
+        "devecocli build --product <product> --modules <module-or-module@target...> --build-mode <mode>"
+      ],
+      "evaluators": [
+        "EVALUATOR.md"
+      ],
+      "permissions": [
+        "Requires task-scoped authorization to inspect and modify the declared business HAR, its optional provider HAR, public exports, routing, tests, configuration, and evidence surfaces",
+        "Public provider-interface changes, dependency or navigation-framework changes, shell integration outside the declared adapter, external consumer migration, device execution, signing, publication, and release require separate explicit authorization"
+      ],
+      "dependencies": [
+        "harmonyos-business-module-initialization",
+        "stage-application-and-package-design",
+        "arkts-implementation-and-static-correctness",
+        "arkui-interface-delivery",
+        "harmonyos-build-and-runtime-verification"
+      ]
+    },
+    {
       "id": "harmonyos-build-and-runtime-verification",
       "description": "Collect reproducible, target-bound HarmonyOS lint, compatibility, build, package, launch, UI, and runtime-log evidence while keeping each evidence class distinct. Run project-defined tests, coverage checks, or self-inspection only when the project overlay supplies their executable commands and acceptance criteria; otherwise record them as an explicit handoff or exclusion.",
       "task_types": [
