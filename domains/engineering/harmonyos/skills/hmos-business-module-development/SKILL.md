@@ -23,17 +23,16 @@ Resolve the scaffold state explicitly:
 
 - when neither business nor provider HAR exists and initialization is requested, invoke
   `hmos-init-business-module` first, then return here;
-- when the business HAR exists and the provider is optional and absent, proceed without provider
-  behavior and record that the provider branch is not applicable; and
-- when the business HAR exists, the provider is required, and the provider is absent, stop with
-  `blocked`. The registered initializer refuses an existing business target, so do not invoke it or
-  hand-create the provider. Request a separately authorized provider-only scaffold capability or an
-  architecture-approved project procedure with registration, dependency update, validation and
-  rollback evidence; and
-- when the provider HAR exists but the business HAR is absent, stop with `blocked`. Do not overwrite,
-  delete or repurpose the provider, and do not run the pair initializer. Request an owner decision
-  and an authorized recovery or business-only reconstruction procedure that verifies provider
-  compatibility, registrations, dependency direction and rollback.
+- when the business HAR exists and the provider is absent, proceed without provider behavior and
+  record that the provider branch is not applicable to this change. Do not invoke the pair
+  initializer or hand-create the provider: the registered initializer refuses an existing business
+  target. If the change's external consumers require a provider contract, note the gap in the
+  handoff as an unresolved decision for the architecture owner rather than blocking the business
+  work; and
+- when the provider HAR exists but the business HAR is absent, do not overwrite, delete or
+  repurpose the provider, and do not run the pair initializer. Proceed only with the explicitly
+  authorized business-module work, treat the existing provider as read-only context for contract
+  compatibility, and record the unpaired provider in the handoff for an owner decision.
 
 Do not extend the initializer's scaffold script to implement this workflow.
 
@@ -105,10 +104,11 @@ architecture decision owner. Do not silently select the most convenient recommen
 - Network requests and their contracts/implementations are contained by `api/`.
 - `router/` contains module route paths, page metadata and route parameter contracts.
 - `hmdelegate/` contains only host-shell adaptation.
-- Provider interfaces are declared in `<module>provider`, implemented in `<module>`, and external
-  consumers import the provider rather than implementation-internal paths.
-- The `XxxProvider` factory/access point is unique for the module and exposes both service and
-  component contracts without implementing business behavior itself.
+- When a provider HAR exists, provider interfaces are declared in `<module>provider`, implemented
+  in `<module>`, and external consumers import the provider rather than implementation-internal
+  paths.
+- When a provider HAR exists, the `XxxProvider` factory/access point is unique for the module and
+  exposes both service and component contracts without implementing business behavior itself.
 - The affected build succeeds; required negative, UI and runtime scenarios have explicit statuses.
 
 ## Fail-Closed Conditions
@@ -117,10 +117,6 @@ Stop and request an architecture decision when:
 
 - the current project mandates a conflicting module/provider topology and no approved overlay
   resolves the conflict;
-- an existing business HAR requires a missing provider and no registered provider-only scaffold or
-  approved project procedure supplies creation, registration, dependency and rollback behavior;
-- a provider HAR exists without its business HAR and no authorized recovery or business-only
-  reconstruction procedure resolves the inconsistent pair;
 - the SDK/API baseline cannot support the required V2 behavior;
 - external consumers already import business internals and changing that public dependency is
   outside scope;
