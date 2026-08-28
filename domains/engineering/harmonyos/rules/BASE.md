@@ -221,6 +221,82 @@ record; rollback guidance; and handoff status.
 declare completion. Preserve the current state and transfer the artifact and reproduction details
 to the accountable owner; silence is not approval.
 
+### HMOS-RULE-09 — Keep pages, Dialog pages, components, and routes structurally explicit
+
+**Applies to:** every new or materially changed ArkUI page, Dialog page, modal, sheet, popup,
+overlay, embedded component, route declaration, page metadata contract, and navigation call.
+
+- Classify navigable screen roots as pages, modal or overlay destinations as Dialogs, and reusable
+  embedded UI as components. Place them under `pages/`, `dialogs/`, and `components/` respectively,
+  or record one established project-equivalent mapping that preserves those responsibilities.
+- Keep route identifiers, page metadata, and route parameters under `router/` or one recorded
+  equivalent. Declare route protocol strings once as named ArkTS constants and reuse them in
+  destination declarations and navigation calls; they are program identifiers, not localizable
+  strings.
+- When a project already selects HMRouter, declare ordinary and Dialog destinations through the
+  locked framework contract, mark Dialog destinations explicitly, and verify the applicable core
+  and compiler-plugin integration. `HMROUTER-UPSTREAM` is authoritative only for HMRouter; it does
+  not turn HMRouter into a HarmonyOS platform requirement.
+- Preserve the approved navigation architecture and framework. Do not introduce HMRouter, replace
+  another router, rename public routes, or change generated integration without explicit scope and
+  compatibility authority.
+- Keep pages, Dialogs, and components declarative. They render state, own only ephemeral view-local
+  state, and forward intent; network execution, asynchronous orchestration, and business decisions
+  remain in their accepted non-View boundaries.
+
+**Required evidence:** changed UI artifact classification; recorded project-equivalent paths;
+route-identifier and metadata map; locked navigation-framework and compiler-plugin versions when
+applicable; public route/export diff; build evidence; and task-required navigation, Dialog
+open/close, dismissal, repeated-interaction, failure, and recovery observations.
+
+**Failure and handoff:** an incorrectly classified artifact, anonymous or duplicated route ID,
+unapproved navigation-framework change, route contract outside its accepted boundary, or View-owned
+network/business orchestration is a policy failure. If the locked framework version, generated
+integration, route compatibility, or required runtime target is unknown or produces warnings,
+preserve the finding and limit only the dependent compatibility or runtime claim. Do not fail or
+block unrelated UI structure, resource, or comment outcomes solely because versions differ. Fail
+only on observed behavior/build failure or an explicit project hard gate; block only when a required
+claim cannot be established. Hand unresolved compatibility to the project navigation or
+architecture owner, and do not infer it from the CatchElf sample or a different HMRouter version.
+
+### HMOS-RULE-10 — Externalize UI resources and require meaningful Chinese comments
+
+**Applies to:** every new or materially changed ArkTS/ArkUI source file and its affected application
+resources.
+
+- Declare user-visible text in `src/main/resources/base/element/string.json`, application-owned
+  colors in `color.json`, and reusable font sizes, spacing, dimensions, corner radii, and similar UI
+  measurements in `float.json`. Use an applicable system resource or established project token
+  when one already owns the semantic value.
+- Reference resources from ArkUI source through the project's supported `$r(...)` form. Use stable
+  semantic keys that describe purpose, keep required locale and qualifier variants aligned, and do
+  not embed a duplicate fallback literal in the View.
+- Do not apply resource rules blindly to non-UI literals. Route IDs, log formats, regular
+  expressions, serialization keys, endpoint fragments, and enum discriminators use named ArkTS
+  constants or typed contracts. Dynamic user-visible messages still compose localizable resources.
+- New or materially changed classes, structs, ArkUI components, ViewModels, public methods, and
+  non-obvious business methods must contain meaningful Chinese comments that explain applicable
+  responsibility, intent, input/output contract, state transition, side effect, failure handling,
+  lifecycle dependency, or rationale.
+- Comments must match current behavior. Line-by-line narration, identifier repetition, translated
+  syntax, or filler added only to satisfy comment presence is not acceptable. Trivial accessors and
+  self-evident local expressions do not require individual comments unless they enforce a material
+  contract.
+- Treat the Chinese-language requirement as an explicit Domain Owner policy
+  [OWNER-UI-RESOURCE-COMMENT-CONTRACT], not as a HarmonyOS or ArkTS platform requirement. Any
+  language-policy exception or change requires a scoped owner decision and migration record.
+
+**Required evidence:** resource-key additions, updates, removals, and qualifier impact; changed-file
+review for visible-text, color, repeated-measurement, and fallback literals; named non-UI constant
+inventory; resource-reference build result; and a semantic review of required Chinese comments.
+
+**Failure and handoff:** a new unexplained UI magic literal, missing resource key or qualifier,
+value-based duplicate key, unsafe resource removal, or absent, stale, or meaningless required
+Chinese comment fails the affected criterion even when compilation succeeds. When semantic
+classification of a literal, localization ownership, qualifier policy, or comment-language
+exception requires an unavailable organization decision, preserve the smallest unchanged boundary
+and hand off the exact finding rather than guessing.
+
 ## Rule Precedence and Conflict Handling
 
 Apply the stricter authorized requirement when these rules overlap a project overlay, task
@@ -235,4 +311,8 @@ These rules use the validated `engineering.harmonyos` research ledger: ArkTS lan
 [HMOS-ARKTS], Stage-model architecture [HMOS-STAGE], ArkUI V2 observation
 [HMOS-ARKUI-V2], V1-to-V2 state migration [HMOS-ARKUI-MIGRATION], application package semantics
 [HMOS-PACKAGES], and HarmonyOS testing services [HMOS-TESTING]. Registered identity and lifecycle
-remain governed by [REPO-HARMONYOS-IDENTITY].
+remain governed by [REPO-HARMONYOS-IDENTITY]. Page/Dialog structure, resource externalization, and
+Chinese-comment policy additionally use `OWNER-UI-RESOURCE-COMMENT-CONTRACT`,
+`PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` from
+`changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; the project sample
+and third-party framework do not override platform or project-version evidence.

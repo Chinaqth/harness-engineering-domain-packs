@@ -77,6 +77,15 @@ contract backed by `USER-BUSINESS-MODULE-CONTRACT`, `PROJECT-UGC-EXEMPLAR`, and
 MVVM, API containment, UI classification, route, shell-delegate and provider dependency direction,
 while treating concrete directory aliases and framework mechanisms as project facts.
 
+For new or materially changed pages, Dialogs, components, routes, and ArkUI resources, apply the
+Domain-authored
+`hmos-business-module-development/references/ui-page-dialog-conventions.md` contract. It is backed
+by `OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, `HMROUTER-UPSTREAM`, and
+`HMOS-ARKUI-V2`. The Owner requirement is authoritative for resource and Chinese-comment policy,
+the corrected sample is project structural evidence, and HMRouter upstream is authoritative only
+for the selected framework interface and must be reconciled with the project's locked version and
+build.
+
 Every version-sensitive claim, including API availability, deprecation, replacement, decorator
 mixing, lifecycle, package behavior, tool syntax, and minimum SDK, must be reconciled through
 `devecocli docs search ...` and, when a result is selected, `devecocli docs read <documentId>`.
@@ -125,6 +134,12 @@ For complete business-module work, additionally inventory `api/`, `viewmodels/`,
 `components/`, `dialogs/`, `pages/`, `router/`, the `hmdelegate/` project mapping, provider
 contracts/implementations, public exports and external imports before choosing a change.
 
+For page, Dialog, or component work, additionally inventory UI artifact classification, route
+identifiers and metadata, the selected navigation framework and locked version, resource keys and
+qualifier variants, changed UI literals, and the Chinese comments required by `HMOS-RULE-09` and
+`HMOS-RULE-10`. When HMRouter is already selected, use its upstream documentation only for the
+locked framework interface and verify compiler-plugin integration through the configured build.
+
 For a defect, reproduce or preserve the original diagnostic before editing. For migration, inventory
 data ownership, observation paths, component dependencies, storage, rendering, lifecycle, and
 third-party constraints before proposing a batch. V1-to-V2 migration is behavioral and must not be
@@ -138,6 +153,11 @@ an existing state-management generation except through an authorized V1-to-V2 mi
 change navigation architecture, package boundaries, signing, dependencies, permissions, or
 security/privacy behavior without explicit authority. Do not apply a global replacement, generated
 speculative API, bulk autofix, or blind migration.
+
+For affected UI, classify every destination before creating files, map route IDs and metadata to
+the project router boundary, and define resource keys before adding visible text, colors, or
+reusable measurements. Plan meaningful Chinese responsibility and logic comments as part of the
+same change, not as a post-build documentation batch.
 
 ### 4. Execute only through the authorized boundary
 
@@ -164,13 +184,16 @@ target, stop that operation and retain the failure. Do not substitute legacy `mc
 
 After an authorized minimal edit:
 
-1. run the configured `devecocli build` as the only default final compilation gate;
-2. do not run `devecocli check lint` or `devecocli check compat` unless the task contract or user
+1. inspect changed `.ets` files for incorrect page/Dialog/component classification, anonymous or
+   duplicated route IDs, UI magic literals, missing resource keys or qualifiers, and absent, stale,
+   or meaningless required Chinese comments;
+2. run the configured `devecocli build` as the only default final compilation gate;
+3. do not run `devecocli check lint` or `devecocli check compat` unless the task contract or user
    explicitly requests the corresponding evidence; otherwise record each as `skipped`;
-3. run project-defined tests only when explicitly required, separately available, and authorized;
-4. use `devecocli run`, `devecocli ui`, and `devecocli log` only when the acceptance claim requires
+4. run project-defined tests only when explicitly required, separately available, and authorized;
+5. use `devecocli run`, `devecocli ui`, and `devecocli log` only when the acceptance claim requires
    device/runtime evidence and permissions name the target; and
-5. compare the same applicable checks with the captured baseline.
+6. compare the same applicable checks with the captured baseline.
 
 Respect the declared retry bound. Each repair must be explained by a current diagnostic or reconciled
 official claim, remain inside scope, and preserve a rollback unit. If a repair changes the failure,
@@ -208,7 +231,9 @@ Stop the affected work and report `blocked` when:
   signing change, or architecture/policy decision outside authorization;
 - build, test, run, UI, log, or explicitly requested lint or compatibility evidence is unavailable
   for a claim that depends on it;
-- diagnostics persist after the authorized retry bound; or
+- diagnostics persist after the authorized retry bound;
+- an in-scope page/Dialog/component classification, route, resource, or required Chinese-comment
+  violation remains after the bounded review, even when compilation succeeds; or
 - secrets, personal data, production access, or unsafe device state would be required.
 
 Never describe partial, manual, simulated, or unavailable evidence as a pass. Never claim release
@@ -222,6 +247,8 @@ Return one reconciled packet containing:
 - selected package inputs plus every quarantined claim and reason;
 - ledger IDs and `devecocli docs` queries/document IDs used for each version-sensitive decision;
 - changed-file and decision inventory;
+- page/Dialog/component classification, route map, navigation-framework/version record,
+  resource-key and changed-literal review, and required Chinese-comment review;
 - exact build and any explicitly requested lint, compatibility, test, run, UI, and log procedures
   with target identifiers, statuses, diagnostics, artifacts, and sanitized evidence locations,
   kept in separate classes;

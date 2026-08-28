@@ -29,6 +29,7 @@ revision, affected application and modules, evidence location, and accountable h
 | Project and architecture context | Project root, Stage-model structure, affected `UIAbility` or `ExtensionAbility`, navigation, lifecycle, context, concurrency, and module conventions | Limit work to confirmed surfaces; mark architecture decisions `needs-org-input`. |
 | Version baseline | Compile SDK, compatible or minimum API, toolchain version, source and target versions for migration or compatibility work, and target devices or form factors | Do not make version-sensitive claims or changes. |
 | ArkUI state model | Existing V1/V2 generation, observed data flow, ownership, initialization, persistence, reuse, and intentional mixed boundaries | Do not infer decorator conversions or change observation behavior. |
+| UI convention and resource baseline | Page/Dialog/component locations, route owner, selected navigation framework and locked version, resource files and qualifiers, UI-literal policy, and required Chinese-comment scope | Preserve confirmed surfaces only; do not invent route integration, resource ownership, or comment exceptions. |
 | Package intent | Product, modules, intended HAP/HAR/HSP boundaries, App Pack scope, reuse and runtime expectations | Do not redesign module topology or claim package suitability. |
 | Business-module initialization inputs | Confirmed HarmonyOS project root, existing relative module directory, root `build-profile.json5`, valid module ID, optional display name, provider naming convention, and excluded integration scope | Do not run the initializer or infer business/provider behavior, external dependencies, routing, build, or runtime integration. |
 | Business-module development inputs | Existing business HAR, optional provider HAR, MVVM ownership map, V2 baseline, required UI/API/routes/shell integration, external consumers, public contracts, build target, and rollback boundary | Do not invent provider lifecycle, routing framework, public methods, dependency changes, or host-shell behavior. |
@@ -57,8 +58,10 @@ are not install, runtime, device, signing, distribution, or release evidence. [H
 
 ### 1. Baseline and route the task
 
-1. Inventory affected `.ets` files, resources, configuration, modules, Stage components,
-   navigation, state objects, persistence, package boundaries, and external interfaces.
+1. Inventory affected `.ets` files, resources and qualifier variants, configuration, modules, Stage
+   components, page/Dialog/component classification, route IDs and metadata, selected navigation
+   framework and locked version, required Chinese comments, state objects, persistence, package
+   boundaries, and external interfaces.
 2. Reproduce the current expected path and material negative paths in an authorized environment.
 3. Record pre-existing diagnostics and unavailable checks without attributing them to the change.
 4. Route the task to one or more procedure tracks below and identify dependencies between them.
@@ -156,7 +159,8 @@ missing required path, and any excluded generated or integration path. Do not re
 
 Use this track for `harmonyos-business-module-development`; keep scaffold-only requests in track 4.
 
-1. Load `hmos-business-module-development` and its architecture reference. Inventory the business
+1. Load `hmos-business-module-development`, its architecture reference, and its UI page/Dialog
+   convention reference. Inventory the business
    HAR, optional `<module>provider` HAR, public exports, external imports, UI artifacts, ViewModels,
    mutable UI state, network entry points, routes, host-shell delegates and tests.
 2. Resolve scaffold state: initialize only when neither HAR exists; proceed without provider when
@@ -180,20 +184,28 @@ Use this track for `harmonyos-business-module-development`; keep scaffold-only r
 6. Keep module paths, page metadata and route parameters under `router/`. Keep host-shell adapters
    under `hmdelegate/` or the recorded project-equivalent directory without duplicating canonical
    business state, network execution or route definitions.
+   For HMRouter projects, reuse named route constants and mark Dialog destinations with
+   `dialog: true`; record and verify the locked core/compiler-plugin integration.
 7. When a provider HAR exists, declare `XxxServiceProvider`, `XxxComponentProvider` and one
    `XxxProvider` singleton factory/access point there. Implement the contracts in the business HAR;
    external consumers depend on provider contracts and do not import business internals.
-8. Implement the smallest vertical slice, update public exports deliberately, then verify directory
+8. Before adding visible text, application-owned colors, or reusable UI measurements, declare
+   semantic keys in `string.json`, `color.json`, or `float.json`. Keep route IDs and other non-UI
+   protocol strings as named ArkTS constants. Add meaningful Chinese comments to every new or
+   materially changed class, component, ViewModel, public method, and non-obvious business method.
+9. Implement the smallest vertical slice, update public exports deliberately, then verify directory
    responsibility, View-to-ViewModel flow, API containment, route/shell ownership, provider
-   declaration-to-implementation mapping and external dependency direction.
-9. Run the affected configured build and every task-required negative, test or runtime scenario.
+   declaration-to-implementation mapping, external dependency direction, resource references,
+   changed UI literals, and Chinese-comment meaning.
+10. Run the affected configured build and every task-required negative, test or runtime scenario.
    Keep structural inspection, compilation and observed behavior as separate evidence classes.
 
 **Output and evidence:** responsibility inventory; primary-orchestrator and subordinate-capability
 map; MVVM and state-ownership map; traced-property
 rationale; network entry-point inventory; route and shell-delegate changes; provider interfaces,
 implementations and external imports; public export diff; build/scenario results; deviations and
-rollback instructions.
+rollback instructions; route and framework-version record; resource-key and changed-literal review;
+and Chinese-comment review.
 
 **Negative paths:** stop when an existing business HAR requires a missing provider without an
 approved provider-only path, only a provider HAR exists without an authorized recovery path, a
@@ -217,16 +229,28 @@ host-shell behavior, public contract migration, signing or production access.
 5. Inventory V1 usage in the affected surface. When authorized work touches V1, route the affected
    state flow through the V1-to-V2 migration track. If migration is outside scope, keep the smallest
    existing V1 boundary unchanged, add no V1 usage, and record the migration handoff.
-6. Make the smallest scoped change. Preserve business logic, navigation architecture, lifecycle
+6. Classify each affected View as a page, Dialog, or component; centralize route identifiers and
+   metadata; and record the selected navigation framework and locked version. When HMRouter is
+   already selected, use named `pageUrl` constants and an explicit Dialog declaration without
+   changing the navigation framework.
+7. Declare semantic `string.json`, `color.json`, and `float.json` resources before adding
+   user-visible text, application-owned colors, or reusable UI measurements. Keep non-UI protocol
+   values as named ArkTS constants.
+8. Add meaningful Chinese comments to new or materially changed classes, components, ViewModels,
+   public methods, and non-obvious business methods while implementing their logic.
+9. Make the smallest scoped change. Preserve business logic, navigation architecture, lifecycle
    contracts, and unrelated modules unless explicitly authorized.
-7. Inspect changed files. Run lint only when the task contract or user explicitly requires lint
+10. Inspect changed files for UI classification, route duplication, magic UI literals, missing or
+   inconsistent resource keys/qualifiers, and absent, stale, or meaningless required Chinese
+   comments. Run lint only when the task contract or user explicitly requires lint
    evidence; repair only findings caused by or blocking the scoped change.
-8. Exercise at least one accepted regression path for an incremental change and record any path
+11. Exercise at least one accepted regression path for an incremental change and record any path
    that cannot be executed.
 
 **Output and evidence:** scoped patch, changed-file inventory, API decision references, state-flow
-description, requested check results, expected and negative-path observations, known limitations,
-and rollback guidance.
+description, UI artifact and route map, navigation-framework/version record, resource-key and
+changed-literal review, Chinese-comment review, requested check results, expected and negative-path
+observations, known limitations, and rollback guidance.
 
 **Bounded retry:** when lint is explicitly requested, permit no more than three
 diagnose-fix-lint iterations, including the first repair attempt. A task contract may lower this
@@ -355,6 +379,8 @@ decided a blocker. Preserve the last known good state and reproducible failure.
 | Local Skill corpus conflicts with primary guidance or observed diagnostics | Retain both, prefer version-relevant primary guidance and observations, and escalate unresolved conflict. | The local result remains provisional. |
 | Required API signature or replacement is unverified | Do not invent or substitute it. | Dependent change is blocked. |
 | State migration changes data flow or observation | Stop, isolate or revert the batch, and preserve reproduction evidence. | Batch and dependents remain failed. |
+| New or changed UI has an incorrect classification, anonymous route, magic UI literal, missing resource, or absent/stale/meaningless required Chinese comment | Correct only within scope and rerun structural review; otherwise hand off the exact finding. | The affected structural criterion fails even if build succeeds. |
+| Locked navigation-framework or compiler-plugin version is unknown | Do not infer integration from another project or framework version. | Dependent route and generated-integration claims are blocked. |
 | Tool, command, project scope, permission, device, or environment is unavailable | Do not guess or bypass it; provide a reproducible manual or owner handoff. | Corresponding evidence class is unavailable or blocked. |
 | Lint or compatibility was not explicitly requested | Record the check as `skipped`; do not run it as a default gate. | Lint or compatibility claims remain unverified. |
 | Build succeeds but artifact cannot be located | Preserve command output and investigate only within the retry bound. | Packaging claim remains unverified. |
@@ -420,3 +446,9 @@ authority by this document. The business-module track additionally uses
 `changes/20260817-harmonyos-business-module-development/research/sources.json`; the exemplar proves
 only the observed project structure, while the supplied contract remains subject to Domain-owner
 review.
+
+Page/Dialog structure, UI resources, and Chinese comments additionally use
+`OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` from
+`changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`. The Owner contract
+defines the reusable policy, the corrected sample is project evidence, and HMRouter upstream is
+authoritative only for the selected third-party framework interface.

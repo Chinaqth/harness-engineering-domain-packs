@@ -38,8 +38,9 @@ Do not extend the initializer's scaffold script to implement this workflow.
 
 ## Architecture Contract
 
-Read [business-module-architecture.md](references/business-module-architecture.md) before planning
-or editing. Apply `HMOS-RULE-05`: new or rewritten state-managed surfaces use State Management V2.
+Read [business-module-architecture.md](references/business-module-architecture.md) and
+[ui-page-dialog-conventions.md](references/ui-page-dialog-conventions.md) before planning or
+editing. Apply `HMOS-RULE-05`: new or rewritten state-managed surfaces use State Management V2.
 Treat the project exemplar recorded as `PROJECT-UGC-EXEMPLAR` as structural evidence only; it does
 not override the current project or authoritative SDK guidance.
 
@@ -72,6 +73,8 @@ architecture decision owner. Do not silently select the most convenient recommen
 3. Keep pages, dialogs and components declarative. They render state, forward user intent and own
    only ephemeral view-local state; business decisions, asynchronous orchestration and mutable
    presentation data belong to the ViewModel.
+   Classify navigable roots under `pages/`, modal or overlay destinations under `dialogs/`, and
+   reusable embedded UI under `components/` or an explicitly recorded project equivalent.
 4. Implement ViewModels and mutable UI-facing model objects with `@ObservedV2`; annotate each
    property whose mutation must refresh the UI with `@Trace`. Keep untraced internal fields private
    when practical and do not introduce V1 decorators.
@@ -82,6 +85,9 @@ architecture decision owner. Do not silently select the most convenient recommen
 6. Classify reusable embedded UI under `components/`, modal or overlay UI under `dialogs/`, and
    navigable screen roots under `pages/`. Keep business route paths, page metadata and route
    parameters under `router/`.
+   When the project uses HMRouter, use named route constants, mark Dialog destinations with
+   `dialog: true`, and verify the locked core/compiler-plugin integration instead of assuming a
+   remembered annotation contract.
 7. Keep shell-project adaptation under `hmdelegate/` (or the explicitly mapped project-equivalent
    directory). It may adapt the business module to host-shell contracts but must not become a
    second location for business state, network access or route definitions.
@@ -92,7 +98,14 @@ architecture decision owner. Do not silently select the most convenient recommen
 9. Update public exports deliberately. Export only required pages, route contracts, shell delegates
    or provider contracts; do not expose ViewModel internals, repositories or network clients by
    convenience.
-10. Run the configured build for the affected module and every explicitly required lint, test or
+10. Before writing or changing ArkUI literals, declare user-visible strings in `string.json`,
+    application-owned colors in `color.json`, and reusable UI measurements in `float.json` under
+    `src/main/resources/base/element/`. Use named ArkTS constants for non-UI protocol values such as
+    route IDs. Add meaningful Chinese comments to new or materially changed classes, components,
+    ViewModels, public methods, and non-obvious business methods.
+11. Inspect changed source for UI magic literals, missing resource keys, route duplication, incorrect
+    UI classification, and absent, stale, or meaningless Chinese comments. Run the configured build
+    for the affected module and every explicitly required lint, test or
     device scenario. Record structure and dependency-direction checks separately from compilation
     and runtime evidence.
 
@@ -104,6 +117,12 @@ architecture decision owner. Do not silently select the most convenient recommen
 - Network requests and their contracts/implementations are contained by `api/`.
 - `router/` contains module route paths, page metadata and route parameter contracts.
 - `hmdelegate/` contains only host-shell adaptation.
+- User-visible strings, application-owned colors, and reusable UI measurements are resource-backed;
+  route IDs and other non-UI protocol strings are named ArkTS constants.
+- New or materially changed classes, components, ViewModels, public methods, and non-obvious
+  business methods contain meaningful and current Chinese comments.
+- HMRouter projects centralize route IDs and mark Dialog destinations explicitly; the locked
+  framework and compiler-plugin integration is recorded and build-verified.
 - When a provider HAR exists, provider interfaces are declared in `<module>provider`, implemented
   in `<module>`, and external consumers import the provider rather than implementation-internal
   paths.
@@ -121,13 +140,16 @@ Stop and request an architecture decision when:
 - external consumers already import business internals and changing that public dependency is
   outside scope;
 - provider registration, factory lifecycle or component-builder conventions are unknown and a
-  choice would create a new public contract; or
+  choice would create a new public contract;
 - implementation requires an unapproved dependency, routing-framework change, signing change,
-  production access or unrelated refactor.
+  production access or unrelated refactor; or
+- a required resource qualifier, locked routing-framework version, compiler-plugin configuration,
+  or public route contract cannot be established without guessing.
 
 ## Handoff
 
 Return the module/provider file inventory, MVVM ownership map, API containment result, route and
 shell-delegate changes, provider interface-to-implementation map, public export changes, build and
 scenario evidence, subordinate-capability map, composition conflicts, deviations, unresolved
-decisions and rollback instructions.
+decisions, resource-key and changed-literal review, Chinese-comment review, and rollback
+instructions.

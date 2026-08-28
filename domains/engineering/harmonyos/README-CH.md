@@ -1,10 +1,10 @@
 # HarmonyOS Engineering Domain 中文导览
 
-本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `2.2.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
+本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `3.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
 
 ## 核心职责与运行方式
 
-本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析、业务/provider 模块初始化、MVVM 业务模块开发，以及构建和运行时证据收集。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
+本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析、业务/provider 模块初始化、MVVM 业务模块开发，以及构建和运行时证据收集。3.0.0 新增强制页面/Dialog/组件分类、集中路由、UI 文案/颜色/可复用度量资源化和有意义中文职责注释；这些结构和语义检查不能被一次成功构建替代。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
 
 七个用户添加的 Skill 包作为非权威输入保留；另有两个 Domain 自有 Skill 分别负责模块配对初始化和完整业务模块开发。Domain 的九项能力统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper，并按 `capabilities.json` 接线到适用 Skill。`hmos-init-business-module` 只执行两个骨架、局部依赖与根清单变更；`hmos-business-module-development` 负责初始化后的 MVVM、V2、API/UI/router/hmdelegate/provider 架构与交付流程。早期七个保留包的逐 Skill 制品评分 Owner 豁免仍作为历史事实保留；任何保留包都不因接线或激活获得政策、版本或平台权威性。
 
@@ -15,14 +15,14 @@
 | 路径 | 职责 | 实际行为 |
 | --- | --- | --- |
 | `DOMAIN.md` | 定义目的、边界、输入、输出、交接、失败模式和成熟度。 | 为所有 HarmonyOS 工作提供稳定专业基线，并明确 Skill 语料的辅助地位。 |
-| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，初始激活证据和 2.2.0 变更验收记录均由 manifest 引用。 |
+| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，并引用初始激活证据和 3.0.0 策略变更验收记录。 |
 | `owners.json` | 声明责任归属。 | 将主 Owner 绑定到 `platform-harmony`，不隐含额外审批权。 |
 | `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 九类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper；初始化与完整业务开发使用独立能力，其余项目验证通过 `devecocli` 组装证据。 |
 | `routes.json` | 定义任务类型、识别信号和候选能力。 | 为兼容的 HarmonyOS 请求提供候选路由；Domain 已激活，具备路由资格。 |
 | `README-CH.md` | 提供中文导览和完整生产文件清单。 | 解释英文制品，不产生新的规范。 |
-| `rules/BASE.md` | 定义可执行的专业不变量。 | 强制新架构使用状态管理 V2，并约束版本基线、权威来源、Stage/ArkTS/ArkUI、V1 迁移、兼容性、工具、证据、权限和交接。 |
-| `workflows/WORKFLOW.md` | 定义统一端到端工作流。 | 从任务归类和基线确认，经文档查证、设计/实现/迁移，到 `devecocli` 检查与证据交付。 |
-| `evaluators/EVALUATOR.md` | 定义独立验收标准。 | 按证据类别、负向路径、严重度与硬门槛判定结果，不由作者自评。 |
+| `rules/BASE.md` | 定义可执行的专业不变量。 | 强制 V2、页面/Dialog/组件与路由结构、UI 资源化和中文职责注释，并约束版本、来源、工具、证据、权限和交接。 |
+| `workflows/WORKFLOW.md` | 定义统一端到端工作流。 | 从基线确认，经文档查证、UI 结构/资源/注释检查、设计/实现/迁移，到 `devecocli` 检查与证据交付。 |
+| `evaluators/EVALUATOR.md` | 定义独立验收标准。 | 按证据类别、负向路径、严重度与硬门槛判定结果，并单独评估页面/Dialog/路由、资源和中文注释，不由作者自评。 |
 | `templates/delivery-evidence.md` | 提供交付证据记录模板。 | 记录基线、来源、命令、诊断、迁移、运行场景、风险、交接和回滚信息。 |
 | `skills/README.md` | 说明 Skill 包的发现和维护约定。 | 列出可加载 Skill，并强调其内容需受 Domain 规则、版本核验和授权约束。 |
 
@@ -47,6 +47,8 @@
 ### `hmos-business-module-development`：HarmonyOS 业务模块完整开发
 
 用于业务 HAR 初始化后的完整功能开发，并作为该 task type 的跨层主编排入口。ArkUI、ArkTS、Stage/package、初始化和验证能力只承担各自子任务，不能静默改写已接受的 MVVM、目录、路由/壳分离、provider 依赖方向或公共接口决策。它要求 View 只负责 `components/`、`dialogs/`、`pages/` 的声明式 UI 与事件转发，ViewModel 负责业务动作、异步编排和可变展示状态，并对新写或重写状态使用 `@ObservedV2` 与有刷新需求的 `@Trace`。网络入口收敛到 `api/`，模块路由收敛到 `router/`，壳工程适配收敛到 `hmdelegate/` 或显式项目映射目录。存在 `<module>provider` 时，provider 只声明 `XxxServiceProvider`、`XxxComponentProvider` 和唯一 `XxxProvider` 工厂/访问点，实际实现位于业务 HAR，外部消费者不得直接依赖业务内部实现路径。
+
+该 Skill 还加载 `ui-page-dialog-conventions.md`：普通可导航根页面、Dialog/弹层目的地和嵌入组件分别归入 `pages/`、`dialogs/`、`components/`，路由标识与页面信息集中在 `router/`。项目已选择 HMRouter 时使用具名 `pageUrl` 常量并显式声明 Dialog，同时核对锁定的 core/plugin 版本。用户可见字符串、应用自有颜色和可复用 UI 度量分别进入 `string.json`、`color.json`、`float.json`；路由协议等非 UI 字符串保留为具名 ArkTS 常量。新增或实质修改的类、组件、ViewModel、公共方法和复杂业务方法必须有说明职责或逻辑的中文注释。
 
 ### `hmos-init-business-module`：HarmonyOS 业务模块与 provider 配对初始化
 
@@ -217,6 +219,7 @@
 - `skills/harmonyos-engineering/SKILL.md`
 - `skills/hmos-business-module-development/SKILL.md`
 - `skills/hmos-business-module-development/references/business-module-architecture.md`
+- `skills/hmos-business-module-development/references/ui-page-dialog-conventions.md`
 - `templates/delivery-evidence.md`
 - `workflows/WORKFLOW.md`
 

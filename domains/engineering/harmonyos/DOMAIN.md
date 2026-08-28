@@ -21,7 +21,7 @@ an ArkUI screen as an isolated artifact. [HMOS-STAGE]
 - Domain ID: `engineering.harmonyos`
 - Display name: `HarmonyOS Engineering`
 - Primary owner: `platform-harmony`
-- Version: `2.2.0`
+- Version: `3.0.0`
 - Lifecycle: `active`
 
 These values are registered repository facts; this document does not assign additional reviewers,
@@ -62,6 +62,15 @@ grant operational permissions. [REPO-HARMONYOS-IDENTITY]
   `api/`; Views are classified as `components/`, `dialogs/`, and `pages/`; module routes and
   host-shell delegates remain separated; and an optional provider HAR is the sole external contract
   bridge whose service and component interfaces are implemented by the business HAR.
+- Classify new or materially changed navigable pages, Dialog destinations, and embedded components;
+  centralize route identifiers and metadata; and, when HMRouter is selected by the project, verify
+  its locked core/compiler-plugin contract without treating that framework as a platform mandate.
+- Externalize new or materially changed user-visible strings, application-owned colors, and
+  reusable UI measurements through `src/main/resources/base/element/` while retaining non-UI
+  protocol values as named ArkTS constants or typed contracts.
+- Require meaningful Chinese responsibility and logic comments for new or materially changed
+  classes, components, ViewModels, public methods, and non-obvious business methods under the
+  explicit Domain Owner language policy.
 - Select and review module boundaries using the distinct delivery and reuse semantics of HAP, HAR,
   and HSP artifacts, and account for the App Pack publication unit when release packaging is in
   scope. [HMOS-PACKAGES]
@@ -107,11 +116,14 @@ Work entering this Domain must identify, or explicitly mark as unknown:
    factors, and any required compatibility matrix.
 4. For ArkUI work, the current state-management generation, component data flow, lifecycle
    expectations, interaction paths, and applicable UI or accessibility requirements.
-5. For migration or deprecated-interface work, an inventory of affected constructs or diagnostics,
+5. For page, Dialog, or component work, the accepted UI classification, route owner, selected
+   navigation framework and locked version, resource and qualifier baseline, UI-literal scope, and
+   Chinese-comment scope.
+6. For migration or deprecated-interface work, an inventory of affected constructs or diagnostics,
    the documented target behavior, and constraints that prevent immediate replacement.
-6. Available authoritative documentation and its version or retrieval context, together with any
+7. Available authoritative documentation and its version or retrieval context, together with any
    local knowledge-index result whose provenance and freshness can be inspected.
-7. The permitted tools and mutations, verification commands, test environment, device access,
+8. The permitted tools and mutations, verification commands, test environment, device access,
    signing or release boundary, and rollback expectations.
 
 Missing inputs that affect correctness, compatibility, authorization, or release safety are not to
@@ -179,6 +191,9 @@ Depending on the task, the Domain produces one or more of the following:
 - A business-module responsibility map covering View/ViewModel state flow, traced properties, API
   containment, UI classification, route and host-shell ownership, provider interfaces and business
   implementations, external dependency direction, public exports, build evidence and deviations.
+- A UI convention record covering page/Dialog/component classification, route ownership,
+  navigation-framework versions, resource-key and qualifier changes, changed-literal dispositions,
+  meaningful Chinese-comment review, build evidence, and required interaction scenarios.
 - A verification record listing the exact checks run, relevant configuration and environment,
   observed results, coverage or self-inspection artifacts where applicable, unresolved warnings,
   and checks not run. [HMOS-TESTING]
@@ -222,10 +237,12 @@ or recommendation is not marked verified unless the recorded check actually exer
 | Required tool, device, permission, signing material, or release authority is unavailable | Do not bypass the control; produce a reproducible handoff and mark the affected verification or operation not run. |
 | Repeated automated repair does not converge | Stop at a declared retry bound, retain diagnostics and changes, and hand off the remaining root-cause analysis rather than looping indefinitely. |
 | Requested work would expose secrets, production data, or private architecture | Refuse that handling path and request a sanitized, authorized input or an appropriate controlled environment. |
+| UI artifact classification, route ownership, resource semantics, qualifier impact, or comment-language exception is unresolved | Preserve the smallest confirmed boundary, do not invent the missing convention, and request the applicable project, localization, navigation, or Domain Owner decision. |
+| A build passes while an in-scope UI magic literal, missing resource, incorrect page/Dialog classification, anonymous route, or absent/stale/meaningless Chinese comment remains | Keep the structural criterion failed; build evidence cannot waive the policy violation. |
 
 ## Maturity and Organization Inputs
 
-This Domain is an active source-supported professional baseline at version `2.2.0`. Activation
+This Domain is an active source-supported professional baseline at version `3.0.0`. Activation
 establishes routing eligibility only; per-Skill artifact scoring was waived by explicit owner
 direction and the seven bundled Skills remain non-authoritative inputs under the quarantine
 policy. [REPO-HARMONYOS-IDENTITY]
@@ -246,6 +263,8 @@ or authoritative organization policy as appropriate:
   and release-blocking thresholds.
 - Provenance, supported versions, tool dependencies, and independent validation evidence for the
   user-added HarmonyOS Skills before their local knowledge or automation is treated as authoritative.
+- Project-specific navigation-framework choice and versions, resource qualifier/localization policy,
+  design-token ownership, and approved exceptions to the Domain Owner's Chinese-comment policy.
 
 These gaps do not prevent routing or use of the cited public baseline. They do prevent the
 Domain from silently claiming organization-specific compatibility, permission, quality, or release
@@ -270,3 +289,11 @@ Business-module development additionally uses the change-local ledger at
 
 - `USER-BUSINESS-MODULE-CONTRACT`
 - `PROJECT-UGC-EXEMPLAR`
+
+Page/Dialog structure, UI resource externalization, and Chinese comments additionally use the
+change-local ledger at
+`changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`:
+
+- `OWNER-UI-RESOURCE-COMMENT-CONTRACT`
+- `PROJECT-CATCHELF-SAMPLE`
+- `HMROUTER-UPSTREAM`

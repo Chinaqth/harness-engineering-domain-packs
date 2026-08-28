@@ -6,6 +6,9 @@ This contract defines the reusable structure for a HarmonyOS business HAR and it
 HAR. Concrete directory aliases, framework decorators, service locators and module names remain
 project facts, but the responsibility and dependency direction below must remain observable.
 
+Read [ui-page-dialog-conventions.md](ui-page-dialog-conventions.md) for the companion contract on
+page/Dialog route declarations, UI resource use, and Chinese responsibility comments.
+
 ## Business HAR Responsibilities
 
 | Surface | Required responsibility | Forbidden responsibility |
@@ -91,6 +94,8 @@ For each delivery, record:
 5. route and host-shell adaptation ownership;
 6. provider interface declarations, business implementations and external imports; and
 7. build plus task-required behavior evidence.
+8. page/Dialog/component classification, route ownership, resource-key changes, magic-literal
+   review, and Chinese-comment review for every new or materially changed UI surface.
 
 ## Capability Precedence
 

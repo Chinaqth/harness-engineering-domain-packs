@@ -131,6 +131,16 @@ Success in one row proves only that evidence class. Use `passed`, `failed`, `ski
 | `{{CHECK-008}}` | `package/artifact creation` | `{{IDs}}` | `{{package-matrix}}` | `{{RUN-id}}` | `{{expected-artifacts}}` | `{{located-identities-digests}}` | `{{result}}` | `{{link}}` | `{{details}}` |
 | `{{CHECK-009}}` | `install/signing/publication/release` | `{{IDs}}` | `{{scope}}` | `{{authorized-procedure-or-not-run}}` | `{{expected}}` | `{{observed}}` | `{{result}}` | `{{link}}` | `{{authority-and-limitations}}` |
 
+### Page, Dialog, route, resource, and Chinese-comment review
+
+| Review ID | Changed artifact | Classification and expected location | Route ID / metadata owner | Navigation framework and locked versions | Resource keys and qualifier impact | Changed-literal disposition | Required Chinese-comment review | Result / finding IDs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `{{UI-REVIEW-001}}` | `{{path}}` | `{{page-dialog-component-and-location}}` | `{{named-constant-and-router-owner}}` | `{{framework-core-plugin-or-not-applicable}}` | `{{string-color-float-keys-and-variants}}` | `{{resource/named-non-ui-constant/finding}}` | `{{responsibility-logic-current-or-finding}}` | `{{passed/failed/blocked-and-IDs}}` |
+
+Record structural and semantic review separately from compilation. A build result does not waive an
+incorrect page/Dialog/component location, anonymous route, UI magic literal, missing resource or
+qualifier, or absent, stale, or meaningless required Chinese comment.
+
 ### Scenario and target matrix
 
 | Case ID | Path type | Preconditions and stimulus | Expected state / lifecycle / interaction result | Emulator targets | Physical-device targets | Actual result | Evidence |
@@ -222,3 +232,7 @@ ledger: ArkTS constraints [HMOS-ARKTS], Stage-model architecture [HMOS-STAGE], A
 HarmonyOS testing services [HMOS-TESTING]. Registered identity and lifecycle remain governed by
 [REPO-HARMONYOS-IDENTITY]. Project-specific baselines, commands, permissions, matrices, thresholds,
 reviewers, and approval evidence must come from the applicable project overlay or task contract.
+Page/Dialog structure, resource use, and Chinese-comment evidence additionally trace to
+`OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` in
+`changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; the project exemplar
+and third-party framework remain bounded to their declared authority.

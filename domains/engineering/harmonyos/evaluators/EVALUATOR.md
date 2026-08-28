@@ -350,6 +350,63 @@ overwrite or repurposing. Structural inspection cannot by
 itself pass behavior, a successful build cannot excuse a violated dependency direction, and a
 subordinate Skill recommendation cannot substitute for an architecture-owner decision.
 
+### HMOS-EVAL-12 — Page, Dialog, route, resource, and Chinese-comment integrity
+
+**Pass conditions**
+
+- Every new or materially changed navigable root, modal or overlay destination, and reusable
+  embedded UI is classified as a page, Dialog, or component and resides under `pages/`, `dialogs/`,
+  or `components/`, or one explicitly recorded project-equivalent mapping that preserves the same
+  responsibilities.
+- Route identifiers, page metadata, and route parameters have one accepted owner under `router/`
+  or its recorded equivalent. Protocol strings are named ArkTS constants reused by declarations
+  and callers; they are not copied as anonymous literals or incorrectly localized.
+- When HMRouter is selected, the evaluated project records its locked core and compiler-plugin
+  versions, ordinary destinations use the applicable page declaration, Dialog destinations are
+  explicitly marked as Dialogs, and the generated integration is exercised by the configured
+  build. A core/plugin version difference or generated API-level warning is recorded and limits
+  the corresponding compatibility claim, but is not by itself proof that page or Dialog behavior
+  failed. HMRouter evidence is not generalized to projects using another router.
+- New or materially changed user-visible strings are declared in
+  `src/main/resources/base/element/string.json`, application-owned colors in `color.json`, and
+  reusable UI measurements in `float.json`, unless an applicable system resource or established
+  project token owns the semantic value. Required locale and qualifier variants remain aligned.
+- Non-UI literals such as route IDs, log formats, regular expressions, serialization keys,
+  endpoint fragments, and enum discriminators are represented by named constants or typed
+  contracts when reuse or protocol stability requires it; they are not blindly moved to UI
+  resources.
+- Every new or materially changed class, struct, ArkUI component, ViewModel, public method, and
+  non-obvious business method contains meaningful, current Chinese comments explaining applicable
+  responsibility, intent, contract, state transition, side effect, failure handling, lifecycle
+  dependency, or rationale. Trivial accessors are not failed merely for lacking redundant comments.
+- Resource-reference compilation passes for the configured target, and each task-required page
+  navigation and Dialog open, close, dismissal, repeated-interaction, failure, and recovery path has
+  separate observed evidence or an explicit status.
+
+**Required evidence:** changed UI artifact and directory inventory; project-equivalent mapping;
+route declaration/caller/metadata map; selected navigation framework, locked versions and build
+configuration; resource-key add/update/remove and qualifier diff; changed `.ets` literal scan with
+semantic dispositions; named non-UI constant inventory; Chinese-comment semantic review; configured
+build output; task-required navigation and Dialog scenario evidence; deviations and rollback unit.
+
+**Negative paths:** inspect a Dialog stored as an ordinary page, missing or duplicated route ID,
+anonymous route literal at a caller, omitted Dialog flag, missing generated integration,
+visible-text or color literal, missing base or qualifier resource,
+duplicate value-named resource, dynamic visible text assembled from embedded prose, protocol string
+incorrectly moved to `string.json`, missing required Chinese comment, and a stale or filler comment
+that repeats only the identifier. Any such in-scope structural or semantic condition is `fail` even
+when the build passes.
+
+A mismatched or unknown core/compiler-plugin version and a generated API warning must be preserved
+as compatibility findings. They do not fail or block unrelated page, Dialog, route, resource, or
+comment criteria when the configured build and required behavior checks pass. They become `fail`
+only when an observed build or required runtime journey fails, or when an explicit project hard
+gate requires version equality or forbids the warned API. They become `blocked` only for a
+compatibility claim that the task explicitly requires and whose necessary target evidence is
+unavailable. Otherwise report the compatibility claim as unverified with a warning and residual
+risk. Evidence from the CatchElf sample or another HMRouter version cannot establish broader
+compatibility.
+
 ## Cross-Criterion Evidence Rules
 
 ### Freshness and version relevance
@@ -471,4 +528,7 @@ This evaluator uses the validated `engineering.harmonyos` research ledger at
 guidance [HMOS-TESTING]. HMOS-EVAL-11 additionally uses `USER-BUSINESS-MODULE-CONTRACT` and
 `PROJECT-UGC-EXEMPLAR` from
 `changes/20260817-harmonyos-business-module-development/research/sources.json`; the local exemplar
-is structural project evidence, not platform authority.
+is structural project evidence, not platform authority. HMOS-EVAL-12 additionally uses
+`OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` from
+`changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; HMRouter evidence is
+limited to the selected third-party framework and locked project version.
