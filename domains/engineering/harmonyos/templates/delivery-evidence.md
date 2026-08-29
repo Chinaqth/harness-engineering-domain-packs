@@ -141,6 +141,22 @@ Record structural and semantic review separately from compilation. A build resul
 incorrect page/Dialog/component location, anonymous route, UI magic literal, missing resource or
 qualifier, or absent, stale, or meaningless required Chinese comment.
 
+### Network tool, dependency, responsibility, and result review
+
+| Network ID | Entry / affected module | Supplied candidate | Declaration and target evidence | Entrypoint / exported symbols | Implementation / SDK / config / permission state | Project candidates searched and dispositions | Selected tool or minimal adapter decision | Build state |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `{{NET-001}}` | `{{endpoint-operation-module}}` | `{{package-symbol-or-none}}` | `{{manifest-lock-local-target-evidence}}` | `{{main-entry-and-public-exports}}` | `{{resolved-gaps-baseline}}` | `{{candidate-map-and-reasons}}` | `{{reuse/create/blocked-and-authority}}` | `{{CHECK-id-status}}` |
+
+| Network ID | Endpoint / request / response | Repository contract / implementation | Service behavior | Transport abstraction / implementation | ViewModel / View boundary | Typed result and error mapping | Lifecycle, cancellation, overlap and stale-result behavior | Log and evidence redaction |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `{{NET-001}}` | `{{typed-contracts}}` | `{{paths-responsibilities}}` | `{{pre-post-domain-mapping}}` | `{{client-adapter-and-completion-contract}}` | `{{state-mapping-no-direct-view-request}}` | `{{success-offline-protocol-business-decode-timeout-cancel-sdk}}` | `{{behavior-or-not-applicable}}` | `{{sanitized-fields-and-evidence}}` |
+
+Static dependency inspection does not establish build or runtime behavior. Record an explicit case
+status for applicable success, business failure, protocol failure, offline, timeout, decode,
+cancellation, lifecycle re-entry and overlapping requests. A request path that can remain pending,
+an indistinguishable empty result, copied exemplar policy, or unredacted protected data is a
+finding even when compilation succeeds.
+
 ### Scenario and target matrix
 
 | Case ID | Path type | Preconditions and stimulus | Expected state / lifecycle / interaction result | Emulator targets | Physical-device targets | Actual result | Evidence |
@@ -236,3 +252,8 @@ Page/Dialog structure, resource use, and Chinese-comment evidence additionally t
 `OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` in
 `changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; the project exemplar
 and third-party framework remain bounded to their declared authority.
+Network discovery and fallback fields additionally trace to
+`OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` in
+`changes/20260829-harmonyos-network-request-policy/research/sources.json`; the Drill exemplar does
+not authorize its project-specific package, tool, response, authentication, routing, UI or
+transport choices.

@@ -33,6 +33,7 @@ revision, affected application and modules, evidence location, and accountable h
 | Package intent | Product, modules, intended HAP/HAR/HSP boundaries, App Pack scope, reuse and runtime expectations | Do not redesign module topology or claim package suitability. |
 | Business-module initialization inputs | Confirmed HarmonyOS project root, existing relative module directory, root `build-profile.json5`, valid module ID, optional display name, provider naming convention, and excluded integration scope | Do not run the initializer or infer business/provider behavior, external dependencies, routing, build, or runtime integration. |
 | Business-module development inputs | Existing business HAR, optional provider HAR, MVVM ownership map, V2 baseline, required UI/API/routes/shell integration, external consumers, public contracts, build target, and rollback boundary | Do not invent provider lifecycle, routing framework, public methods, dependency changes, or host-shell behavior. |
+| Network request baseline | Affected endpoints and models, supplied network dependency/tool, module and root manifests, lock or local-target evidence, package entrypoints and exports, existing project network abstractions, SDK/API network-interface support, authentication/error/logging ownership, required negative paths, and permission to create or change transport code | Do not generate an unresolved import, copy another project's network stack, install a dependency, or invent authentication, retry, certificate, response, URL, UI-message, or logging policy. |
 | Authorized execution contract | Permitted reads and writes, verified `devecocli` availability and subcommands, project configuration, tests, device access, retry bound, and rollback procedure | Do not invent commands, install tools, mutate files, or cross the missing permission boundary. |
 | Quality and handoff contract | Required lint, compatibility, build, unit, coverage, runtime, device, accessibility, security, performance, power, stability, signing, and release checks; named decision owners | Run only applicable authorized baseline checks and leave dependent claims unverified. |
 
@@ -61,7 +62,8 @@ are not install, runtime, device, signing, distribution, or release evidence. [H
 1. Inventory affected `.ets` files, resources and qualifier variants, configuration, modules, Stage
    components, page/Dialog/component classification, route IDs and metadata, selected navigation
    framework and locked version, required Chinese comments, state objects, persistence, package
-   boundaries, and external interfaces.
+   boundaries, external interfaces, network entries, dependency manifests, exported network tools,
+   transport implementations, request/result contracts and network lifecycle behavior.
 2. Reproduce the current expected path and material negative paths in an authorized environment.
 3. Record pre-existing diagnostics and unavailable checks without attributing them to the change.
 4. Route the task to one or more procedure tracks below and identify dependencies between them.
@@ -159,8 +161,8 @@ missing required path, and any excluded generated or integration path. Do not re
 
 Use this track for `harmonyos-business-module-development`; keep scaffold-only requests in track 4.
 
-1. Load `hmos-business-module-development`, its architecture reference, and its UI page/Dialog
-   convention reference. Inventory the business
+1. Load `hmos-business-module-development`, its architecture reference, UI page/Dialog convention
+   reference, and network-request convention reference when the scope touches networking. Inventory the business
    HAR, optional `<module>provider` HAR, public exports, external imports, UI artifacts, ViewModels,
    mutable UI state, network entry points, routes, host-shell delegates and tests.
 2. Resolve scaffold state: initialize only when neither HAR exists; proceed without provider when
@@ -178,6 +180,11 @@ Use this track for `harmonyos-business-module-development`; keep scaffold-only r
    View; keep business actions, asynchronous orchestration and mutable presentation state in
    `viewmodels/`; keep endpoints, repositories, request execution and network-facing services in
    `api/`, while preserving an established `models/request` and `models/response` boundary.
+   For each new or materially changed request, apply `HMOS-RULE-11`: verify a supplied tool through
+   dependency declaration, target/entrypoint resolution, exported symbols and implementation
+   completeness; search the authorized project for an established compatible network abstraction
+   when it fails; create only a minimal feature-owned official-SDK adapter when no suitable project
+   tool exists and the required version and permission decisions are established.
 5. Apply `HMOS-RULE-05`. New or rewritten ViewModels and mutable UI-facing objects use
    `@ObservedV2`; fields whose mutation drives UI refresh use `@Trace`. Do not make transport
    objects observable by default or introduce V1 decorators.
@@ -196,14 +203,17 @@ Use this track for `harmonyos-business-module-development`; keep scaffold-only r
 9. Implement the smallest vertical slice, update public exports deliberately, then verify directory
    responsibility, View-to-ViewModel flow, API containment, route/shell ownership, provider
    declaration-to-implementation mapping, external dependency direction, resource references,
-   changed UI literals, and Chinese-comment meaning.
+   changed UI literals, Chinese-comment meaning, effective network dependency, typed result/error
+   mapping, deterministic request completion, cancellation/stale-result behavior and log redaction.
 10. Run the affected configured build and every task-required negative, test or runtime scenario.
    Keep structural inspection, compilation and observed behavior as separate evidence classes.
 
 **Output and evidence:** responsibility inventory; primary-orchestrator and subordinate-capability
 map; MVVM and state-ownership map; traced-property
-rationale; network entry-point inventory; route and shell-delegate changes; provider interfaces,
-implementations and external imports; public export diff; build/scenario results; deviations and
+rationale; network entry-point inventory; supplied and discovered tool candidates; dependency,
+entrypoint, export and implementation-resolution states; selected/rejected tool rationale; typed
+result/error and lifecycle mapping; redaction disposition; route and shell-delegate changes;
+provider interfaces, implementations and external imports; public export diff; build/scenario results; deviations and
 rollback instructions; route and framework-version record; resource-key and changed-literal review;
 and Chinese-comment review.
 
@@ -213,7 +223,10 @@ subordinate capability recommends a conflicting architecture, the
 provider lifecycle or component-builder convention is unknown,
 the project mandates a conflicting topology, external consumers already bypass the provider and
 migration is outside scope, or a change requires unapproved dependencies, navigation framework,
-host-shell behavior, public contract migration, signing or production access.
+host-shell behavior, public contract migration, signing or production access. Also stop when a
+network tool cannot be resolved, every project candidate is unsuitable, an official SDK interface
+cannot be established for the baseline, or minimal creation requires an unapproved dependency,
+authentication, certificate, shared-module, permission or service-contract decision.
 
 ### 6. Implement ArkTS and ArkUI behavior
 
@@ -222,6 +235,10 @@ host-shell behavior, public contract migration, signing or production access.
 2. Retrieve exact version-relevant APIs before use. Account for ArkTS static typing, null safety,
    restricted dynamic behavior, module and kit declarations, interoperability, and concurrency
    constraints. [HMOS-ARKTS]
+   When the surface initiates a network request, apply the resolution ladder and effective-
+   dependency states in `HMOS-RULE-11` before writing imports or request code. Preserve established
+   project boundaries; create a minimal local adapter only after authorized project search finds no
+   suitable tool.
 3. Define state ownership and data flow for loading, empty, success, invalid input, failure,
    retry, lifecycle re-entry, and other material expected or negative paths.
 4. For a new project, new component, or rewritten state-managed surface, use State Management V2
@@ -239,7 +256,9 @@ host-shell behavior, public contract migration, signing or production access.
 8. Add meaningful Chinese comments to new or materially changed classes, components, ViewModels,
    public methods, and non-obvious business methods while implementing their logic.
 9. Make the smallest scoped change. Preserve business logic, navigation architecture, lifecycle
-   contracts, and unrelated modules unless explicitly authorized.
+   contracts, and unrelated modules unless explicitly authorized. Network request paths settle with
+   typed success/failure results and define applicable offline, protocol, business, decode, timeout,
+   cancellation, lifecycle and overlapping-request behavior without transport-owned UI effects.
 10. Inspect changed files for UI classification, route duplication, magic UI literals, missing or
    inconsistent resource keys/qualifiers, and absent, stale, or meaningless required Chinese
    comments. Run lint only when the task contract or user explicitly requires lint
@@ -248,7 +267,8 @@ host-shell behavior, public contract migration, signing or production access.
    that cannot be executed.
 
 **Output and evidence:** scoped patch, changed-file inventory, API decision references, state-flow
-description, UI artifact and route map, navigation-framework/version record, resource-key and
+description, UI artifact and route map, navigation-framework/version record, network-tool decision
+and dependency-resolution record when applicable, typed result/lifecycle map, resource-key and
 changed-literal review, Chinese-comment review, requested check results, expected and negative-path
 observations, known limitations, and rollback guidance.
 
@@ -257,7 +277,8 @@ diagnose-fix-lint iterations, including the first repair attempt. A task contrac
 bound. Every iteration records diagnostics, edits, and result; it may not widen scope or weaken
 checks.
 
-**Negative paths:** if an API signature is uncertain, state behavior changes unexpectedly, or the
+**Negative paths:** if an API signature is uncertain, a network dependency or tool is ineffective,
+an error path can remain pending or indistinguishable, state behavior changes unexpectedly, or the
 repair loop fails to converge, stop. Revert or isolate the unsafe batch when authorized, retain
 diagnostics, and hand off root-cause or design questions. A manual checklist never becomes a lint
 or compile pass.
@@ -380,6 +401,9 @@ decided a blocker. Preserve the last known good state and reproducible failure.
 | Required API signature or replacement is unverified | Do not invent or substitute it. | Dependent change is blocked. |
 | State migration changes data flow or observation | Stop, isolate or revert the batch, and preserve reproduction evidence. | Batch and dependents remain failed. |
 | New or changed UI has an incorrect classification, anonymous route, magic UI literal, missing resource, or absent/stale/meaningless required Chinese comment | Correct only within scope and rerun structural review; otherwise hand off the exact finding. | The affected structural criterion fails even if build succeeds. |
+| Supplied network dependency or tool is unresolved or incomplete | Record declaration, target, entrypoint, export and implementation evidence; then search the authorized project before considering creation. | The supplied candidate cannot be used; dependent implementation remains blocked until a suitable candidate or authorized minimal adapter is established. |
+| No suitable project network tool exists | Verify the official network interface for the declared SDK/API and create only a minimal feature-owned adapter within authorized scope. | Third-party installation, shared-infrastructure creation and invented project policy remain forbidden without separate authority. |
+| A network failure path can remain pending, errors collapse into an indistinguishable empty value, or logs expose protected content | Correct the typed result, deterministic completion and redaction contract within scope, then rerun applicable negative paths. | The affected network criterion fails even if compilation succeeds. |
 | Locked navigation-framework or compiler-plugin version is unknown | Do not infer integration from another project or framework version. | Dependent route and generated-integration claims are blocked. |
 | Tool, command, project scope, permission, device, or environment is unavailable | Do not guess or bypass it; provide a reproducible manual or owner handoff. | Corresponding evidence class is unavailable or blocked. |
 | Lint or compatibility was not explicitly requested | Record the check as `skipped`; do not run it as a default gate. | Lint or compatibility claims remain unverified. |
@@ -440,6 +464,10 @@ This iteration uses the validated `engineering.harmonyos` research ledger: ArkTS
 migration [HMOS-ARKUI-MIGRATION], package semantics [HMOS-PACKAGES], testing services
 [HMOS-TESTING], and registered identity [REPO-HARMONYOS-IDENTITY]. It also composes the seven
 user-supplied capability units summarized in `skills/README.md` as provisional workflow input;
+network-tool discovery, fallback and creation additionally use
+`OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` from
+`changes/20260829-harmonyos-network-request-policy/research/sources.json`, with the exemplar limited
+to structural project evidence;
 their bundled corpora, tool names, examples, and version claims are not independently promoted to
 authority by this document. The business-module track additionally uses
 `USER-BUSINESS-MODULE-CONTRACT` and `PROJECT-UGC-EXEMPLAR` from

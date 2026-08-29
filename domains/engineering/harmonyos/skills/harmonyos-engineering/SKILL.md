@@ -86,6 +86,14 @@ the corrected sample is project structural evidence, and HMRouter upstream is au
 for the selected framework interface and must be reconciled with the project's locked version and
 build.
 
+For new or materially changed network requests, dependencies, endpoints, repositories, services or
+transports, apply `HMOS-RULE-11` and the Domain-authored
+`hmos-business-module-development/references/network-request-conventions.md` contract. It is backed
+by `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR`. The Owner's
+discovery and fallback sequence is authoritative Domain policy; the Drill project is structural
+evidence only and does not authorize copying its package, tool, response, authentication, routing,
+Toast, URL, singleton, interceptor or logging choices.
+
 Every version-sensitive claim, including API availability, deprecation, replacement, decorator
 mixing, lifecycle, package behavior, tool syntax, and minimum SDK, must be reconciled through
 `devecocli docs search ...` and, when a result is selected, `devecocli docs read <documentId>`.
@@ -132,7 +140,10 @@ material candidate with `devecocli docs` and the project baseline. [HMOS-ARKTS] 
 
 For complete business-module work, additionally inventory `api/`, `viewmodels/`, mutable UI models,
 `components/`, `dialogs/`, `pages/`, `router/`, the `hmdelegate/` project mapping, provider
-contracts/implementations, public exports and external imports before choosing a change.
+contracts/implementations, public exports and external imports before choosing a change. When the
+scope touches networking, inventory supplied dependencies, manifests and locks, package
+entrypoints/exports, implementation dependencies, existing project network abstractions,
+request/result/error contracts, authentication and logging ownership, and lifecycle behavior.
 
 For page, Dialog, or component work, additionally inventory UI artifact classification, route
 identifiers and metadata, the selected navigation framework and locked version, resource keys and
@@ -158,6 +169,15 @@ For affected UI, classify every destination before creating files, map route IDs
 the project router boundary, and define resource keys before adding visible text, colors, or
 reusable measurements. Plan meaningful Chinese responsibility and logic comments as part of the
 same change, not as a post-build documentation batch.
+
+For affected networking, prove the supplied tool through declaration, target/entrypoint resolution,
+exported symbols and implementation completeness. If ineffective, search the authorized project for
+an established compatible exported abstraction. Only after that search finds none may the change
+plan a minimal feature-owned adapter using an official network interface verified for the declared
+SDK/API baseline. Do not plan an external dependency, shared module, authentication, certificate,
+retry, cache, response, URL, UI-message or logging policy without its separate authority. Define
+typed success/failure, deterministic completion, cancellation/stale-result behavior and redaction
+before implementation.
 
 ### 4. Execute only through the authorized boundary
 
@@ -234,6 +254,12 @@ Stop the affected work and report `blocked` when:
 - diagnostics persist after the authorized retry bound;
 - an in-scope page/Dialog/component classification, route, resource, or required Chinese-comment
   violation remains after the bounded review, even when compilation succeeds; or
+- a supplied network dependency, package entrypoint, tool symbol or implementation chain is
+  ineffective, project search finds no suitable tool, and a minimal official-SDK adapter cannot be
+  established within the declared baseline and authorized scope;
+- a network path can remain pending, material failures collapse into an indistinguishable empty
+  value, transport owns unapproved presentation/navigation effects, or logs expose protected
+  request content; or
 - secrets, personal data, production access, or unsafe device state would be required.
 
 Never describe partial, manual, simulated, or unavailable evidence as a pass. Never claim release
@@ -249,6 +275,9 @@ Return one reconciled packet containing:
 - changed-file and decision inventory;
 - page/Dialog/component classification, route map, navigation-framework/version record,
   resource-key and changed-literal review, and required Chinese-comment review;
+- network-tool candidates and effective-dependency states, selection/rejection reasons,
+  endpoint/repository/service/transport responsibility map, typed result/error and lifecycle
+  contract, redaction disposition, and task-required success/failure observations;
 - exact build and any explicitly requested lint, compatibility, test, run, UI, and log procedures
   with target identifiers, statuses, diagnostics, artifacts, and sanitized evidence locations,
   kept in separate classes;

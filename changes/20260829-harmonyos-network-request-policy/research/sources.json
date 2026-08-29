@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "change_id": "20260829-harmonyos-network-request-policy",
+  "sources": [
+    {
+      "id": "OWNER-HMOS-NETWORK-REQUEST-CONTRACT",
+      "kind": "owner-requirement",
+      "title": "HarmonyOS network dependency discovery and fallback contract approved in task context",
+      "authority": "domain-owner-requirement",
+      "retrieved_at": "2026-08-29",
+      "claims": [
+        "Use the Drill UGC api layer as a design reference without assuming its project-specific libraries exist.",
+        "Before network implementation, determine whether the supplied dependency is valid and whether the requested tool symbol can be resolved.",
+        "When the supplied tool is unavailable, search the current project for an established network-request tool.",
+        "When no suitable project tool exists, create the minimum required network implementation while preserving reusable responsibility and directory abstractions.",
+        "Apply the rule through the HarmonyOS development workflow and existing Skill rather than creating a task-specific Skill.",
+        "Commit and push the Domain, synchronize Harness and Domain, update the CLI repository, and update the local CLI installation."
+      ]
+    },
+    {
+      "id": "PROJECT-DRILL-UGC-NETWORK-EXEMPLAR",
+      "kind": "local-project-exemplar",
+      "title": "Drill HarmonyOS UGC network layer and common_app transport",
+      "locator": "/Users/albertq/zyc-wrok-space/Dirll/drill-hm/features/ugc/src/main/ets/api",
+      "dependency_locator": "/Users/albertq/zyc-wrok-space/Dirll/drill-hm/common/common_app/src/main/ets/net",
+      "authority": "project-evidence-not-platform-authority",
+      "retrieved_at": "2026-08-29",
+      "claims": [
+        "The UGC module separates endpoint constants, a repository interface, repository implementation, service orchestration, request and response models, and ViewModel consumption.",
+        "The UGC module declares common_app as a local dependency and imports its exported httpCall, BaseApi, response helpers, logging, and base response types.",
+        "common_app selects an ICall implementation backed by the project SDK's RemoteCommunicationKit and project-specific interceptors, authentication, routing, toast, URL, and logging behavior.",
+        "The example's responsibility split is reusable, while its package names, tool symbols, response envelope, authentication, routing, user messaging, URLs, singleton assembly, and implementation details are project-specific.",
+        "Some observed non-success branches in the exemplar neither resolve nor reject the created Promise, so the exemplar cannot be copied as a correctness template."
+      ]
+    },
+    {
+      "id": "HMOS-ARKTS",
+      "kind": "existing-research-ledger-reference",
+      "locator": "changes/engineering.harmonyos-completion/research/sources.json#HMOS-ARKTS",
+      "authority": "primary",
+      "retrieved_at": "2026-08-29"
+    },
+    {
+      "id": "REPO-HARMONYOS-IDENTITY",
+      "kind": "existing-research-ledger-reference",
+      "locator": "changes/engineering.harmonyos-completion/research/sources.json#REPO-HARMONYOS-IDENTITY",
+      "authority": "repository-fact",
+      "retrieved_at": "2026-08-29"
+    }
+  ]
+}

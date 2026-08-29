@@ -407,6 +407,54 @@ unavailable. Otherwise report the compatibility claim as unverified with a warni
 risk. Evidence from the CatchElf sample or another HMRouter version cannot establish broader
 compatibility.
 
+### HMOS-EVAL-13 — Network dependency resolution and request-outcome integrity
+
+**Pass conditions**
+
+- Every new or materially changed network entry identifies the supplied dependency/tool and records
+  its effective state: affected-module declaration, exact local or locked target, package
+  entrypoint, exported tool and public types, complete implementation dependencies, applicable
+  platform kits/configuration/permissions, and affected configured build result.
+- An ineffective supplied candidate triggers an authorized project search covering manifests,
+  entrypoints/exports, established clients and request functions, platform-network imports,
+  endpoint/base-address managers, request and response/error contracts, interceptors and existing
+  repository implementations. Credible candidates have explicit selection or rejection reasons.
+- A newly created transport exists only when no suitable project tool was found. It is the smallest
+  feature-owned adapter below `api/` or a recorded equivalent, uses an official network interface
+  verified for the declared SDK/API baseline, and does not introduce an unapproved third-party
+  dependency, global shared module, unrelated migration or invented project policy.
+- Endpoint, typed request/response, repository contract and implementation, service, transport,
+  ViewModel and View responsibilities remain explicit. Views do not execute requests; ViewModels
+  map typed domain outcomes to presentation state; transport and Service code do not navigate or
+  display UI unless an accepted existing project contract deliberately owns that side effect.
+- Every request path settles exactly once with a typed success or failure. Applicable offline,
+  invalid-configuration, protocol, business, decode, timeout, cancellation and SDK-exception paths
+  remain distinguishable, and lifecycle re-entry, stale-result, overlapping-request,
+  deduplication or idempotency behavior is defined where material.
+- Credentials, authorization headers, cookies, tokens, personal data and unauthorized payloads are
+  absent or redacted from logs and retained evidence. Verbose tracing, authentication, certificate,
+  cleartext, production-host and protected-log decisions have explicit authority when applicable.
+
+**Required evidence:** network-entry inventory; supplied and discovered candidate map; module/root
+manifest and lock or local-target evidence; package entrypoint and export inspection; implementation
+dependency and SDK/API/configuration/permission resolution; selection/rejection record; changed
+directory and responsibility map; typed result/error/lifecycle contract; sanitized log review;
+affected configured build; task-required success, business-failure, protocol-failure, offline,
+timeout, decode, cancellation, lifecycle and overlap observations; skipped/blocked paths; rollback
+unit and owner handoffs.
+
+**Negative paths:** inspect an undeclared dependency, missing local target, package that does not
+export the requested symbol, type-only shell with missing implementation, unsupported platform kit,
+private implementation import, plausible but unsuitable project utility, no-tool project, direct
+View request, transport-owned navigation/Toast, offline path, non-success status, malformed body,
+timeout, cancel, stale overlapping result and sanitized logging. An unresolved or incomplete tool,
+unapproved external dependency/shared infrastructure, copied exemplar-specific policy, pending
+Promise path, collapsed material error, or protected-data log is `fail` for an implemented change.
+When implementation cannot proceed because a required SDK, dependency, permission,
+authentication/certificate decision or service environment is unavailable, the dependent
+implementation or behavior criterion is `blocked`; static discovery cannot be promoted to build or
+runtime pass.
+
 ## Cross-Criterion Evidence Rules
 
 ### Freshness and version relevance
@@ -532,3 +580,8 @@ is structural project evidence, not platform authority. HMOS-EVAL-12 additionall
 `OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` from
 `changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; HMRouter evidence is
 limited to the selected third-party framework and locked project version.
+HMOS-EVAL-13 additionally uses `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and
+`PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` from
+`changes/20260829-harmonyos-network-request-policy/research/sources.json`; the Drill project is
+structural evidence only and cannot establish a reusable package, tool, response, authentication,
+routing, UI or transport requirement.

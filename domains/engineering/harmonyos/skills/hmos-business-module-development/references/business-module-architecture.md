@@ -7,7 +7,9 @@ HAR. Concrete directory aliases, framework decorators, service locators and modu
 project facts, but the responsibility and dependency direction below must remain observable.
 
 Read [ui-page-dialog-conventions.md](ui-page-dialog-conventions.md) for the companion contract on
-page/Dialog route declarations, UI resource use, and Chinese responsibility comments.
+page/Dialog route declarations, UI resource use, and Chinese responsibility comments. Read
+[network-request-conventions.md](network-request-conventions.md) whenever the task adds or materially
+changes an endpoint, repository, service, transport, network dependency, or request lifecycle.
 
 ## Business HAR Responsibilities
 
@@ -38,7 +40,12 @@ do not create a duplicate directory merely to satisfy a spelling convention.
 
 ## API Containment
 
-All code that initiates a network request belongs under `api/`. A scalable internal split is:
+All code that initiates a network request belongs under `api/`. Before selecting an implementation,
+prove the supplied dependency and tool through declaration, target resolution, exported symbol,
+complete implementation dependencies, and the affected configured build. When that candidate is
+ineffective, search the project for an established compatible network abstraction. Create a minimal
+feature-local official-SDK adapter only when no suitable project tool exists and the SDK/API baseline
+and mutation scope authorize it. A scalable internal split is:
 
 ```text
 api/
@@ -53,7 +60,10 @@ The names are illustrative. The invariant is that endpoint identity, repository 
 request execution and network-facing service logic remain inside the API boundary. Request and
 response data models may use the project's established `models/request` and `models/response`
 locations. ViewModels call a service or repository abstraction; Views never call the network client
-directly.
+directly. Every request path settles with a typed success or failure result; offline, non-success
+status, decode, timeout, cancellation, and SDK-exception paths cannot leave a pending Promise or be
+silently collapsed into an indistinguishable empty value. Transport code does not copy project-
+specific authentication, routing, Toast, response-envelope, URL, retry, cache or logging policy.
 
 ## Provider Bridge
 
@@ -91,10 +101,12 @@ For each delivery, record:
 2. View-to-ViewModel event and state dependencies;
 3. each mutable UI property and why it is traced or intentionally untraced;
 4. every network entry point and proof it resides below `api/`;
-5. route and host-shell adaptation ownership;
-6. provider interface declarations, business implementations and external imports; and
-7. build plus task-required behavior evidence.
-8. page/Dialog/component classification, route ownership, resource-key changes, magic-literal
+5. network-tool candidates, effective-dependency state, selection or rejection rationale, typed
+   result/error mapping, redaction behavior, and deterministic completion paths;
+6. route and host-shell adaptation ownership;
+7. provider interface declarations, business implementations and external imports; and
+8. build plus task-required behavior evidence.
+9. page/Dialog/component classification, route ownership, resource-key changes, magic-literal
    review, and Chinese-comment review for every new or materially changed UI surface.
 
 ## Capability Precedence

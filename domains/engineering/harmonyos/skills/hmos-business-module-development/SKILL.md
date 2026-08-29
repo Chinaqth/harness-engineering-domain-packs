@@ -1,6 +1,6 @@
 ---
 name: hmos-business-module-development
-description: Develop or revise a HarmonyOS business HAR after scaffolding using a bounded MVVM, State Management V2, API, UI-classification, routing, shell-delegate, and optional provider-bridge contract. Use for complete business-module feature work; do not use for scaffold-only initialization or generic ArkUI component work outside a business module.
+description: Develop or revise a HarmonyOS business HAR after scaffolding using bounded MVVM, State Management V2, dependency-aware network delivery, API/UI classification, routing, shell delegation, and an optional provider bridge. Use for complete business-module feature work; do not use for scaffold-only initialization or generic ArkUI work outside a business module.
 ---
 
 # HarmonyOS Business Module Development
@@ -17,6 +17,9 @@ Confirm before editing:
 - declared SDK/API and State Management V2 baseline;
 - requested pages, dialogs, components, service behavior and external consumers;
 - existing navigation, network, dependency-injection or service-registration conventions;
+- supplied network dependency/tool, module manifests and locks, public package entrypoints and
+  exports, current SDK/API networking support, request/error/authentication/logging ownership, and
+  permission to search or create a transport adapter;
 - authorized files, build target, acceptance scenarios and rollback boundary.
 
 Resolve the scaffold state explicitly:
@@ -40,7 +43,9 @@ Do not extend the initializer's scaffold script to implement this workflow.
 
 Read [business-module-architecture.md](references/business-module-architecture.md) and
 [ui-page-dialog-conventions.md](references/ui-page-dialog-conventions.md) before planning or
-editing. Apply `HMOS-RULE-05`: new or rewritten state-managed surfaces use State Management V2.
+editing. Read [network-request-conventions.md](references/network-request-conventions.md) whenever
+the task adds or materially changes network dependencies, endpoints, repositories, services,
+transports or request lifecycle. Apply `HMOS-RULE-05`: new or rewritten state-managed surfaces use State Management V2.
 Treat the project exemplar recorded as `PROJECT-UGC-EXEMPLAR` as structural evidence only; it does
 not override the current project or authoritative SDK guidance.
 
@@ -66,7 +71,9 @@ architecture decision owner. Do not silently select the most convenient recommen
 ## Workflow
 
 1. Inventory the current module, provider, public exports, navigation, state ownership, network
-   calls, UI artifacts, tests and build target. Record deviations from the architecture contract.
+   calls, dependency manifests and locks, package entrypoints and exports, project network tools,
+   transport implementations, typed result/error contracts, UI artifacts, tests and build target.
+   Record deviations from the architecture contract.
 2. Record the selected subordinate capabilities and the architecture decisions they are forbidden
    to change. Define the smallest vertical slice and map each file to View, ViewModel, model/UI-state, API,
    router, shell-delegate or provider responsibility. Do not move unrelated legacy code.
@@ -81,29 +88,41 @@ architecture decision owner. Do not silently select the most convenient recommen
 5. Put endpoint declarations, repository contracts, repository implementations, request execution
    and network-facing services under `src/main/ets/api/` or its subdirectories. Request/response
    data models may remain in the project's established `models/` boundary. View code must not call
-   the network client directly.
-6. Classify reusable embedded UI under `components/`, modal or overlay UI under `dialogs/`, and
+   the network client directly. Before generating imports, prove the supplied network tool through
+   declaration, target/entrypoint resolution, exported symbols and implementation completeness.
+   If it is ineffective, search the authorized project for an established compatible exported
+   abstraction. Only when none exists may the change create the minimum feature-owned transport
+   abstraction and official-SDK adapter supported by the declared baseline. Never copy a reference
+   project's package names, tool symbols, authentication, routing, Toast, response envelope, URLs,
+   retry, cache or logging behavior as a fallback.
+6. Require every request path to settle exactly once with a typed success or failure. Keep offline,
+   protocol, business, decode, timeout, cancellation and SDK failures distinguishable when the
+   accepted behavior depends on them. Define lifecycle, stale-result, overlap, deduplication and
+   idempotency behavior where applicable. Transport and Service code return typed outcomes;
+   ViewModels own presentation-state mapping. Redact credentials, headers, cookies, tokens,
+   personal data and unauthorized payloads from logs and evidence.
+7. Classify reusable embedded UI under `components/`, modal or overlay UI under `dialogs/`, and
    navigable screen roots under `pages/`. Keep business route paths, page metadata and route
    parameters under `router/`.
    When the project uses HMRouter, use named route constants, mark Dialog destinations with
    `dialog: true`, and verify the locked core/compiler-plugin integration instead of assuming a
    remembered annotation contract.
-7. Keep shell-project adaptation under `hmdelegate/` (or the explicitly mapped project-equivalent
+8. Keep shell-project adaptation under `hmdelegate/` (or the explicitly mapped project-equivalent
    directory). It may adapt the business module to host-shell contracts but must not become a
    second location for business state, network access or route definitions.
-8. When `<module>provider` exists, keep it as the sole external compile-time bridge. Declare
+9. When `<module>provider` exists, keep it as the sole external compile-time bridge. Declare
    `XxxServiceProvider` and `XxxComponentProvider` contracts plus the single `XxxProvider`
    factory/access point in the provider HAR; implement the contracts in the business HAR. External
    consumers depend on the provider contract, not business implementation paths.
-9. Update public exports deliberately. Export only required pages, route contracts, shell delegates
+10. Update public exports deliberately. Export only required pages, route contracts, shell delegates
    or provider contracts; do not expose ViewModel internals, repositories or network clients by
    convenience.
-10. Before writing or changing ArkUI literals, declare user-visible strings in `string.json`,
+11. Before writing or changing ArkUI literals, declare user-visible strings in `string.json`,
     application-owned colors in `color.json`, and reusable UI measurements in `float.json` under
     `src/main/resources/base/element/`. Use named ArkTS constants for non-UI protocol values such as
     route IDs. Add meaningful Chinese comments to new or materially changed classes, components,
     ViewModels, public methods, and non-obvious business methods.
-11. Inspect changed source for UI magic literals, missing resource keys, route duplication, incorrect
+12. Inspect changed source for UI magic literals, missing resource keys, route duplication, incorrect
     UI classification, and absent, stale, or meaningless Chinese comments. Run the configured build
     for the affected module and every explicitly required lint, test or
     device scenario. Record structure and dependency-direction checks separately from compilation
@@ -115,6 +134,15 @@ architecture decision owner. Do not silently select the most convenient recommen
 - UI code renders state and delegates actions; ViewModels own business/presentation behavior.
 - Mutable UI-facing classes use `@ObservedV2` and refresh-driving fields use `@Trace`.
 - Network requests and their contracts/implementations are contained by `api/`.
+- Every selected network tool has recorded declaration, target, entrypoint, export, implementation
+  and configured-build evidence; unavailable supplied tools trigger project search before creation.
+- A newly created transport is feature-owned, minimal, based on a version-verified official SDK
+  interface, and introduces no unapproved third-party, shared-module or project-policy decision.
+- Every request path settles with a typed result; applicable offline, protocol, business, decode,
+  timeout, cancellation, lifecycle and overlapping-request paths have explicit dispositions.
+- Transport logs and evidence redact credentials, authorization headers, cookies, tokens, personal
+  data and unauthorized payloads; presentation effects remain outside transport unless preserved by
+  an explicit project contract.
 - `router/` contains module route paths, page metadata and route parameter contracts.
 - `hmdelegate/` contains only host-shell adaptation.
 - User-visible strings, application-owned colors, and reusable UI measurements are resource-backed;
@@ -143,12 +171,19 @@ Stop and request an architecture decision when:
   choice would create a new public contract;
 - implementation requires an unapproved dependency, routing-framework change, signing change,
   production access or unrelated refactor; or
+- the supplied network dependency, package entrypoint, symbol or implementation chain is
+  unresolved, no suitable project tool exists, and an official-SDK adapter cannot be created within
+  the confirmed SDK/API and permission boundary;
+- a new adapter would require inventing authentication, certificate, retry, cache, response,
+  service-environment, navigation, Toast, shared-infrastructure or sensitive-log policy; or
 - a required resource qualifier, locked routing-framework version, compiler-plugin configuration,
   or public route contract cannot be established without guessing.
 
 ## Handoff
 
-Return the module/provider file inventory, MVVM ownership map, API containment result, route and
+Return the module/provider file inventory, MVVM ownership map, API containment result, network-tool
+candidate map, effective-dependency states, selection/rejection reasons, typed result/error and
+lifecycle contract, redaction disposition, task-required negative-path results, route and
 shell-delegate changes, provider interface-to-implementation map, public export changes, build and
 scenario evidence, subordinate-capability map, composition conflicts, deviations, unresolved
 decisions, resource-key and changed-literal review, Chinese-comment review, and rollback

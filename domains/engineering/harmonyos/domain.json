@@ -3,7 +3,7 @@
   "id": "engineering.harmonyos",
   "display_name": "HarmonyOS Engineering",
   "description": "Owns reusable HarmonyOS application delivery practice and evaluation.",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "status": "active",
   "owner": "platform-harmony",
   "inherits": [],
@@ -30,17 +30,19 @@
       "HAP, HAR, HSP, or App Pack packaging metadata",
       "HarmonyOS business-module and providers/ companion layout with root build-profile.json5 registrations",
       "HarmonyOS business HAR using MVVM, State Management V2, api/components/dialogs/pages/router/hmdelegate boundaries, or a provider bridge",
+      "HarmonyOS endpoint, repository, service, transport adapter, network dependency, request lifecycle, or typed network-result implementation",
       "HarmonyOS lint, unit-test, coverage, or self-inspection configuration"
     ]
   },
   "compatibility": {
     "kernel_protocol_version": "1.0",
-    "statement": "Compatible with Harness Kernel protocol 1.0. Version 3.0.0 adds breaking page/Dialog classification, UI-resource externalization, and meaningful Chinese-comment evaluation requirements while preserving Kernel authorization, security, privacy, evidence, approval, and lifecycle controls. Projects may remain pinned to 2.x; migration to 3.0.0 applies the new rules only to new or materially changed surfaces and requires project-supplied navigation versions, resource qualifier policy, commands, targets, permissions, and release constraints."
+    "statement": "Compatible with Harness Kernel protocol 1.0. Version 4.0.0 adds breaking network-tool dependency resolution, project-search-before-creation, minimal official-SDK adapter, typed deterministic request-outcome, and sensitive-evidence redaction requirements while retaining the 3.0.0 page/Dialog, UI-resource, and meaningful Chinese-comment policies and preserving Kernel authorization, security, privacy, evidence, approval, and lifecycle controls. Projects may remain pinned to 3.x; migration to 4.0.0 applies the network rules only to new or materially changed request surfaces and their direct dependency chains and requires project-supplied SDK/API support, dependency permissions, authentication, certificate, response, retry/cache, service-environment, logging, commands, targets, and release constraints."
   },
   "activation": {
     "evidence": [
       "changes/engineering.harmonyos-activation/activation-evidence.json",
-      "changes/20260828-harmonyos-ui-resource-comment-policy/acceptance.json"
+      "changes/20260828-harmonyos-ui-resource-comment-policy/acceptance.json",
+      "changes/20260829-harmonyos-network-request-policy/acceptance.json"
     ]
   }
 }
