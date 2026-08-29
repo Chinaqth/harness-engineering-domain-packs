@@ -3,7 +3,7 @@
 - ID: `20260829-harmonyos-network-request-policy`
 - Owner: `platform-harmony`（用户明确批准按已分析方案实施）
 - Risk: G2
-- Status: evaluating
+- Status: done
 - Review-By: 2026-09-12
 
 ## 问题
@@ -48,7 +48,7 @@
 - [x] AC-06：Domain 与注册表升级到 `4.0.0`，兼容性说明和迁移边界一致。
 - [x] AC-07：Domain 全量校验和相关 Skill 校验通过。
 - [x] AC-08：独立 Evaluator 对 G2 变更给出 pass、fail 或 blocked 结论。
-- [ ] AC-09：Domain、Kernel pin 和 CLI bundle 按顺序提交、推送并同步到本地 Runtime。
+- [x] AC-09：Domain、Kernel pin 和 CLI bundle 按顺序提交、推送并同步到本地 Runtime。
 
 ## 风险、权限与数据影响
 

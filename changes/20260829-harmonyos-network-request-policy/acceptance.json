@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "change_id": "20260829-harmonyos-network-request-policy",
   "risk": "G2",
-  "status": "evaluating",
+  "status": "done",
   "criteria": [
     {"id": "AC-01", "description": "存在网络请求参考契约，定义分层职责、有效依赖证据和选择顺序。", "status": "passing", "evidence": ["domains/engineering/harmonyos/skills/hmos-business-module-development/references/network-request-conventions.md", "evaluations/end-to-end-evaluation.md"]},
     {"id": "AC-02", "description": "Domain 硬规则覆盖依赖解析、项目搜索、最小创建、结果终止、敏感信息和验证要求。", "status": "passing", "evidence": ["domains/engineering/harmonyos/rules/BASE.md#hmos-rule-11--resolve-network-tools-before-reuse-and-bound-every-request-outcome", "evaluations/end-to-end-evaluation.md"]},
@@ -12,6 +12,6 @@
     {"id": "AC-06", "description": "Domain 与注册表同步到 4.0.0，并记录兼容性和迁移边界。", "status": "passing", "evidence": ["domains/engineering/harmonyos/domain.json", "registry/domains.json", "domains/engineering/harmonyos/DOMAIN.md", "domains/engineering/harmonyos/README-CH.md"]},
     {"id": "AC-07", "description": "Domain 和 Skill 确定性校验通过。", "status": "passing", "evidence": ["validation.md", "evaluations/end-to-end-evaluation.md"]},
     {"id": "AC-08", "description": "独立 Evaluator 给出最终结论。", "status": "passing", "evidence": ["evaluations/end-to-end-evaluation.md"]},
-    {"id": "AC-09", "description": "Domain、Kernel pin、CLI bundle 和本地 Runtime 完成同步。", "status": "pending", "evidence": []}
+    {"id": "AC-09", "description": "Domain、Kernel pin、CLI bundle 和本地 Runtime 完成同步。", "status": "passing", "evidence": ["Domain f3d99019d16b681ae3dbc24f948e78508345e311 pushed to origin/main", "Kernel c28afb82b9e4381e2224c9633faac2f7c360061d pushed to origin/main", "CLI 0913db122a495563bdf2a2fee6e143a5f5316424 pushed to origin/main", "harness version --json: 0.2.4+c28afb8.f3d9901"]}
   ]
 }

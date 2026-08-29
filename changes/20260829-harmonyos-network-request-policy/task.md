@@ -10,10 +10,10 @@
 - [x] 将 Domain 和注册表升级为 4.0.0
 - [x] 运行 Skill、JSON、Domain 和 change 校验
 - [x] 获取独立 Evaluator 结论并完成验收记录
-- [ ] 提交并推送 Domain Pack
-- [ ] 同步、提交并推送 Kernel Domain pin
-- [ ] 重建、验证、提交并推送 CLI bundle
-- [ ] 更新本地 CLI 和受管 Runtime并核验 revision
+- [x] 提交并推送 Domain Pack
+- [x] 同步、提交并推送 Kernel Domain pin
+- [x] 重建、验证、提交并推送 CLI bundle
+- [x] 更新本地 CLI 和受管 Runtime并核验 revision
 
 ## 验证矩阵
 
@@ -23,7 +23,7 @@
 | AC-06 | registry/manifest/README/DOMAIN 一致性 | passing；版本一致为 4.0.0 |
 | AC-07 | Skill quick validation、JSON、`domain-check.sh` | passing；bundled Python 下 48 tests OK |
 | AC-08 | 独立 Evaluator 记录 | Pass；无 P0/P1 |
-| AC-09 | 三仓库 revision、bundle manifest 与 `harness version --json` | pending |
+| AC-09 | 三仓库 revision、bundle manifest 与 `harness version --json` | passing；Runtime `0.2.4+c28afb8.f3d9901` |
 
 ## 残余风险
 

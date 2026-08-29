@@ -72,6 +72,14 @@ PASS current change record
 `evaluations/end-to-end-evaluation.md`。系统 Python 3.9 缺少 `tomllib` 的限制保留为非阻断 P2，不能用
 裸系统 Python 的失败替代 bundled Python 3.12 的完整通过证据。
 
-## 待追加的发布同步证据
+## 发布同步证据
 
-Domain、Kernel pin、CLI bundle 和本地 `harness version --json` revision 在对应步骤完成后追加。
+- Domain：`f3d99019d16b681ae3dbc24f948e78508345e311`，已推送 `origin/main`。
+- Kernel：`c28afb82b9e4381e2224c9633faac2f7c360061d`，pin 指向上述 Domain revision，完整校验 65 tests
+  通过、2 个可选跨仓检查 skipped，已推送 `origin/main`。
+- CLI：`0913db122a495563bdf2a2fee6e143a5f5316424`，验证 870 个 Runtime 文件，21 tests 通过，已推送
+  `origin/main`。
+- 本地：CLI `0.2.4`；`harness update` 发布 51 个受管 Skill projection；`harness version --json`
+  报告 bundle `0.2.4+c28afb8.f3d9901`、Kernel `c28afb8`、Domain `f3d9901`。
+- 首次 CLI bundle 构建使用系统 Python 3.9 时因缺少 `tomllib` 失败；使用已验证的 bundled Python
+  3.12 重跑后全部通过，没有忽略或覆盖失败。
