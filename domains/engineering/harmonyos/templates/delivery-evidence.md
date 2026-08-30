@@ -134,7 +134,7 @@ Success in one row proves only that evidence class. Use `passed`, `failed`, `ski
 ### Page, Dialog, route, resource, and Chinese-comment review
 
 | Review ID | Changed artifact | Classification and expected location | Route ID / metadata owner | Navigation framework and locked versions | Resource keys and qualifier impact | Changed-literal disposition | Required Chinese-comment review | Result / finding IDs |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | `{{UI-REVIEW-001}}` | `{{path}}` | `{{page-dialog-component-and-location}}` | `{{named-constant-and-router-owner}}` | `{{framework-core-plugin-or-not-applicable}}` | `{{string-color-float-keys-and-variants}}` | `{{resource/named-non-ui-constant/finding}}` | `{{responsibility-logic-current-or-finding}}` | `{{passed/failed/blocked-and-IDs}}` |
 
 Record structural and semantic review separately from compilation. A build result does not waive an
@@ -143,13 +143,13 @@ qualifier, or absent, stale, or meaningless required Chinese comment.
 
 ### Network tool, dependency, responsibility, and result review
 
-| Network ID | Entry / affected module | Supplied candidate | Declaration and target evidence | Entrypoint / exported symbols | Implementation / SDK / config / permission state | Project candidates searched and dispositions | Selected tool or minimal adapter decision | Build state |
+| Network ID | Entry / affected module | Supplied candidate | Declaration and target evidence | Entrypoint / exported symbols | Implementation / SDK / config / permission state | Project candidates searched and dispositions | Selected tool or no-tool owner handoff | Build state |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `{{NET-001}}` | `{{endpoint-operation-module}}` | `{{package-symbol-or-none}}` | `{{manifest-lock-local-target-evidence}}` | `{{main-entry-and-public-exports}}` | `{{resolved-gaps-baseline}}` | `{{candidate-map-and-reasons}}` | `{{reuse/create/blocked-and-authority}}` | `{{CHECK-id-status}}` |
+| `{{NET-001}}` | `{{endpoint-operation-module}}` | `{{package-symbol-or-none}}` | `{{manifest-lock-local-target-evidence}}` | `{{main-entry-and-public-exports}}` | `{{resolved-gaps-baseline}}` | `{{candidate-map-and-reasons}}` | `{{reuse-or-blocked-and-authority}}` | `{{CHECK-id-status}}` |
 
-| Network ID | Endpoint / request / response | Repository contract / implementation | Service behavior | Transport abstraction / implementation | ViewModel / View boundary | Typed result and error mapping | Lifecycle, cancellation, overlap and stale-result behavior | Log and evidence redaction |
+| Network ID | Request models (`models/request`) | Response models (`models/response`) | Other model definitions and reverse-dependency review | Endpoint / repository contract / implementation | Service behavior | ViewModel / View boundary | Typed result, lifecycle and redaction evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `{{NET-001}}` | `{{typed-contracts}}` | `{{paths-responsibilities}}` | `{{pre-post-domain-mapping}}` | `{{client-adapter-and-completion-contract}}` | `{{state-mapping-no-direct-view-request}}` | `{{success-offline-protocol-business-decode-timeout-cancel-sdk}}` | `{{behavior-or-not-applicable}}` | `{{sanitized-fields-and-evidence}}` |
+| `{{NET-001}}` | `{{request-dto-paths}}` | `{{response-envelope-error-paths}}` | `{{entity-enum-state-paths-and-no-api-imports}}` | `{{api-paths-responsibilities-verified-tool}}` | `{{pre-post-domain-mapping-no-ui-effects}}` | `{{state-mapping-no-direct-view-request}}` | `{{success-errors-lifecycle-sanitized-evidence}}` |
 
 Static dependency inspection does not establish build or runtime behavior. Record an explicit case
 status for applicable success, business failure, protocol failure, offline, timeout, decode,
@@ -252,8 +252,11 @@ Page/Dialog structure, resource use, and Chinese-comment evidence additionally t
 `OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` in
 `changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; the project exemplar
 and third-party framework remain bounded to their declared authority.
-Network discovery and fallback fields additionally trace to
+Network discovery and deterministic-outcome fields additionally trace to
 `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` in
 `changes/20260829-harmonyos-network-request-policy/research/sources.json`; the Drill exemplar does
-not authorize its project-specific package, tool, response, authentication, routing, UI or
-transport choices.
+not authorize its project-specific package, tool, response, authentication, routing, UI or network
+choices. Model/API placement and no-tool owner-handoff fields trace to
+`OWNER-HMOS-MODEL-API-BOUNDARY` and `PROJECT-CATCHELF-ACCOUNT-API-EXEMPLAR` in
+`changes/20260830-harmonyos-model-api-boundary/research/sources.json`; the CatchPet exemplar proves
+only its observed structure.

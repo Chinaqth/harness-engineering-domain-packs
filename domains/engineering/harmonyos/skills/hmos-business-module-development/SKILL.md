@@ -19,7 +19,7 @@ Confirm before editing:
 - existing navigation, network, dependency-injection or service-registration conventions;
 - supplied network dependency/tool, module manifests and locks, public package entrypoints and
   exports, current SDK/API networking support, request/error/authentication/logging ownership, and
-  permission to search or create a transport adapter;
+  permission to inspect the authorized project for an established exported network capability;
 - authorized files, build target, acceptance scenarios and rollback boundary.
 
 Resolve the scaffold state explicitly:
@@ -44,8 +44,8 @@ Do not extend the initializer's scaffold script to implement this workflow.
 Read [business-module-architecture.md](references/business-module-architecture.md) and
 [ui-page-dialog-conventions.md](references/ui-page-dialog-conventions.md) before planning or
 editing. Read [network-request-conventions.md](references/network-request-conventions.md) whenever
-the task adds or materially changes network dependencies, endpoints, repositories, services,
-transports or request lifecycle. Apply `HMOS-RULE-05`: new or rewritten state-managed surfaces use State Management V2.
+the task adds or materially changes network dependencies, endpoints, request/response models,
+repositories, services or request lifecycle. Apply `HMOS-RULE-05`: new or rewritten state-managed surfaces use State Management V2.
 Treat the project exemplar recorded as `PROJECT-UGC-EXEMPLAR` as structural evidence only; it does
 not override the current project or authoritative SDK guidance.
 
@@ -72,7 +72,8 @@ architecture decision owner. Do not silently select the most convenient recommen
 
 1. Inventory the current module, provider, public exports, navigation, state ownership, network
    calls, dependency manifests and locks, package entrypoints and exports, project network tools,
-   transport implementations, typed result/error contracts, UI artifacts, tests and build target.
+   request/response model locations, network-tool implementations, typed result/error contracts,
+   UI artifacts, tests and build target.
    Record deviations from the architecture contract.
 2. Record the selected subordinate capabilities and the architecture decisions they are forbidden
    to change. Define the smallest vertical slice and map each file to View, ViewModel, model/UI-state, API,
@@ -85,20 +86,25 @@ architecture decision owner. Do not silently select the most convenient recommen
 4. Implement ViewModels and mutable UI-facing model objects with `@ObservedV2`; annotate each
    property whose mutation must refresh the UI with `@Trace`. Keep untraced internal fields private
    when practical and do not introduce V1 decorators.
-5. Put endpoint declarations, repository contracts, repository implementations, request execution
-   and network-facing services under `src/main/ets/api/` or its subdirectories. Request/response
-   data models may remain in the project's established `models/` boundary. View code must not call
-   the network client directly. Before generating imports, prove the supplied network tool through
-   declaration, target/entrypoint resolution, exported symbols and implementation completeness.
-   If it is ineffective, search the authorized project for an established compatible exported
-   abstraction. Only when none exists may the change create the minimum feature-owned transport
-   abstraction and official-SDK adapter supported by the declared baseline. Never copy a reference
-   project's package names, tool symbols, authentication, routing, Toast, response envelope, URLs,
-   retry, cache or logging behavior as a fallback.
+5. Put outbound business request payload classes under `src/main/ets/models/request/`; put inbound
+   response payloads, response envelopes and response-error data under
+   `src/main/ets/models/response/`; and keep other entities, value objects, enums, state and pure
+   data definitions under `src/main/ets/models/` or an explicitly recorded project-equivalent
+   model boundary. Create the request or response directory when the authorized module needs it.
+   Models do not execute requests or depend on API, ViewModel or View code. Put only endpoint
+   declarations, repository contracts and implementations, request execution and HTTP-facing
+   services under `src/main/ets/api/`; do not declare business data classes there. View code must
+   not call the network client directly. Before generating imports, prove the supplied network tool
+   through declaration, target/entrypoint resolution, exported symbols and implementation
+   completeness. If it is ineffective, search the authorized project for an established compatible
+   exported abstraction. When none exists, stop the dependent implementation and hand the candidate
+   map to the architecture owner. Do not create a feature-owned Transport, official-SDK adapter or
+   `api/transport/` directory, and never copy a reference project's package names, tool symbols,
+   authentication, routing, Toast, response envelope, URLs, retry, cache or logging behavior.
 6. Require every request path to settle exactly once with a typed success or failure. Keep offline,
    protocol, business, decode, timeout, cancellation and SDK failures distinguishable when the
    accepted behavior depends on them. Define lifecycle, stale-result, overlap, deduplication and
-   idempotency behavior where applicable. Transport and Service code return typed outcomes;
+   idempotency behavior where applicable. Repository and Service code return typed outcomes;
    ViewModels own presentation-state mapping. Redact credentials, headers, cookies, tokens,
    personal data and unauthorized payloads from logs and evidence.
 7. Classify reusable embedded UI under `components/`, modal or overlay UI under `dialogs/`, and
@@ -133,16 +139,22 @@ architecture decision owner. Do not silently select the most convenient recommen
 - UI artifacts are in exactly one of `components/`, `dialogs/` or `pages/` according to behavior.
 - UI code renders state and delegates actions; ViewModels own business/presentation behavior.
 - Mutable UI-facing classes use `@ObservedV2` and refresh-driving fields use `@Trace`.
-- Network requests and their contracts/implementations are contained by `api/`.
+- Outbound request DTOs are below `models/request/`; inbound response payloads, envelopes and
+  response-error data are below `models/response/`; other pure data definitions remain below
+  `models/`; models have no reverse dependency on API, ViewModel or View code.
+- `api/` contains only endpoint declarations, repository contracts and implementations, request
+  execution and HTTP-facing services; it declares no business request, response or other pure data
+  classes.
 - Every selected network tool has recorded declaration, target, entrypoint, export, implementation
-  and configured-build evidence; unavailable supplied tools trigger project search before creation.
-- A newly created transport is feature-owned, minimal, based on a version-verified official SDK
-  interface, and introduces no unapproved third-party, shared-module or project-policy decision.
+  and configured-build evidence; unavailable supplied tools trigger project search and fail-closed
+  owner handoff when no suitable exported project tool exists.
+- No business-owned Transport, official-SDK network adapter or `api/transport/` directory is
+  introduced; absence of a verified supplied or project network tool blocks dependent implementation.
 - Every request path settles with a typed result; applicable offline, protocol, business, decode,
   timeout, cancellation, lifecycle and overlapping-request paths have explicit dispositions.
-- Transport logs and evidence redact credentials, authorization headers, cookies, tokens, personal
-  data and unauthorized payloads; presentation effects remain outside transport unless preserved by
-  an explicit project contract.
+- Network logs and evidence redact credentials, authorization headers, cookies, tokens, personal
+  data and unauthorized payloads; repository and Service code do not own presentation effects unless
+  preserved by an explicit project contract.
 - `router/` contains module route paths, page metadata and route parameter contracts.
 - `hmdelegate/` contains only host-shell adaptation.
 - User-visible strings, application-owned colors, and reusable UI measurements are resource-backed;
@@ -172,18 +184,19 @@ Stop and request an architecture decision when:
 - implementation requires an unapproved dependency, routing-framework change, signing change,
   production access or unrelated refactor; or
 - the supplied network dependency, package entrypoint, symbol or implementation chain is
-  unresolved, no suitable project tool exists, and an official-SDK adapter cannot be created within
-  the confirmed SDK/API and permission boundary;
-- a new adapter would require inventing authentication, certificate, retry, cache, response,
-  service-environment, navigation, Toast, shared-infrastructure or sensitive-log policy; or
+  unresolved and no suitable established exported project tool exists;
+- proceeding would require a business-owned Transport, official-SDK adapter, authentication,
+  certificate, retry, cache, response, service-environment, navigation, Toast, shared-infrastructure
+  or sensitive-log policy; or
 - a required resource qualifier, locked routing-framework version, compiler-plugin configuration,
   or public route contract cannot be established without guessing.
 
 ## Handoff
 
-Return the module/provider file inventory, MVVM ownership map, API containment result, network-tool
-candidate map, effective-dependency states, selection/rejection reasons, typed result/error and
-lifecycle contract, redaction disposition, task-required negative-path results, route and
+Return the module/provider file inventory, MVVM ownership map, request/response and other model
+inventory, model dependency-direction review, API containment result, network-tool candidate map,
+effective-dependency states, selection/rejection reasons, typed result/error and lifecycle contract,
+redaction disposition, task-required negative-path results, route and
 shell-delegate changes, provider interface-to-implementation map, public export changes, build and
 scenario evidence, subordinate-capability map, composition conflicts, deviations, unresolved
 decisions, resource-key and changed-literal review, Chinese-comment review, and rollback

@@ -313,9 +313,14 @@ generated package never constitutes approval.
 - ViewModels own business actions, asynchronous sequencing and mutable presentation state. New or
   rewritten ViewModels and mutable UI-facing objects use `@ObservedV2`, with every refresh-driving
   property intentionally marked `@Trace`; no V1 decorator is introduced.
-- Endpoint declarations, repository contracts, request execution and network-facing services
-  remain under the business module's `api/` boundary; request/response data models may remain in an
-  established module model boundary.
+- Outbound business request payloads remain under `models/request/`; inbound response payloads,
+  envelopes and response-error data remain under `models/response/`; other entities, value objects,
+  enums, state and pure data definitions remain below `models/` or an explicitly recorded project
+  equivalent. Models do not execute requests or depend on API, ViewModel or View code.
+- Endpoint declarations, repository contracts and implementations, request execution and
+  HTTP-facing services remain under the business module's `api/` boundary. `api/` declares no
+  business request, response or other pure data classes and contains no business-owned Transport or
+  official-SDK network adapter.
 - Business route paths, page metadata and parameters remain under `router/`; host-shell adaptation
   remains under `hmdelegate/` or one documented project equivalent without duplicating business
   state, networking or route ownership.
@@ -336,17 +341,19 @@ generated package never constitutes approval.
   no subordinate result silently overrides an accepted architecture decision.
 
 **Required evidence:** directory-to-responsibility inventory; View/ViewModel state and event map;
-traced-property rationale; network-entry inventory; route and shell-delegate ownership map;
-provider declaration, implementation, registration/factory and external-import map; public export
-diff; orchestrator/subordinate capability map; conflict dispositions; configured build and
-task-required scenario results.
+traced-property rationale; request/response and other model inventory; model-to-API reverse-
+dependency review; API directory and responsibility map; network-entry inventory; route and shell-
+delegate ownership map; provider declaration, implementation, registration/factory and external-
+import map; public export diff; orchestrator/subordinate capability map; conflict dispositions;
+configured build and task-required scenario results.
 
-**Negative paths:** inspect direct network access from View code, business logic in the provider HAR,
-external imports of ViewModels/repositories/internal pages, duplicate provider access points,
-refresh-driving untraced state, V1 decorators in new work, route definitions in shell delegates,
-required-but-missing provider beside an existing business HAR, unknown provider lifecycle or
-component-builder conventions, plus a provider-only half-state and any attempted implicit deletion,
-overwrite or repurposing. Structural inspection cannot by
+**Negative paths:** inspect business DTOs below `api/`, model-to-API reverse dependencies, a
+business-owned Transport or SDK adapter, direct network access from View code, business logic in the
+provider HAR, external imports of ViewModels/repositories/internal pages, duplicate provider access
+points, refresh-driving untraced state, V1 decorators in new work, route definitions in shell
+delegates, required-but-missing provider beside an existing business HAR, unknown provider lifecycle
+or component-builder conventions, plus a provider-only half-state and any attempted implicit
+deletion, overwrite or repurposing. Structural inspection cannot by
 itself pass behavior, a successful build cannot excuse a violated dependency direction, and a
 subordinate Skill recommendation cannot substitute for an architecture-owner decision.
 
@@ -419,14 +426,15 @@ compatibility.
   entrypoints/exports, established clients and request functions, platform-network imports,
   endpoint/base-address managers, request and response/error contracts, interceptors and existing
   repository implementations. Credible candidates have explicit selection or rejection reasons.
-- A newly created transport exists only when no suitable project tool was found. It is the smallest
-  feature-owned adapter below `api/` or a recorded equivalent, uses an official network interface
-  verified for the declared SDK/API baseline, and does not introduce an unapproved third-party
+- When no suitable supplied or established exported project tool is found, dependent business-
+  module implementation stops with a candidate map and architecture-owner handoff. The change does
+  not introduce a business-owned Transport, official-SDK adapter, `api/transport/`, third-party
   dependency, global shared module, unrelated migration or invented project policy.
-- Endpoint, typed request/response, repository contract and implementation, service, transport,
-  ViewModel and View responsibilities remain explicit. Views do not execute requests; ViewModels
-  map typed domain outcomes to presentation state; transport and Service code do not navigate or
-  display UI unless an accepted existing project contract deliberately owns that side effect.
+- Business request models, response models, other pure data, endpoint, repository contract and
+  implementation, service, ViewModel and View responsibilities remain explicit. Views do not
+  execute requests; ViewModels map typed domain outcomes to presentation state; repository and
+  Service code do not navigate or display UI unless an accepted existing project contract
+  deliberately owns that side effect.
 - Every request path settles exactly once with a typed success or failure. Applicable offline,
   invalid-configuration, protocol, business, decode, timeout, cancellation and SDK-exception paths
   remain distinguishable, and lifecycle re-entry, stale-result, overlapping-request,
@@ -437,19 +445,23 @@ compatibility.
 
 **Required evidence:** network-entry inventory; supplied and discovered candidate map; module/root
 manifest and lock or local-target evidence; package entrypoint and export inspection; implementation
-dependency and SDK/API/configuration/permission resolution; selection/rejection record; changed
-directory and responsibility map; typed result/error/lifecycle contract; sanitized log review;
+  dependency and SDK/API/configuration/permission resolution; selection/rejection record; request,
+  response and other model inventory; model-to-API reverse-dependency review; API directory and
+  responsibility map; typed result/error/lifecycle contract; sanitized log review;
 affected configured build; task-required success, business-failure, protocol-failure, offline,
 timeout, decode, cancellation, lifecycle and overlap observations; skipped/blocked paths; rollback
 unit and owner handoffs.
 
 **Negative paths:** inspect an undeclared dependency, missing local target, package that does not
 export the requested symbol, type-only shell with missing implementation, unsupported platform kit,
-private implementation import, plausible but unsuitable project utility, no-tool project, direct
-View request, transport-owned navigation/Toast, offline path, non-success status, malformed body,
+  private implementation import, plausible but unsuitable project utility, no-tool project,
+  business DTO below `api/`, model-to-API reverse dependency, business-owned Transport or SDK
+  adapter, direct View request, repository/Service-owned navigation or Toast, offline path,
+  non-success status, malformed body,
 timeout, cancel, stale overlapping result and sanitized logging. An unresolved or incomplete tool,
-unapproved external dependency/shared infrastructure, copied exemplar-specific policy, pending
-Promise path, collapsed material error, or protected-data log is `fail` for an implemented change.
+  unapproved external dependency/shared infrastructure, business-owned network infrastructure,
+  copied exemplar-specific policy, pending Promise path, collapsed material error, or protected-data
+  log is `fail` for an implemented change.
 When implementation cannot proceed because a required SDK, dependency, permission,
 authentication/certificate decision or service environment is unavailable, the dependent
 implementation or behavior criterion is `blocked`; static discovery cannot be promoted to build or
@@ -575,13 +587,15 @@ This evaluator uses the validated `engineering.harmonyos` research ledger at
 [HMOS-ARKUI-MIGRATION], HarmonyOS package semantics [HMOS-PACKAGES], and testing and verification
 guidance [HMOS-TESTING]. HMOS-EVAL-11 additionally uses `USER-BUSINESS-MODULE-CONTRACT` and
 `PROJECT-UGC-EXEMPLAR` from
-`changes/20260817-harmonyos-business-module-development/research/sources.json`; the local exemplar
-is structural project evidence, not platform authority. HMOS-EVAL-12 additionally uses
+`changes/20260817-harmonyos-business-module-development/research/sources.json`, plus
+`OWNER-HMOS-MODEL-API-BOUNDARY` and `PROJECT-CATCHELF-ACCOUNT-API-EXEMPLAR` from
+`changes/20260830-harmonyos-model-api-boundary/research/sources.json`; the local exemplars are
+structural project evidence, not platform authority. HMOS-EVAL-12 additionally uses
 `OWNER-UI-RESOURCE-COMMENT-CONTRACT`, `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` from
 `changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; HMRouter evidence is
 limited to the selected third-party framework and locked project version.
-HMOS-EVAL-13 additionally uses `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and
-`PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` from
-`changes/20260829-harmonyos-network-request-policy/research/sources.json`; the Drill project is
-structural evidence only and cannot establish a reusable package, tool, response, authentication,
-routing, UI or transport requirement.
+HMOS-EVAL-13 additionally uses `OWNER-HMOS-NETWORK-REQUEST-CONTRACT`,
+`PROJECT-DRILL-UGC-NETWORK-EXEMPLAR`, `OWNER-HMOS-MODEL-API-BOUNDARY` and
+`PROJECT-CATCHELF-ACCOUNT-API-EXEMPLAR` from the 20260829 and 20260830 change ledgers; the project
+examples are structural evidence only and cannot establish a reusable package, tool, response,
+authentication, routing, UI or network requirement.

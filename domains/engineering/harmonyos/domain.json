@@ -3,7 +3,7 @@
   "id": "engineering.harmonyos",
   "display_name": "HarmonyOS Engineering",
   "description": "Owns reusable HarmonyOS application delivery practice and evaluation.",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "status": "active",
   "owner": "platform-harmony",
   "inherits": [],
@@ -30,19 +30,20 @@
       "HAP, HAR, HSP, or App Pack packaging metadata",
       "HarmonyOS business-module and providers/ companion layout with root build-profile.json5 registrations",
       "HarmonyOS business HAR using MVVM, State Management V2, api/components/dialogs/pages/router/hmdelegate boundaries, or a provider bridge",
-      "HarmonyOS endpoint, repository, service, transport adapter, network dependency, request lifecycle, or typed network-result implementation",
+      "HarmonyOS endpoint, repository, service, network dependency, request lifecycle, typed request/response model, or deterministic network-result implementation",
       "HarmonyOS lint, unit-test, coverage, or self-inspection configuration"
     ]
   },
   "compatibility": {
     "kernel_protocol_version": "1.0",
-    "statement": "Compatible with Harness Kernel protocol 1.0. Version 4.0.0 adds breaking network-tool dependency resolution, project-search-before-creation, minimal official-SDK adapter, typed deterministic request-outcome, and sensitive-evidence redaction requirements while retaining the 3.0.0 page/Dialog, UI-resource, and meaningful Chinese-comment policies and preserving Kernel authorization, security, privacy, evidence, approval, and lifecycle controls. Projects may remain pinned to 3.x; migration to 4.0.0 applies the network rules only to new or materially changed request surfaces and their direct dependency chains and requires project-supplied SDK/API support, dependency permissions, authentication, certificate, response, retry/cache, service-environment, logging, commands, targets, and release constraints."
+    "statement": "Compatible with Harness Kernel protocol 1.0. Version 5.0.0 makes the business module's models/ boundary mandatory for request, response and other pure data definitions, limits its api/ boundary to endpoint declarations, repository contracts and implementations, and HTTP-facing services, and removes the 4.0.0 feature-owned transport and official-SDK adapter fallback. It retains deterministic typed request outcomes, sensitive-evidence redaction, State Management V2, page/Dialog classification, UI-resource, meaningful Chinese-comment, provider-direction, and Kernel authorization controls. Projects may remain pinned to 4.x; migration to 5.0.0 applies the new placement and no-local-transport rules only to new or materially changed request/response models and their direct API dependency chains, does not move unrelated legacy files, and blocks dependent network implementation when neither a supplied tool nor an established exported project network capability can be verified."
   },
   "activation": {
     "evidence": [
       "changes/engineering.harmonyos-activation/activation-evidence.json",
       "changes/20260828-harmonyos-ui-resource-comment-policy/acceptance.json",
-      "changes/20260829-harmonyos-network-request-policy/acceptance.json"
+      "changes/20260829-harmonyos-network-request-policy/acceptance.json",
+      "changes/20260830-harmonyos-model-api-boundary/acceptance.json"
     ]
   }
 }

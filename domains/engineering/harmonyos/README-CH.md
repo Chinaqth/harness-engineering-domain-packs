@@ -1,10 +1,10 @@
 # HarmonyOS Engineering Domain 中文导览
 
-本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `4.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
+本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `5.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
 
 ## 核心职责与运行方式
 
-本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析、业务/provider 模块初始化、MVVM 业务模块开发，以及构建和运行时证据收集。4.0.0 在保留 3.0.0 页面/Dialog/组件分类、集中路由、UI 资源化和中文职责注释要求的基础上，新增网络工具依赖分级解析、项目搜索优先于创建、最小官方 SDK 适配层、类型化确定终止和敏感证据脱敏规则。静态发现和成功构建分别只证明各自证据类别。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、依赖权限、网络策略、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
+本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析、业务/provider 模块初始化、MVVM 业务模块开发，以及构建和运行时证据收集。5.0.0 在保留类型化确定终止、敏感证据脱敏、页面/Dialog/组件分类、集中路由、UI 资源化和中文职责注释要求的基础上，强制业务请求、响应及其他纯数据定义进入 `models/` 边界，将 `api/` 限定为端点、Repository 和 HTTP Service，并取消业务模块自建 Transport 或官方 SDK 网络适配层的兜底；找不到可验证的项目网络工具时必须失败关闭并移交架构决策。静态发现和成功构建分别只证明各自证据类别。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、依赖权限、网络策略、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
 
 七个用户添加的 Skill 包作为非权威输入保留；另有两个 Domain 自有 Skill 分别负责模块配对初始化和完整业务模块开发。Domain 的九项能力统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper，并按 `capabilities.json` 接线到适用 Skill。`hmos-init-business-module` 只执行两个骨架、局部依赖与根清单变更；`hmos-business-module-development` 负责初始化后的 MVVM、V2、API/UI/router/hmdelegate/provider 架构与交付流程。早期七个保留包的逐 Skill 制品评分 Owner 豁免仍作为历史事实保留；任何保留包都不因接线或激活获得政策、版本或平台权威性。
 
@@ -15,7 +15,7 @@
 | 路径 | 职责 | 实际行为 |
 | --- | --- | --- |
 | `DOMAIN.md` | 定义目的、边界、输入、输出、交接、失败模式和成熟度。 | 为所有 HarmonyOS 工作提供稳定专业基线，并明确 Skill 语料的辅助地位。 |
-| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，并引用初始激活证据、3.0.0 UI 策略和 4.0.0 网络策略验收记录。 |
+| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，并引用初始激活证据、3.0.0 UI 策略、4.0.0 网络策略和 5.0.0 模型/API 边界验收记录。 |
 | `owners.json` | 声明责任归属。 | 将主 Owner 绑定到 `platform-harmony`，不隐含额外审批权。 |
 | `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 九类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper；初始化与完整业务开发使用独立能力，其余项目验证通过 `devecocli` 组装证据。 |
 | `routes.json` | 定义任务类型、识别信号和候选能力。 | 为兼容的 HarmonyOS 请求提供候选路由；Domain 已激活，具备路由资格。 |
@@ -46,11 +46,11 @@
 
 ### `hmos-business-module-development`：HarmonyOS 业务模块完整开发
 
-用于业务 HAR 初始化后的完整功能开发，并作为该 task type 的跨层主编排入口。ArkUI、ArkTS、Stage/package、初始化和验证能力只承担各自子任务，不能静默改写已接受的 MVVM、目录、路由/壳分离、provider 依赖方向或公共接口决策。它要求 View 只负责 `components/`、`dialogs/`、`pages/` 的声明式 UI 与事件转发，ViewModel 负责业务动作、异步编排和可变展示状态，并对新写或重写状态使用 `@ObservedV2` 与有刷新需求的 `@Trace`。网络入口收敛到 `api/`，模块路由收敛到 `router/`，壳工程适配收敛到 `hmdelegate/` 或显式项目映射目录。存在 `<module>provider` 时，provider 只声明 `XxxServiceProvider`、`XxxComponentProvider` 和唯一 `XxxProvider` 工厂/访问点，实际实现位于业务 HAR，外部消费者不得直接依赖业务内部实现路径。
+用于业务 HAR 初始化后的完整功能开发，并作为该 task type 的跨层主编排入口。ArkUI、ArkTS、Stage/package、初始化和验证能力只承担各自子任务，不能静默改写已接受的 MVVM、目录、路由/壳分离、provider 依赖方向或公共接口决策。它要求 View 只负责 `components/`、`dialogs/`、`pages/` 的声明式 UI 与事件转发，ViewModel 负责业务动作、异步编排和可变展示状态，并对新写或重写状态使用 `@ObservedV2` 与有刷新需求的 `@Trace`。业务请求类进入 `models/request/`，响应载荷、响应信封和响应错误数据进入 `models/response/`，实体、值对象、枚举、状态等其他纯数据定义进入 `models/`；这些模型不得反向依赖 API、ViewModel 或 View。`api/` 只保留端点、Repository 接口与实现和 HTTP Service，模块路由收敛到 `router/`，壳工程适配收敛到 `hmdelegate/` 或显式项目映射目录。存在 `<module>provider` 时，provider 只声明 `XxxServiceProvider`、`XxxComponentProvider` 和唯一 `XxxProvider` 工厂/访问点，实际实现位于业务 HAR，外部消费者不得直接依赖业务内部实现路径。
 
 该 Skill 还加载 `ui-page-dialog-conventions.md`：普通可导航根页面、Dialog/弹层目的地和嵌入组件分别归入 `pages/`、`dialogs/`、`components/`，路由标识与页面信息集中在 `router/`。项目已选择 HMRouter 时使用具名 `pageUrl` 常量并显式声明 Dialog，同时核对锁定的 core/plugin 版本。用户可见字符串、应用自有颜色和可复用 UI 度量分别进入 `string.json`、`color.json`、`float.json`；路由协议等非 UI 字符串保留为具名 ArkTS 常量。新增或实质修改的类、组件、ViewModel、公共方法和复杂业务方法必须有说明职责或逻辑的中文注释。
 
-网络范围还加载 `network-request-conventions.md`：先把指定依赖推进到“已声明、目标可解析、符号已导出、实现链完整、构建验证”状态；失败后搜索项目中的公开网络抽象，确认不存在适用工具才允许在业务 `api/` 边界创建最小官方 SDK 适配层。Endpoint、请求/响应模型、Repository、Service、Transport、ViewModel 和 View 保持单一职责；所有请求路径必须类型化并确定结束，日志和证据必须脱敏。Drill UGC 只提供结构证据，不授权复制其包名、工具、认证、路由、Toast、响应协议、服务地址或网络实现。
+网络范围还加载 `network-request-conventions.md`：先把指定依赖推进到“已声明、目标可解析、符号已导出、实现链完整、构建验证”状态；失败后搜索项目中的公开网络抽象，仍不存在适用工具时停止相关业务模块实现并移交候选清单和调查证据。业务模块不得创建 `api/transport/`、Transport 抽象、官方 SDK 网络适配器、第三方网络依赖或共享网络基础设施。请求/响应及其他模型、Endpoint、Repository、Service、ViewModel 和 View 保持单一职责；所有请求路径必须类型化并确定结束，日志和证据必须脱敏。Drill UGC 和 CatchPet account 只提供结构证据，不授权复制其包名、工具、认证、路由、Toast、响应协议、服务地址或网络实现。
 
 ### `hmos-init-business-module`：HarmonyOS 业务模块与 provider 配对初始化
 

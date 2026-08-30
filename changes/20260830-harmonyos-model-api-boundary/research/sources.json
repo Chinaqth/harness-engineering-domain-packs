@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "change_id": "20260830-harmonyos-model-api-boundary",
+  "sources": [
+    {
+      "id": "OWNER-HMOS-MODEL-API-BOUNDARY",
+      "kind": "owner-requirement",
+      "title": "HarmonyOS business-module model and API boundary approved in task context",
+      "authority": "domain-owner-requirement",
+      "retrieved_at": "2026-08-30",
+      "claims": [
+        "The business module models directory owns request classes, response classes, other entities, enums and additional pure data definitions.",
+        "Request and response model subdirectories may be created below models for their corresponding classes.",
+        "The business api directory contains XxxApi.ets, XxxHttpService.ets, XxxHttpRepositoryImpl.ets and repository/IXxxHttpRepository.ets.",
+        "The business-module network convention removes the local transport directory and its NetworkRequest, NetworkResult and NetworkError definitions.",
+        "Update the Domain rules before applying the policy to a product project."
+      ]
+    },
+    {
+      "id": "PROJECT-CATCHELF-ACCOUNT-API-EXEMPLAR",
+      "kind": "local-project-exemplar",
+      "title": "CatchPet HarmonyOS account business-module API structure",
+      "locator": "D:/GitHub/CatchPet/catchelf_harmony/features/account/src/main/ets",
+      "authority": "project-evidence-not-platform-authority",
+      "retrieved_at": "2026-08-30",
+      "claims": [
+        "The account api directory separates AccountApi endpoint constants, IAccountHttpRepository, AccountHttpRepositoryImpl and AccountHttpService.",
+        "The repository interface and implementation import request and response-related types from the module models boundary.",
+        "The module consumes an exported common_app httpCall capability instead of declaring a business-owned transport directory.",
+        "The current AccountModels.ets combines request, response, entity, enum and state definitions, so it is structural evidence for API responsibilities rather than proof of the new request/response subdirectory outcome.",
+        "The platform/HuaweiAccountKitAdapter file is a platform account-capability concern and is not authority for the business HTTP API structure."
+      ]
+    },
+    {
+      "id": "OWNER-HMOS-NETWORK-REQUEST-CONTRACT",
+      "kind": "existing-research-ledger-reference",
+      "locator": "changes/20260829-harmonyos-network-request-policy/research/sources.json#OWNER-HMOS-NETWORK-REQUEST-CONTRACT",
+      "authority": "domain-owner-requirement",
+      "retrieved_at": "2026-08-30"
+    },
+    {
+      "id": "HMOS-ARKTS",
+      "kind": "existing-research-ledger-reference",
+      "locator": "changes/engineering.harmonyos-completion/research/sources.json#HMOS-ARKTS",
+      "authority": "primary",
+      "retrieved_at": "2026-08-30"
+    },
+    {
+      "id": "REPO-HARMONYOS-IDENTITY",
+      "kind": "existing-research-ledger-reference",
+      "locator": "changes/engineering.harmonyos-completion/research/sources.json#REPO-HARMONYOS-IDENTITY",
+      "authority": "repository-fact",
+      "retrieved_at": "2026-08-30"
+    }
+  ]
+}

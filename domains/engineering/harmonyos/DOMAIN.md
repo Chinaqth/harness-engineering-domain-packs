@@ -22,7 +22,7 @@ an ArkUI screen as an isolated artifact. [HMOS-STAGE]
 - Domain ID: `engineering.harmonyos`
 - Display name: `HarmonyOS Engineering`
 - Primary owner: `platform-harmony`
-- Version: `4.0.0`
+- Version: `5.0.0`
 - Lifecycle: `active`
 
 These values are registered repository facts; this document does not assign additional reviewers,
@@ -59,15 +59,17 @@ grant operational permissions. [REPO-HARMONYOS-IDENTITY]
   relative local dependency without inventing business/provider behavior, external dependencies,
   routing, or runtime wiring.
 - Develop or revise a business HAR through an explicit MVVM and State Management V2 contract:
-  ViewModels own business actions and mutable presentation state; network access is contained by
-  `api/`; Views are classified as `components/`, `dialogs/`, and `pages/`; module routes and
-  host-shell delegates remain separated; and an optional provider HAR is the sole external contract
-  bridge whose service and component interfaces are implemented by the business HAR.
+  ViewModels own business actions and mutable presentation state; business request/response and
+  other pure data definitions are contained by `models/`; endpoint, repository, request execution
+  and HTTP-facing service behavior is contained by `api/`; Views are classified as `components/`,
+  `dialogs/`, and `pages/`; module routes and host-shell delegates remain separated; and an optional
+  provider HAR is the sole external contract bridge whose service and component interfaces are
+  implemented by the business HAR.
 - For new or materially changed network requests, verify a supplied dependency and tool through
   declaration, target/entrypoint resolution, public exports, implementation dependencies and the
-  affected build; search established project network capabilities before creating the smallest
-  feature-owned adapter backed by an official interface verified for the declared SDK/API. Keep
-  endpoint, repository, service, transport, ViewModel and View responsibilities explicit; require
+  affected build; search established exported project network capabilities and stop dependent
+  implementation when none can be verified. Keep request and response models, other pure data,
+  endpoint, repository, service, ViewModel and View responsibilities explicit; require
   typed deterministic outcomes and redacted logs/evidence without importing project-specific
   authentication, routing, response, URL, retry, cache or UI policy.
 - Classify new or materially changed navigable pages, Dialog destinations, and embedded components;
@@ -159,7 +161,7 @@ Each Skill feeds specific registered capabilities as discovery and structuring i
 | `hmos-arkts-deprecated-interface-checker` | `harmonyos-api-deprecation-and-compatibility` | Deprecated-API detection, P0/P1/P2 remediation classification, and documented replacement proposals. |
 | `hmos-arkts-syntax-checker` | `arkts-implementation-and-static-correctness`, `harmonyos-build-and-runtime-verification` | A bounded diagnose-fix-build loop with retry limits and HAP/App artifact reporting. |
 | `hmos-init-business-module` | `harmonyos-business-module-initialization` | Deterministically creates the reusable business HAR plus an empty `providers/<module_id>provider` HAR, registers both, and adds their local dependency while excluding implementation and runtime integration. |
-| `hmos-business-module-development` | `harmonyos-business-module-development` | Orchestrates the MVVM, V2, API containment, network dependency/tool resolution and project-search fallback, typed deterministic request outcomes, UI classification, module routing, shell-delegate and optional provider-bridge contract after scaffolding; composed ArkUI, ArkTS, package and verification work cannot silently override that cross-layer architecture. |
+| `hmos-business-module-development` | `harmonyos-business-module-development` | Orchestrates the MVVM, V2, mandatory model/API boundary, network dependency/tool resolution and fail-closed project search, typed deterministic request outcomes, UI classification, module routing, shell-delegate and optional provider-bridge contract after scaffolding; composed ArkUI, ArkTS, package and verification work cannot silently override that cross-layer architecture. |
 
 No added Skill independently decides Stage-model architecture or HAP/HAR/HSP topology design;
 `stage-application-and-package-design` operates through the Domain wrapper and authoritative
@@ -196,12 +198,13 @@ Depending on the task, the Domain produces one or more of the following:
 - A module and packaging decision that states why code belongs in an entry or feature HAP, a HAR,
   or an HSP, and records resulting publication, installation, runtime, and reuse implications.
   [HMOS-PACKAGES]
-- A business-module responsibility map covering View/ViewModel state flow, traced properties, API
-  containment, UI classification, route and host-shell ownership, provider interfaces and business
-  implementations, external dependency direction, public exports, build evidence and deviations.
+- A business-module responsibility map covering View/ViewModel state flow, traced properties,
+  request/response and other model placement, model dependency direction, API containment, UI
+  classification, route and host-shell ownership, provider interfaces and business implementations,
+  external dependency direction, public exports, build evidence and deviations.
 - A network-tool decision record covering supplied and project-discovered candidates, dependency
-  declaration and resolution states, package exports and implementation chain, selected or created
-  transport, endpoint/repository/service/ViewModel responsibilities, typed result/error and
+  declaration and resolution states, package exports and implementation chain, selected tool or
+  no-tool owner handoff, model/API placement, endpoint/repository/service/ViewModel responsibilities, typed result/error and
   lifecycle behavior, redaction, configured build and task-required negative paths.
 - A UI convention record covering page/Dialog/component classification, route ownership,
   navigation-framework versions, resource-key and qualifier changes, changed-literal dispositions,
@@ -251,13 +254,14 @@ or recommendation is not marked verified unless the recorded check actually exer
 | Requested work would expose secrets, production data, or private architecture | Refuse that handling path and request a sanitized, authorized input or an appropriate controlled environment. |
 | UI artifact classification, route ownership, resource semantics, qualifier impact, or comment-language exception is unresolved | Preserve the smallest confirmed boundary, do not invent the missing convention, and request the applicable project, localization, navigation, or Domain Owner decision. |
 | A build passes while an in-scope UI magic literal, missing resource, incorrect page/Dialog classification, anonymous route, or absent/stale/meaningless Chinese comment remains | Keep the structural criterion failed; build evidence cannot waive the policy violation. |
-| A supplied network tool is unresolved or incomplete | Preserve declaration, target, entrypoint, export and implementation evidence; search the authorized project before considering creation, and block the dependent implementation until a suitable tool or authorized minimal adapter is established. |
-| No suitable project network tool exists | Verify an official interface for the declared SDK/API and create only the smallest feature-owned adapter; request separate authority for external dependencies, shared infrastructure or project policy. |
+| A supplied network tool is unresolved or incomplete | Preserve declaration, target, entrypoint, export and implementation evidence; search the authorized project for an established exported capability, and block dependent implementation until a suitable tool is verified. |
+| No suitable project network tool exists | Stop the dependent business-module implementation and hand the candidate map and discovery evidence to the architecture owner; do not create a business-owned Transport, SDK adapter, external dependency or shared network infrastructure. |
+| A new or materially changed business DTO is below `api/`, or model code depends on API/ViewModel/View code | Move only the in-scope pure data definitions to `models/request`, `models/response` or the applicable `models/` boundary and correct dependency direction; build success does not waive the structural failure. |
 | A request path can remain pending, material errors collapse into an empty value, or logs expose protected data | Fail the affected network criterion, correct the typed completion/redaction contract within scope, and rerun the applicable negative paths. |
 
 ## Maturity and Organization Inputs
 
-This Domain is an active source-supported professional baseline at version `4.0.0`. Activation
+This Domain is an active source-supported professional baseline at version `5.0.0`. Activation
 establishes routing eligibility only; per-Skill artifact scoring was waived by explicit owner
 direction and the seven bundled Skills remain non-authoritative inputs under the quarantine
 policy. [REPO-HARMONYOS-IDENTITY]
@@ -282,7 +286,8 @@ or authoritative organization policy as appropriate:
   design-token ownership, and approved exceptions to the Domain Owner's Chinese-comment policy.
 - Project-specific network dependency approvals, authentication and certificate policy, response
   envelope, retry/cache/idempotency rules, service environments, protected-log access, sensitive-
-  data redaction requirements, and authority to promote a local adapter into shared infrastructure.
+  data redaction requirements, and authority and procedure for creating network infrastructure
+  outside business-module development.
 
 These gaps do not prevent routing or use of the cited public baseline. They do prevent the
 Domain from silently claiming organization-specific compatibility, permission, quality, or release
@@ -316,9 +321,16 @@ change-local ledger at
 - `PROJECT-CATCHELF-SAMPLE`
 - `HMROUTER-UPSTREAM`
 
-Network dependency discovery, project search, minimal adapter creation, deterministic completion,
-and redaction additionally use the change-local ledger at
+Network dependency discovery, project search, deterministic completion, and redaction additionally
+use the change-local ledger at
 `changes/20260829-harmonyos-network-request-policy/research/sources.json`:
 
 - `OWNER-HMOS-NETWORK-REQUEST-CONTRACT`
 - `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR`
+
+Mandatory business-model placement, the restricted API structure, and fail-closed no-tool handoff
+additionally use the change-local ledger at
+`changes/20260830-harmonyos-model-api-boundary/research/sources.json`:
+
+- `OWNER-HMOS-MODEL-API-BOUNDARY`
+- `PROJECT-CATCHELF-ACCOUNT-API-EXEMPLAR`

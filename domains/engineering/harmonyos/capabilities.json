@@ -248,7 +248,7 @@
     },
     {
       "id": "harmonyos-business-module-development",
-      "description": "Orchestrate development or revision of a HarmonyOS business HAR through an explicit MVVM and State Management V2 contract, containing network access under api, resolving supplied network dependencies and tool exports before reuse, searching established project network capabilities before creating a minimal feature-owned official-SDK adapter, requiring typed deterministic request outcomes and redacted evidence, classifying UI as components/dialogs/pages, isolating business routing and host-shell delegation, and keeping an optional <module>provider HAR as the sole external contract bridge whose service and component interfaces are implemented by the business HAR; composed ArkUI, ArkTS, Stage/package, initialization, and verification concerns remain subordinate to the accepted cross-layer architecture.",
+      "description": "Orchestrate development or revision of a HarmonyOS business HAR through an explicit MVVM and State Management V2 contract, containing endpoint, repository, request execution, and HTTP-facing service behavior under api while placing request, response, entity, enum, state, and other pure data definitions under models, resolving supplied network dependencies and tool exports before reuse, searching established project network capabilities and failing closed when none can be verified, requiring typed deterministic request outcomes and redacted evidence, classifying UI as components/dialogs/pages, isolating business routing and host-shell delegation, and keeping an optional <module>provider HAR as the sole external contract bridge whose service and component interfaces are implemented by the business HAR; composed ArkUI, ArkTS, Stage/package, initialization, and verification concerns remain subordinate to the accepted cross-layer architecture.",
       "task_types": [
         "harmonyos-business-module-development"
       ],
@@ -272,8 +272,8 @@
       ],
       "permissions": [
         "Requires task-scoped authorization to inspect and modify the declared business HAR, its optional provider HAR, public exports, routing, tests, configuration, and evidence surfaces",
-        "Requires authorization to inspect the declared module and project dependency metadata and exported network-tool interfaces; creating a minimal feature-owned adapter is allowed only within the task's approved source scope and declared SDK/API baseline",
-        "Third-party dependency installation, shared network infrastructure, authentication or certificate policy, public provider-interface changes, dependency or navigation-framework changes, shell integration outside the declared adapter, external consumer migration, device execution, signing, publication, and release require separate explicit authorization"
+        "Requires authorization to inspect the declared module and project dependency metadata and exported network-tool interfaces; business-module development stops when neither a supplied tool nor an established exported project network capability can be verified",
+        "Third-party dependency installation, feature-owned or shared network infrastructure, official-SDK network-adapter creation, authentication or certificate policy, public provider-interface changes, dependency or navigation-framework changes, shell integration outside the declared boundary, external consumer migration, device execution, signing, publication, and release require separate explicit authorization"
       ],
       "dependencies": [
         "harmonyos-business-module-initialization",

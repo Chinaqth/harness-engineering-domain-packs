@@ -300,8 +300,8 @@ and hand off the exact finding rather than guessing.
 ### HMOS-RULE-11 — Resolve network tools before reuse and bound every request outcome
 
 **Applies to:** every new or materially changed endpoint, request/response model, repository,
-service, transport adapter, network-client dependency, interceptor, authentication hook, request
-lifecycle, and ViewModel network orchestration.
+service, network-client dependency, interceptor, authentication hook, request lifecycle, and
+ViewModel network orchestration.
 
 - Before generating an import or request call, prove the candidate dependency in stages: the
   affected module declares or is authoritatively supplied the package; the exact target and package
@@ -314,16 +314,25 @@ lifecycle, and ViewModel network orchestration.
   platform-network imports, endpoint/base-address managers, request configuration, response/error
   contracts, interceptors and repository implementations. Record every credible candidate and its
   selection or rejection reason; do not infer usability from a filename or private source path.
-- Only when no suitable project tool exists may the change create the minimum feature-owned
-  transport abstraction and official HarmonyOS SDK adapter below `api/` or a recorded equivalent.
-  Confirm the version-relevant platform interface first. Do not install an external dependency,
-  create a global shared network module, migrate unrelated callers, or invent authentication,
-  certificates, retry, cache, backend response, base URL, Toast, routing or logging policy without
-  separate authority.
-- Preserve explicit endpoint, typed request/response, repository contract and implementation,
-  service, transport, ViewModel and View responsibilities. Views never execute network requests;
-  ViewModels orchestrate typed domain outcomes; transport and services do not own presentation or
-  navigation unless an accepted existing project contract assigns that side effect.
+- When no supplied or established exported project tool is suitable, stop the dependent network
+  implementation and hand the exact discovery evidence to the architecture owner. Business-module
+  development must not create a feature-owned transport abstraction, an official HarmonyOS SDK
+  adapter, an `api/transport/` directory, an external dependency or shared network infrastructure,
+  and must not invent authentication, certificates, retry, cache, backend response, base URL,
+  Toast, routing or logging policy.
+- Put outbound business request payload classes under `src/main/ets/models/request/` and inbound
+  response payloads, response envelopes and response-error data under
+  `src/main/ets/models/response/`, creating those directories when the authorized module lacks
+  them. Keep other entities, value objects, enums, state and pure data definitions below
+  `src/main/ets/models/` or an explicitly recorded project-equivalent model boundary. Model code
+  must not execute requests or depend on repositories, services, network clients, ViewModels or
+  Views.
+- Keep only endpoint declarations, repository contracts and implementations, request execution and
+  HTTP-facing services below `src/main/ets/api/` or an explicitly recorded project-equivalent API
+  boundary. `api/` must not declare business request, response or other pure data classes. Views
+  never execute network requests; ViewModels orchestrate typed domain outcomes; repository
+  implementations invoke the verified project tool; services do not own presentation or navigation
+  unless an accepted existing project contract assigns that side effect.
 - Every request path must settle exactly once with a typed success or failure. Network
   unavailability, invalid configuration, protocol failure, business rejection, decoding failure,
   timeout, cancellation and SDK exception must not leave a pending Promise or collapse into an
@@ -331,24 +340,27 @@ lifecycle, and ViewModel network orchestration.
   idempotency and lifecycle behavior before implementation.
 - Redact credentials, authorization headers, cookies, tokens, personal data and unauthorized
   request or response content from logs and evidence. Verbose tracing, protected log access,
-  cleartext transport, certificate changes, production hosts and authentication changes require
+  cleartext network use, certificate changes, production hosts and authentication changes require
   the applicable project or security authority.
 
 **Required evidence:** affected network-entry inventory; candidate and owning-module map; manifest,
 lock or local-target resolution; package entrypoint and symbol exports; implementation dependency,
-SDK/API, configuration and permission resolution; selection/rejection record; API responsibility
-map; typed success/error and lifecycle contract; sensitive-data disposition; affected configured
-build; task-required success, business-failure, protocol-failure, offline, timeout, decode,
-cancellation, lifecycle and overlapping-request observations; and explicit skipped or blocked paths.
+SDK/API, configuration and permission resolution; selection/rejection record; `models/request`,
+`models/response` and other model inventory; model-to-API reverse-dependency review; API directory
+and responsibility map; typed success/error and lifecycle contract; sensitive-data disposition;
+affected configured build; task-required success, business-failure, protocol-failure, offline,
+timeout, decode, cancellation, lifecycle and overlapping-request observations; and explicit skipped
+or blocked paths.
 
 **Failure and handoff:** an undeclared or unresolved dependency, unavailable export, incomplete
-implementation chain, unsupported platform interface, View-owned request, unapproved third-party
+implementation chain, new or materially changed business DTO below `api/`, model-to-API reverse
+dependency, business-owned Transport or SDK adapter, View-owned request, unapproved third-party
 installation, invented project policy, pending failure path, collapsed error, or sensitive-data log
-fails the affected criterion. When no candidate can be verified or creating an adapter requires an
-unapproved SDK, dependency, permission, authentication, certificate, shared-architecture or service
-decision, stop the dependent implementation and hand the exact discovery evidence to the project,
-platform or security owner. Do not copy `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` names or behavior as a
-fallback.
+fails the affected criterion. When no candidate can be verified or proceeding requires an
+unapproved SDK, dependency, permission, authentication, certificate, network-infrastructure or
+service decision, stop the dependent implementation and hand the exact discovery evidence to the
+project, platform or security owner. Do not copy `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` names or
+behavior as a fallback.
 
 ## Rule Precedence and Conflict Handling
 
@@ -369,9 +381,10 @@ Chinese-comment policy additionally use `OWNER-UI-RESOURCE-COMMENT-CONTRACT`,
 `PROJECT-CATCHELF-SAMPLE`, and `HMROUTER-UPSTREAM` from
 `changes/20260828-harmonyos-ui-resource-comment-policy/research/sources.json`; the project sample
 and third-party framework do not override platform or project-version evidence.
-Network dependency discovery, project-tool fallback, minimal adapter creation, request completion,
-and redaction additionally use `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and
+Network dependency discovery, authorized project search, fail-closed handoff, model/API placement,
+request completion, and redaction additionally use `OWNER-HMOS-MODEL-API-BOUNDARY` and
+`OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and
 `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` from
 `changes/20260829-harmonyos-network-request-policy/research/sources.json`; the exemplar remains
-project evidence and does not make its package, tool, response, authentication, UI or transport
+project evidence and does not make its package, tool, response, authentication, UI or network
 choices reusable authority.

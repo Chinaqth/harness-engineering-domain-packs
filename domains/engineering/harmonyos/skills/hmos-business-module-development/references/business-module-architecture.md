@@ -9,7 +9,7 @@ project facts, but the responsibility and dependency direction below must remain
 Read [ui-page-dialog-conventions.md](ui-page-dialog-conventions.md) for the companion contract on
 page/Dialog route declarations, UI resource use, and Chinese responsibility comments. Read
 [network-request-conventions.md](network-request-conventions.md) whenever the task adds or materially
-changes an endpoint, repository, service, transport, network dependency, or request lifecycle.
+changes an endpoint, request/response model, repository, service, network dependency, or request lifecycle.
 
 ## Business HAR Responsibilities
 
@@ -17,10 +17,10 @@ changes an endpoint, repository, service, transport, network dependency, or requ
 | --- | --- | --- |
 | `pages/` | Navigable screen roots and composition | Direct network calls or provider contract declarations |
 | `dialogs/` | Modal, sheet, popup or overlay presentation | Business orchestration or route registry ownership |
-| `components/` | Reusable embedded UI | Cross-module service location or transport implementation |
+| `components/` | Reusable embedded UI | Cross-module service location or network execution |
 | `viewmodels/` | Business actions, async orchestration and mutable presentation state | Declarative UI trees or provider API declarations |
-| `models/` / `uistate/` | Domain values, request-independent models and UI-facing state shapes | Network execution |
-| `api/` | Endpoints, repository contracts, request execution, network implementations and network-facing services | ArkUI page/component trees |
+| `models/` / `uistate/` | Request/response DTOs, entities, value objects, enums, state and other pure data shapes | Network execution or dependencies on API, ViewModel or View code |
+| `api/` | Endpoints, repository contracts and implementations, request execution and HTTP-facing services | Business request/response or other pure data declarations, ArkUI trees, or feature-owned Transport/SDK adapters |
 | `router/` | Route paths, page metadata, route parameters and module navigation contracts | Network or unrelated shell behavior |
 | `hmdelegate/` | Host-shell adapters and delegated builders | Canonical business state, networking or route definitions |
 
@@ -34,7 +34,7 @@ do not create a duplicate directory merely to satisfy a spelling convention.
   mutable data consumed by Views.
 - New or rewritten ViewModels and mutable UI-facing model objects use `@ObservedV2`.
 - A property is decorated with `@Trace` when its mutation must trigger dependent UI refresh.
-- Transport response objects are not made observable by default; map them into domain or UI-state
+- Request and response DTOs are not made observable by default; map them into domain or UI-state
   objects when presentation behavior requires observation.
 - V1 decorators are legacy migration inputs, not a target architecture.
 
@@ -43,9 +43,10 @@ do not create a duplicate directory merely to satisfy a spelling convention.
 All code that initiates a network request belongs under `api/`. Before selecting an implementation,
 prove the supplied dependency and tool through declaration, target resolution, exported symbol,
 complete implementation dependencies, and the affected configured build. When that candidate is
-ineffective, search the project for an established compatible network abstraction. Create a minimal
-feature-local official-SDK adapter only when no suitable project tool exists and the SDK/API baseline
-and mutation scope authorize it. A scalable internal split is:
+ineffective, search the project for an established compatible exported network abstraction. When no
+suitable supplied or project tool exists, stop dependent implementation and hand the discovery
+evidence to the architecture owner. Business-module development does not create a feature-owned
+Transport, official-SDK adapter or `api/transport/` directory. The required internal split is:
 
 ```text
 api/
@@ -54,16 +55,26 @@ api/
 ├── XxxHttpRepositoryImpl.ets
 └── repository/
     └── IXxxHttpRepository.ets
+
+models/
+├── request/
+│   └── XxxRequest.ets
+├── response/
+│   └── XxxResponse.ets
+└── entities, value objects, enums, state and other pure data definitions
 ```
 
 The names are illustrative. The invariant is that endpoint identity, repository abstraction,
-request execution and network-facing service logic remain inside the API boundary. Request and
-response data models may use the project's established `models/request` and `models/response`
-locations. ViewModels call a service or repository abstraction; Views never call the network client
-directly. Every request path settles with a typed success or failure result; offline, non-success
-status, decode, timeout, cancellation, and SDK-exception paths cannot leave a pending Promise or be
-silently collapsed into an indistinguishable empty value. Transport code does not copy project-
-specific authentication, routing, Toast, response-envelope, URL, retry, cache or logging policy.
+request execution and HTTP-facing service logic remain inside the API boundary, while business
+request/response and other pure data definitions remain inside the model boundary. Request payloads
+use `models/request/`; response payloads, envelopes and response-error data use `models/response/`;
+other entities, value objects, enums and state remain below `models/` or an explicitly recorded
+project equivalent. Models do not depend on API, ViewModel or View code. ViewModels call a service
+or repository abstraction; Views never call the network client directly. Every request path settles
+with a typed success or failure result; offline, non-success status, decode, timeout, cancellation,
+and SDK-exception paths cannot leave a pending Promise or be silently collapsed into an
+indistinguishable empty value. Repository and Service code do not copy project-specific
+authentication, routing, Toast, response-envelope, URL, retry, cache or logging policy.
 
 ## Provider Bridge
 
@@ -100,13 +111,16 @@ For each delivery, record:
 1. the directory-to-responsibility inventory;
 2. View-to-ViewModel event and state dependencies;
 3. each mutable UI property and why it is traced or intentionally untraced;
-4. every network entry point and proof it resides below `api/`;
-5. network-tool candidates, effective-dependency state, selection or rejection rationale, typed
+4. every request/response and other model definition, its directory, and proof that models do not
+   depend on API, ViewModel or View code;
+5. every network entry point and proof it resides below `api/` without business DTO or Transport
+   declarations;
+6. network-tool candidates, effective-dependency state, selection or rejection rationale, typed
    result/error mapping, redaction behavior, and deterministic completion paths;
-6. route and host-shell adaptation ownership;
-7. provider interface declarations, business implementations and external imports; and
-8. build plus task-required behavior evidence.
-9. page/Dialog/component classification, route ownership, resource-key changes, magic-literal
+7. route and host-shell adaptation ownership;
+8. provider interface declarations, business implementations and external imports; and
+9. build plus task-required behavior evidence; and
+10. page/Dialog/component classification, route ownership, resource-key changes, magic-literal
    review, and Chinese-comment review for every new or materially changed UI surface.
 
 ## Capability Precedence
@@ -121,5 +135,7 @@ A broader Stage/package or public-interface decision from an authorized architec
 supersede this contract only after the task scope and approval record are updated. A subordinate
 Skill recommendation alone is not such a decision.
 
-Source basis: `USER-BUSINESS-MODULE-CONTRACT`, `PROJECT-UGC-EXEMPLAR`, and
-`HMOS-ARKUI-V2` in the change research ledger for `20260817-harmonyos-business-module-development`.
+Source basis: `USER-BUSINESS-MODULE-CONTRACT`, `PROJECT-UGC-EXEMPLAR`, and `HMOS-ARKUI-V2` in the
+change research ledger for `20260817-harmonyos-business-module-development`, plus
+`OWNER-HMOS-MODEL-API-BOUNDARY` and `PROJECT-CATCHELF-ACCOUNT-API-EXEMPLAR` in the ledger for
+`20260830-harmonyos-model-api-boundary`.

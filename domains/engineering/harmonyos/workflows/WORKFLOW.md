@@ -33,7 +33,7 @@ revision, affected application and modules, evidence location, and accountable h
 | Package intent | Product, modules, intended HAP/HAR/HSP boundaries, App Pack scope, reuse and runtime expectations | Do not redesign module topology or claim package suitability. |
 | Business-module initialization inputs | Confirmed HarmonyOS project root, existing relative module directory, root `build-profile.json5`, valid module ID, optional display name, provider naming convention, and excluded integration scope | Do not run the initializer or infer business/provider behavior, external dependencies, routing, build, or runtime integration. |
 | Business-module development inputs | Existing business HAR, optional provider HAR, MVVM ownership map, V2 baseline, required UI/API/routes/shell integration, external consumers, public contracts, build target, and rollback boundary | Do not invent provider lifecycle, routing framework, public methods, dependency changes, or host-shell behavior. |
-| Network request baseline | Affected endpoints and models, supplied network dependency/tool, module and root manifests, lock or local-target evidence, package entrypoints and exports, existing project network abstractions, SDK/API network-interface support, authentication/error/logging ownership, required negative paths, and permission to create or change transport code | Do not generate an unresolved import, copy another project's network stack, install a dependency, or invent authentication, retry, certificate, response, URL, UI-message, or logging policy. |
+| Network request baseline | Affected endpoints and models, supplied network dependency/tool, module and root manifests, lock or local-target evidence, package entrypoints and exports, existing exported project network abstractions, `models/request` and `models/response` locations, authentication/error/logging ownership, and required negative paths | Do not generate an unresolved import, place business DTOs under `api/`, create business-owned Transport or SDK adapters, copy another project's network stack, install a dependency, or invent authentication, retry, certificate, response, URL, UI-message, or logging policy. |
 | Authorized execution contract | Permitted reads and writes, verified `devecocli` availability and subcommands, project configuration, tests, device access, retry bound, and rollback procedure | Do not invent commands, install tools, mutate files, or cross the missing permission boundary. |
 | Quality and handoff contract | Required lint, compatibility, build, unit, coverage, runtime, device, accessibility, security, performance, power, stability, signing, and release checks; named decision owners | Run only applicable authorized baseline checks and leave dependent claims unverified. |
 
@@ -63,7 +63,7 @@ are not install, runtime, device, signing, distribution, or release evidence. [H
    components, page/Dialog/component classification, route IDs and metadata, selected navigation
    framework and locked version, required Chinese comments, state objects, persistence, package
    boundaries, external interfaces, network entries, dependency manifests, exported network tools,
-   transport implementations, request/result contracts and network lifecycle behavior.
+   request/response model locations, request/result contracts and network lifecycle behavior.
 2. Reproduce the current expected path and material negative paths in an authorized environment.
 3. Record pre-existing diagnostics and unavailable checks without attributing them to the change.
 4. Route the task to one or more procedure tracks below and identify dependencies between them.
@@ -178,16 +178,21 @@ Use this track for `harmonyos-business-module-development`; keep scaffold-only r
    dependency direction or public exports.
 4. Map each scoped file to one responsibility. Treat `pages/`, `dialogs/` and `components/` as the
    View; keep business actions, asynchronous orchestration and mutable presentation state in
-   `viewmodels/`; keep endpoints, repositories, request execution and network-facing services in
-   `api/`, while preserving an established `models/request` and `models/response` boundary.
+   `viewmodels/`; put outbound business request payload classes in `models/request/`, inbound
+   response payloads, envelopes and response-error data in `models/response/`, and other entities,
+   value objects, enums, state and pure data definitions below `models/`. Keep endpoint
+   declarations, repository contracts and implementations, request execution and HTTP-facing
+   services in `api/`; do not declare business data classes there or allow models to depend on API,
+   ViewModel or View code.
    For each new or materially changed request, apply `HMOS-RULE-11`: verify a supplied tool through
    dependency declaration, target/entrypoint resolution, exported symbols and implementation
-   completeness; search the authorized project for an established compatible network abstraction
-   when it fails; create only a minimal feature-owned official-SDK adapter when no suitable project
-   tool exists and the required version and permission decisions are established.
+   completeness; search the authorized project for an established compatible exported network
+   abstraction when it fails; stop the dependent network implementation and hand off the discovery
+   evidence when no suitable supplied or project tool exists. Do not create a business-owned
+   Transport, official-SDK adapter or `api/transport/` directory.
 5. Apply `HMOS-RULE-05`. New or rewritten ViewModels and mutable UI-facing objects use
-   `@ObservedV2`; fields whose mutation drives UI refresh use `@Trace`. Do not make transport
-   objects observable by default or introduce V1 decorators.
+   `@ObservedV2`; fields whose mutation drives UI refresh use `@Trace`. Do not make request or
+   response DTOs observable by default or introduce V1 decorators.
 6. Keep module paths, page metadata and route parameters under `router/`. Keep host-shell adapters
    under `hmdelegate/` or the recorded project-equivalent directory without duplicating canonical
    business state, network execution or route definitions.
@@ -224,9 +229,10 @@ provider lifecycle or component-builder convention is unknown,
 the project mandates a conflicting topology, external consumers already bypass the provider and
 migration is outside scope, or a change requires unapproved dependencies, navigation framework,
 host-shell behavior, public contract migration, signing or production access. Also stop when a
-network tool cannot be resolved, every project candidate is unsuitable, an official SDK interface
-cannot be established for the baseline, or minimal creation requires an unapproved dependency,
-authentication, certificate, shared-module, permission or service-contract decision.
+   network tool cannot be resolved, every project candidate is unsuitable, a new or materially
+   changed business DTO would remain below `api/`, models would depend on API code, or proceeding
+   requires a new SDK adapter, dependency, authentication, certificate, shared network module,
+   permission or service-contract decision.
 
 ### 6. Implement ArkTS and ArkUI behavior
 
@@ -236,9 +242,10 @@ authentication, certificate, shared-module, permission or service-contract decis
    restricted dynamic behavior, module and kit declarations, interoperability, and concurrency
    constraints. [HMOS-ARKTS]
    When the surface initiates a network request, apply the resolution ladder and effective-
-   dependency states in `HMOS-RULE-11` before writing imports or request code. Preserve established
-   project boundaries; create a minimal local adapter only after authorized project search finds no
-   suitable tool.
+   dependency states in `HMOS-RULE-11` before writing imports or request code. Preserve the
+   `models/request`, `models/response` and `api/` boundaries. Stop the dependent implementation when
+   authorized project search finds no suitable exported tool; do not create a local Transport or
+   official-SDK adapter.
 3. Define state ownership and data flow for loading, empty, success, invalid input, failure,
    retry, lifecycle re-entry, and other material expected or negative paths.
 4. For a new project, new component, or rewritten state-managed surface, use State Management V2
@@ -258,7 +265,8 @@ authentication, certificate, shared-module, permission or service-contract decis
 9. Make the smallest scoped change. Preserve business logic, navigation architecture, lifecycle
    contracts, and unrelated modules unless explicitly authorized. Network request paths settle with
    typed success/failure results and define applicable offline, protocol, business, decode, timeout,
-   cancellation, lifecycle and overlapping-request behavior without transport-owned UI effects.
+   cancellation, lifecycle and overlapping-request behavior without repository- or service-owned
+   UI effects.
 10. Inspect changed files for UI classification, route duplication, magic UI literals, missing or
    inconsistent resource keys/qualifiers, and absent, stale, or meaningless required Chinese
    comments. Run lint only when the task contract or user explicitly requires lint
@@ -401,8 +409,9 @@ decided a blocker. Preserve the last known good state and reproducible failure.
 | Required API signature or replacement is unverified | Do not invent or substitute it. | Dependent change is blocked. |
 | State migration changes data flow or observation | Stop, isolate or revert the batch, and preserve reproduction evidence. | Batch and dependents remain failed. |
 | New or changed UI has an incorrect classification, anonymous route, magic UI literal, missing resource, or absent/stale/meaningless required Chinese comment | Correct only within scope and rerun structural review; otherwise hand off the exact finding. | The affected structural criterion fails even if build succeeds. |
-| Supplied network dependency or tool is unresolved or incomplete | Record declaration, target, entrypoint, export and implementation evidence; then search the authorized project before considering creation. | The supplied candidate cannot be used; dependent implementation remains blocked until a suitable candidate or authorized minimal adapter is established. |
-| No suitable project network tool exists | Verify the official network interface for the declared SDK/API and create only a minimal feature-owned adapter within authorized scope. | Third-party installation, shared-infrastructure creation and invented project policy remain forbidden without separate authority. |
+| Supplied network dependency or tool is unresolved or incomplete | Record declaration, target, entrypoint, export and implementation evidence; then search the authorized project for an established exported capability. | The supplied candidate cannot be used; dependent implementation remains blocked until a suitable supplied or project candidate is verified. |
+| No suitable project network tool exists | Stop the dependent network implementation and hand the candidate map and exact discovery evidence to the architecture owner. | Business-owned Transport, official-SDK adapter creation, third-party installation, shared-infrastructure creation and invented project policy remain forbidden. |
+| A new or materially changed business request/response data class is below `api/`, or a model depends on API/ViewModel/View code | Move only the in-scope pure data definitions to `models/request`, `models/response` or the applicable `models/` boundary and correct imports. | The business-module architecture criterion fails until placement and dependency direction are corrected, regardless of build success. |
 | A network failure path can remain pending, errors collapse into an indistinguishable empty value, or logs expose protected content | Correct the typed result, deterministic completion and redaction contract within scope, then rerun applicable negative paths. | The affected network criterion fails even if compilation succeeds. |
 | Locked navigation-framework or compiler-plugin version is unknown | Do not infer integration from another project or framework version. | Dependent route and generated-integration claims are blocked. |
 | Tool, command, project scope, permission, device, or environment is unavailable | Do not guess or bypass it; provide a reproducible manual or owner handoff. | Corresponding evidence class is unavailable or blocked. |
@@ -464,10 +473,13 @@ This iteration uses the validated `engineering.harmonyos` research ledger: ArkTS
 migration [HMOS-ARKUI-MIGRATION], package semantics [HMOS-PACKAGES], testing services
 [HMOS-TESTING], and registered identity [REPO-HARMONYOS-IDENTITY]. It also composes the seven
 user-supplied capability units summarized in `skills/README.md` as provisional workflow input;
-network-tool discovery, fallback and creation additionally use
+network-tool discovery and deterministic completion additionally use
 `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` from
-`changes/20260829-harmonyos-network-request-policy/research/sources.json`, with the exemplar limited
-to structural project evidence;
+`changes/20260829-harmonyos-network-request-policy/research/sources.json`, while mandatory model/API
+placement and fail-closed no-tool handling use `OWNER-HMOS-MODEL-API-BOUNDARY` and
+`PROJECT-CATCHELF-ACCOUNT-API-EXEMPLAR` from
+`changes/20260830-harmonyos-model-api-boundary/research/sources.json`, with both exemplars limited to
+structural project evidence;
 their bundled corpora, tool names, examples, and version claims are not independently promoted to
 authority by this document. The business-module track additionally uses
 `USER-BUSINESS-MODULE-CONTRACT` and `PROJECT-UGC-EXEMPLAR` from

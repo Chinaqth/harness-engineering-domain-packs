@@ -2,35 +2,59 @@
 
 ## Purpose and Authority
 
-This contract defines how a HarmonyOS business-module change discovers, selects, creates, and
-verifies network-request infrastructure without assuming that a dependency or remembered tool
-symbol exists. It preserves the reusable responsibility split observed in
-`PROJECT-DRILL-UGC-NETWORK-EXEMPLAR`, but that project remains structural evidence only. Its package
-names, exported symbols, response envelope, authentication, routing, user messaging, base URLs,
-singleton assembly, interceptors, and transport implementation are not HarmonyOS requirements.
+This contract defines how a HarmonyOS business-module change discovers, selects and verifies an
+existing network-request capability without assuming that a dependency or remembered tool symbol
+exists. It also fixes the business module's model and API responsibility boundaries. The structure
+observed in `PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` remains evidence only. Its package names, exported
+symbols, response envelope, authentication, routing, user messaging, base URLs, singleton assembly,
+interceptors and network implementation are not HarmonyOS requirements.
 
 Version-sensitive platform APIs must be reconciled under `HMOS-RULE-01` and `HMOS-RULE-02` for the
 declared SDK/API baseline. The task or project owns product endpoints, authentication, certificates,
-retry and cache policy, backend response semantics, dependency approval, and service environments.
+retry and cache policy, backend response semantics, dependency approval and service environments.
+Business-module development does not create network infrastructure when the project does not expose
+a suitable capability.
 
 ## Responsibility Contract
 
-The exact filenames are project facts, but the responsibilities must remain observable:
+The exact filenames are project facts, but the responsibilities and dependency direction below are
+mandatory for new or materially changed business-module request surfaces:
 
-| Responsibility | Owns | Must not own |
-| --- | --- | --- |
-| Endpoint contract | Stable endpoint identity, method and protocol constants | Base environment selection, UI text or request execution |
-| Request/response models | Typed transport input and output shapes | UI observation or network side effects by default |
-| Repository contract | Typed business-facing data-access operations | Concrete SDK calls or presentation behavior |
-| Repository implementation | Endpoint selection, request mapping and network-client invocation | View state or navigation |
-| Service | Business pre/post-processing and transport-to-domain result mapping | Direct UI rendering, Toasts or route changes |
-| Transport abstraction | Request configuration, deterministic success/failure completion and cancellation contract | Product endpoint catalogs or screen behavior |
-| Transport implementation | One verified project tool or official HarmonyOS network interface | Product policy, global architecture migration or unapproved dependency installation |
-| ViewModel | Async sequencing and domain-result-to-UI-state mapping | Concrete transport SDK calls |
-| View | State rendering and user-intent forwarding | Network execution or async business orchestration |
+| Responsibility | Required location | Owns | Must not own |
+| --- | --- | --- | --- |
+| Request models | `models/request/` | Typed outbound business request payloads | Request execution, UI observation or dependencies on API/ViewModel/View code |
+| Response models | `models/response/` | Typed inbound payloads, response envelopes and response-error data | Request execution, presentation behavior or dependencies on API/ViewModel/View code |
+| Other models | `models/` or recorded model subdirectories | Entities, value objects, enums, state and other pure data definitions | Network side effects or dependencies on API/ViewModel/View code |
+| Endpoint contract | `api/XxxApi.ets` | Stable endpoint identity, method and protocol constants | Base environment selection, UI text or request execution |
+| Repository contract | `api/repository/IXxxHttpRepository.ets` | Typed business-facing data-access operations using model types | Concrete network-client calls or presentation behavior |
+| Repository implementation | `api/XxxHttpRepositoryImpl.ets` | Endpoint selection, request mapping and invocation of one verified project network tool | View state, navigation or business DTO declarations |
+| HTTP service | `api/XxxHttpService.ets` | Business pre/post-processing and network-result-to-domain mapping | Direct UI rendering, Toasts, route changes or business DTO declarations |
+| ViewModel | `viewmodels/` | Async sequencing and domain-result-to-UI-state mapping | Concrete network-client calls |
+| View | `pages/`, `dialogs/` or `components/` | State rendering and user-intent forwarding | Network execution or async business orchestration |
 
-For an established project, preserve its equivalent boundaries when they keep the same dependency
-direction. Do not create duplicate abstractions merely to match the illustrative names.
+The canonical business-module split is:
+
+```text
+src/main/ets/
+├── api/
+│   ├── XxxApi.ets
+│   ├── XxxHttpService.ets
+│   ├── XxxHttpRepositoryImpl.ets
+│   └── repository/
+│       └── IXxxHttpRepository.ets
+└── models/
+    ├── request/
+    │   └── XxxRequest.ets
+    ├── response/
+    │   └── XxxResponse.ets
+    └── entities, value objects, enums, state and other pure data definitions
+```
+
+Create `models/request/` or `models/response/` when an authorized module needs the corresponding
+model category. An established project-equivalent model or API directory may be preserved only when
+its mapping is explicit and maintains the same responsibilities and dependency direction. Do not
+create duplicate abstractions merely to match illustrative filenames. Do not create
+`api/transport/` or declare business request, response or other pure data classes below `api/`.
 
 ## Network Tool Resolution Ladder
 
@@ -39,15 +63,15 @@ Before generating imports or request code, evaluate candidates in this order:
 1. **Task-supplied or module-declared tool.** Verify the exact dependency and requested symbol.
 2. **Established project network capability.** Search manifests, package entrypoints, source and
    existing repository implementations for a compatible exported abstraction.
-3. **Verified official HarmonyOS interface.** Use only an interface supported by the declared
-   SDK/API baseline and current authoritative documentation.
-4. **Minimal local adapter.** Create the smallest feature-owned transport abstraction and official
-   SDK adapter needed by the accepted vertical slice.
+3. **Fail-closed handoff.** When neither candidate class yields a suitable tool, stop the dependent
+   implementation and hand the candidate map and discovery evidence to the architecture owner.
 
 Do not skip directly to a new implementation because an expected class name is absent. Conversely,
 do not force a discovered utility into the change merely because a similarly named file exists.
 Select a candidate only when its responsibility, compatibility, dependency direction, error
-contract, sensitive-data boundary, and authorized scope fit the task.
+contract, sensitive-data boundary and authorized scope fit the task. Business-module development
+must not create an official-SDK adapter, install a third-party dependency, introduce a feature-owned
+or shared network module, or migrate unrelated callers.
 
 ## Effective Dependency Evidence
 
@@ -71,7 +95,7 @@ declared -> target-resolved -> symbol-exported -> implementation-complete -> bui
 Static inspection may establish only the first four states. Never report a dependency as verified
 by build when the build did not execute successfully against the affected module. A source file that
 is not exported, an undeclared transitive package, an unresolved local path, a type-only shell, an
-unsupported platform kit, or a utility with missing configuration is not an effective tool.
+unsupported platform kit or a utility with missing configuration is not an effective tool.
 
 ## Project Search Procedure
 
@@ -90,32 +114,17 @@ dependency, implementation backend, applicable SDK/API baseline, consumers, erro
 sensitive-data behavior, and selection or rejection reason. Do not copy private implementation
 paths when the package exposes a public entrypoint.
 
-## Minimal Creation Boundary
+## No-Tool Boundary
 
-When no suitable project tool exists, create a feature-local adapter under `api/` or the recorded
-project-equivalent network boundary. A typical optional split is:
+When no suitable supplied or project tool exists, preserve the discovery record and stop the
+dependent business-module implementation. Do not create a local network client, official-SDK
+adapter, external dependency, shared infrastructure or project policy as a fallback. A separate
+architecture capability and explicit authority must establish any new network infrastructure,
+including SDK selection, dependency direction, public exports, configuration, permissions,
+authentication, certificates, response semantics, retry/cache behavior and rollback.
 
-```text
-api/
-├── XxxApi.ets
-├── XxxHttpService.ets
-├── XxxHttpRepositoryImpl.ets
-├── repository/
-│   └── IXxxHttpRepository.ets
-└── transport/
-    ├── INetworkClient.ets
-    ├── HarmonyNetworkClient.ets
-    ├── NetworkRequest.ets
-    ├── NetworkResult.ets
-    └── NetworkError.ets
-```
-
-Create only the artifacts required by the accepted slice. Use a verified official HarmonyOS
-networking interface already available in the project SDK. Do not install a third-party dependency,
-create a global shared module, migrate unrelated callers, or invent authentication, retry, cache,
-certificate, response-envelope, Toast or navigation policy without separate authority. Promote a
-feature-local adapter to shared infrastructure only after real multi-module consumers and an
-approved dependency-direction decision exist.
+Unrelated business-module work may continue when it does not depend on the missing network tool.
+Mark only the dependent implementation and behavior claims blocked.
 
 ## Deterministic Result and Lifecycle Contract
 
@@ -126,15 +135,15 @@ an indistinguishable empty value.
 
 Define which layer maps:
 
-- transport and connectivity failures;
+- network-client and connectivity failures;
 - protocol status and response-shape failures;
 - backend business failures;
 - authentication/authorization decisions;
 - cancellation and stale-result suppression; and
 - presentation messages and retry affordances.
 
-Transport and Service code return typed outcomes. ViewModels decide UI state and presentation;
-network infrastructure must not directly navigate, mutate View state, or display a Toast unless an
+Repository and Service code return typed outcomes. ViewModels decide UI state and presentation;
+network-facing code must not directly navigate, mutate View state or display a Toast unless an
 explicit existing project contract assigns that side effect and the task preserves it deliberately.
 For lifecycle-sensitive or overlapping requests, define cancellation, last-result-wins,
 deduplication or idempotency behavior as applicable rather than letting stale results overwrite
@@ -146,9 +155,9 @@ Logs and evidence must redact credentials, authorization headers, cookies, token
 request/response bodies, file contents and service details whose disclosure is not authorized.
 Prefer structured metadata such as operation ID, sanitized endpoint identity, status class,
 duration, retry/cancel state and redacted error category. Verbose tracing is not enabled merely
-because a transport supports it.
+because a network client supports it.
 
-Authentication, certificate validation, cleartext transport, proxy, production host and protected
+Authentication, certificate validation, cleartext network use, proxy, production host and protected
 log access remain security or project decisions. Preserve an established policy and stop when a new
 choice would be required outside the authorized task.
 
@@ -159,19 +168,22 @@ Record separately:
 1. dependency declaration and target resolution;
 2. package entrypoint and exported symbol inspection;
 3. implementation dependency and SDK/API reconciliation;
-4. selected tool and rejected candidates;
-5. endpoint/repository/service/transport/ViewModel responsibility map;
-6. typed result and error mapping;
-7. successful affected-module build; and
-8. task-required success, business-failure, protocol-failure, offline, timeout, decode-error,
+4. selected tool and rejected candidates, or the no-tool owner handoff;
+5. request, response and other model inventory plus model dependency-direction review;
+6. endpoint/repository/service/ViewModel responsibility map and API-directory review;
+7. typed result and error mapping;
+8. successful affected-module build; and
+9. task-required success, business-failure, protocol-failure, offline, timeout, decode-error,
    cancellation, lifecycle re-entry and overlapping-request observations.
 
 Static discovery cannot pass compilation or runtime behavior. Build success cannot prove a service
-response, cancellation, retry, authentication, privacy or production-readiness claim. When a
-required dependency, platform interface, permission, service environment or behavior target is
-unavailable, preserve the exact discovery record and mark only the dependent claim blocked.
+response, cancellation, retry, authentication, privacy or production-readiness claim. A new or
+materially changed business DTO below `api/`, model-to-API reverse dependency, business-owned
+network infrastructure, unresolved tool, pending request path, collapsed material error or
+protected-data log fails the affected criterion. When a required dependency, permission, service
+environment or behavior target is unavailable, preserve the exact discovery record and mark only
+the dependent claim blocked.
 
-Source basis: `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and
-`PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` in
-`changes/20260829-harmonyos-network-request-policy/research/sources.json`, plus `HMOS-ARKTS` and
-`REPO-HARMONYOS-IDENTITY` through their existing validated ledger references.
+Source basis: `OWNER-HMOS-MODEL-API-BOUNDARY`, `OWNER-HMOS-NETWORK-REQUEST-CONTRACT` and
+`PROJECT-DRILL-UGC-NETWORK-EXEMPLAR` in their respective change research ledgers, plus `HMOS-ARKTS`
+and `REPO-HARMONYOS-IDENTITY` through their existing validated ledger references.
