@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- Domain ID 为 `engineering.web`，版本为 `0.1.0`，主 Owner 为 `platform-web`。
+- Domain ID 为 `engineering.web`，版本为 `1.0.0`，主 Owner 为 `platform-web`。
 - 生命周期状态为 `active`，Owner 与 Reviewer 均为 `platform-web`；激活只授予路由可选资格，不授予部署、生产访问、发布、风险接受或其他操作权限。
 - 项目命令与权限、私有架构、浏览器与辅助技术矩阵、可访问性和性能目标、安全基线、发布门禁以及恢复流程仍是项目 Overlay 或任务契约的强制输入。缺失这些输入会阻止相关任务声明和操作，但不会阻止全局 Domain 被路由考虑，也不会把未知事实变成默认值。
 
@@ -13,7 +13,7 @@
 | 路径 | 职责 | 实际行为 |
 | --- | --- | --- |
 | `DOMAIN.md` | 定义 Web 前端工程的持久专业契约。 | 约束该 Domain 的目标、Owner 边界、范围、稳定输入、证据型输出、交接和失败处置；明确区分前端客户端责任与产品、设计、后端、安全、法律、发布及生产运维的决策权，并将缺失的项目或任务输入保留为受影响声明的 `needs-org-input`。 |
-| `domain.json` | 提供可机器读取的 Domain 身份和生命周期清单。 | 声明 `engineering.web@0.1.0`、`active` 状态、`platform-web` Owner、适用任务类型与仓库信号、Kernel 1.0 兼容性，并引用仓库内激活证据。 |
+| `domain.json` | 提供可机器读取的 Domain 身份和生命周期清单。 | 声明 `engineering.web@1.0.0`、`active` 状态、`platform-web` Owner、适用任务类型与仓库信号、Kernel 3.0 兼容性、具体执行计划确认门，并引用仓库内激活证据。 |
 | `owners.json` | 提供可机器读取的所有权记录。 | 将主 Owner 和 Reviewer 均绑定为 `platform-web`；该生命周期审阅身份不授予项目、部署、生产或风险接受权限。 |
 | `capabilities.json` | 组装该 Domain 可供选择的专业能力。 | 定义并限定语义界面、ECMAScript 浏览器行为、Web 可访问性、浏览器 HTTP 集成、前端安全验证、浏览器性能可观测性和跨浏览器兼容性七项 Capability；每项均引用现有 Workflow、Skill 和 Evaluator，并明列工具类型、任务范围权限以及需要另行授权的操作。 |
 | `routes.json` | 定义任务信号到 Capability 候选项的确定性选择表。 | 按安全、可访问性、兼容性、性能、HTTP、ECMAScript 和语义界面的优先级，匹配明确任务类型与区分性信号后选出已存在的 Capability；路由选择仍受 Capability 权限、项目 Overlay 和任务契约门禁约束。 |

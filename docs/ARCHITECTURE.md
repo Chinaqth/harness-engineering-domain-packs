@@ -67,6 +67,12 @@ Task Envelope
 
 The registry is the fact source. Model reasoning may interpret ambiguous intent and compose work packages, but it must not invent unregistered capabilities.
 
+After selection, a Domain owns the professional content it contributes to the concrete task plan;
+it does not own the approval state. For mutating work, all selected Domain contributions are
+integrated into the target project's `changes/<change-id>/task.md`. The Harness Kernel binds that
+file's digest, requires the complete Markdown to be shown to the user, and prevents mutation until
+the current displayed plan is explicitly confirmed. A changed plan returns to that checkpoint.
+
 All registered JSON documents are checked against the schemas in `schemas/`. Lifecycle validation
 adds semantic gates that JSON Schema alone cannot express: an active Pack must have a named owner,
 meaningful routes and capabilities, evaluator coverage, a compatibility statement, and resolvable

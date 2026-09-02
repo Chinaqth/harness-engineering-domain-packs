@@ -8,6 +8,15 @@ description: "检查 HarmonyOS 项目中的废弃 SDK 接口并提供修复建�
 
 本技能专门用于检查 HarmonyOS 项目中使用的废弃（Deprecated）SDK 接口，并提供详细的修复建议和迁移方案。帮助开发者保持代码的现代性和可维护性。
 
+## Mandatory Domain Execution Plan Checkpoint
+
+Read-only compatibility inspection and recommendations may continue under the Kernel risk policy.
+Before replacing a deprecated API or making any project change, record the affected calls,
+versioned replacement evidence, compatibility impact, verification and rollback in the target
+project's `changes/<change-id>/task.md`. Present the complete Markdown plan and stop. Resume
+mutation only after explicit confirmation of the current digest; revise and fully re-present after
+any requested plan change.
+
 ## 使用场景
 
 - ✅ 项目升级 HarmonyOS API 版本前

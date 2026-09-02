@@ -14,6 +14,17 @@ make the bundled Skill corpora authoritative. [REPO-HARMONYOS-IDENTITY]
 `evaluators/EVALUATOR.md` governs independent evaluation. The practitioner must not self-evaluate,
 activate the Domain, or issue the final verdict.
 
+## Mandatory Domain Execution Plan Checkpoint
+
+For a task that will mutate the target project, complete authorized read-only assessment first,
+then write the concrete HarmonyOS steps into the target project's
+`changes/<change-id>/task.md`. Cover the selected capability and procedure track, affected
+pages/components/ViewModels/modules/resources/API boundaries, step order, checks, risks and
+recovery as applicable. Present the complete integrated Markdown plan to the user and stop. Resume
+mutation only after the Kernel records explicit confirmation of the current digest. If the user
+requests a change, revise the durable plan and present it completely again. Do not treat routing,
+file creation, a summary, silence or this Skill's recommendation as approval.
+
 ## Entry Contract
 
 Before any mutation or execution, obtain or discover and record:

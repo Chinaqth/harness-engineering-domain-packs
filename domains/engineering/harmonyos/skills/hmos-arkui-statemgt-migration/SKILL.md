@@ -51,6 +51,14 @@ description: 帮助开发者将ArkUI状态管理从V1迁移到V2。触发场景�
 
 > 详细迁移示例参考：`references/arkts-v1-v2-migration-rendering-control-repeat.md`
 
+## Mandatory Domain Execution Plan Checkpoint
+
+Before changing a V1 state surface, record the inventory, decorator and behavior mapping,
+dependency-ordered batches, mixed-boundary decisions, checks and rollback in the target project's
+`changes/<change-id>/task.md`. Present the complete Markdown plan and stop. Resume mutation only
+after explicit confirmation of the current digest is recorded by the Kernel. A changed migration
+batch or state-ownership decision requires plan revision and complete re-presentation.
+
 ## 核心差异
 
 | 特性 | V1 | V2 |

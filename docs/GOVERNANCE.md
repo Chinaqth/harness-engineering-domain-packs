@@ -68,6 +68,10 @@ production access, exceptions, and task-specific permissions remain separate aut
 - Deprecation identifies a replacement or explains why none exists.
 - A Domain Pack cannot loosen Kernel security, privacy, authorization, or evidence rules.
 - Project-specific facts stay in project overlays.
+- A Domain may author professional execution-plan content, but it cannot approve that content or
+  treat routing as approval. Mutating Domain work must stop after the complete target-project
+  `task.md` is displayed and must resume only for the digest explicitly confirmed through the
+  Kernel gate.
 
 ## Registry Review
 

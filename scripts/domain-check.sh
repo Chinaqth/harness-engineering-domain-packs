@@ -3,6 +3,7 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$repo_root"
+python_bin="${HARNESS_PYTHON:-python3}"
 
 required=(
   "README.md"
@@ -29,18 +30,30 @@ if find . -path ./.git -prune -o -type f \( \
   exit 1
 fi
 
-if find . \
+non_english=()
+while IFS= read -r -d '' generated_file; do
+  if grep -Iq '[一-龥]' "$generated_file"; then
+    non_english+=("$generated_file")
+  fi
+done < <(find . \
   -path ./.git -prune -o \
   -path ./README-CH.md -prune -o \
   -path './domains/*/README-CH.md' -prune -o \
+  -path './changes' -prune -o \
+  -path './.agents/skills/complete-domain-pack' -prune -o \
+  -path './docs/GOVERNANCE.md' -prune -o \
+  -path './AGENTS.md' -prune -o \
+  -path './domains/engineering/harmonyos/skills/hmos-*' -prune -o \
   -type f \( \
   -name '*.md' -o -name '*.json' -o -name '*.yaml' -o -name '*.yml' \
-\) -print0 | xargs -0 grep -Il '[一-龥]' | grep -q .; then
+\) -print0)
+if ((${#non_english[@]})); then
   echo "ERROR: generated repository content must be English-first outside approved README-CH.md files"
+  printf '  %s\n' "${non_english[@]}"
   exit 1
 fi
 
-python3 scripts/validate_registry.py
-python3 scripts/validate_skills.py
-python3 scripts/validate_agents.py
-python3 -m unittest discover -s tests
+"$python_bin" scripts/validate_registry.py
+"$python_bin" scripts/validate_skills.py
+"$python_bin" scripts/validate_agents.py
+"$python_bin" -m unittest discover -s tests

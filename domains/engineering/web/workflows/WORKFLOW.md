@@ -84,6 +84,21 @@ features have a verification or approved fallback plan rather than presumed comp
 transpilation policy, weaken a security control, or narrow a support matrix without the relevant
 authority.
 
+### Domain Execution Plan confirmation checkpoint
+
+Before stage 3 or any other mutating step, integrate the Web professional plan into the target
+project's `changes/<change-id>/task.md`. The plan must identify the selected Web capability,
+workflow and Skill; affected pages, components, document regions, semantic choices, responsive and
+interaction states, service and trust boundaries, accessibility and browser targets, performance
+concerns, implementation order, requirement-to-check mapping, recovery unit and explicit unchanged
+scope.
+
+Present the complete current `task.md` to the user as Markdown and stop. A summary, file link,
+written record or silence is not approval. Resume mutation only after the Kernel binds the current
+digest and records explicit confirmation. A requested change requires updating the durable plan,
+invalidating the old approval and presenting the complete revised Markdown again. Authorized
+read-only baseline and design analysis may continue before this checkpoint.
+
 ### 3. Implement semantic structure and presentation
 
 1. Implement document structure, metadata, landmarks, navigation, content, forms, and controls

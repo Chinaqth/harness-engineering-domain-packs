@@ -8,6 +8,14 @@ description: Develop or revise a HarmonyOS business HAR after scaffolding using 
 Deliver one bounded business-module change without collapsing UI, mutable presentation state,
 network access, routing, shell integration, or external contracts into one layer.
 
+## Mandatory Domain Execution Plan Checkpoint
+
+Before editing, integrate the concrete MVVM, page/Dialog/component, routing, provider, model/API,
+network dependency, public-contract, verification and recovery steps into the target project's
+`changes/<change-id>/task.md`. Present the complete Markdown plan and stop. Resume mutation only
+after explicit confirmation of the current digest is recorded by the Kernel. Revise and completely
+re-present the plan after any requested material change; routing or silence is not approval.
+
 ## Required Inputs
 
 Confirm before editing:

@@ -1,10 +1,10 @@
 # HarmonyOS Engineering Domain 中文导览
 
-本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `5.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
+本文件是 `engineering.harmonyos` Domain Pack 的中文说明。英文生产制品是唯一权威契约；本导览只忠实解释现有职责和实际行为，不新增规则、权限、版本承诺或组织事实。当前版本为 `6.0.0`，生命周期为 `active`，Owner 为 `platform-harmony`。激活仅授予路由资格，不授予任何操作权限。
 
 ## 核心职责与运行方式
 
-本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析、业务/provider 模块初始化、MVVM 业务模块开发，以及构建和运行时证据收集。5.0.0 在保留类型化确定终止、敏感证据脱敏、页面/Dialog/组件分类、集中路由、UI 资源化和中文职责注释要求的基础上，强制业务请求、响应及其他纯数据定义进入 `models/` 边界，将 `api/` 限定为端点、Repository 和 HTTP Service，并取消业务模块自建 Transport 或官方 SDK 网络适配层的兜底；找不到可验证的项目网络工具时必须失败关闭并移交架构决策。静态发现和成功构建分别只证明各自证据类别。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、依赖权限、网络策略、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
+本 Domain 覆盖 Stage 模型应用与包设计、ArkTS 实现和静态正确性、ArkUI 界面交付、状态管理 V1→V2 迁移、废弃接口与兼容性分析、业务/provider 模块初始化、MVVM 业务模块开发，以及构建和运行时证据收集。6.0.0 新增 Domain 具体执行计划确认门：任何修改性流程必须先把 HarmonyOS 专业步骤写入目标项目 `task.md`，完整展示给用户并等待当前摘要的明确确认；计划变化必须重新展示。它继续保留 5.0.0 的 `models/`/`api/` 边界、无本地 Transport 兜底、类型化确定终止、敏感证据脱敏、页面/Dialog/组件分类、集中路由、UI 资源化和中文职责注释要求。静态发现和成功构建分别只证明各自证据类别。新项目、新增 ArkUI 组件和重写的状态管理界面必须使用 V2；V1 仅作为遗留迁移输入，不得在新代码中引入。执行前必须获得任务所需的 SDK/API、工具链、依赖权限、网络策略、目标设备、权限和验收基线；缺失的组织事实记录为 `needs-org-input`，不得猜测。
 
 七个用户添加的 Skill 包作为非权威输入保留；另有两个 Domain 自有 Skill 分别负责模块配对初始化和完整业务模块开发。Domain 的九项能力统一绑定 `skills/harmonyos-engineering/SKILL.md` 执行 wrapper，并按 `capabilities.json` 接线到适用 Skill。`hmos-init-business-module` 只执行两个骨架、局部依赖与根清单变更；`hmos-business-module-development` 负责初始化后的 MVVM、V2、API/UI/router/hmdelegate/provider 架构与交付流程。早期七个保留包的逐 Skill 制品评分 Owner 豁免仍作为历史事实保留；任何保留包都不因接线或激活获得政策、版本或平台权威性。
 
@@ -15,7 +15,7 @@
 | 路径 | 职责 | 实际行为 |
 | --- | --- | --- |
 | `DOMAIN.md` | 定义目的、边界、输入、输出、交接、失败模式和成熟度。 | 为所有 HarmonyOS 工作提供稳定专业基线，并明确 Skill 语料的辅助地位。 |
-| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，并引用初始激活证据、3.0.0 UI 策略、4.0.0 网络策略和 5.0.0 模型/API 边界验收记录。 |
+| `domain.json` | 声明 Domain 身份、版本、状态、Owner、兼容性和激活证据。 | 供注册表与生命周期校验使用；当前为 `active`，保留初始激活证据、3.0.0 UI 策略、4.0.0 网络策略和 5.0.0 模型/API 边界记录，并在 6.0.0 接入 Kernel 3.0 的具体执行计划确认门。 |
 | `owners.json` | 声明责任归属。 | 将主 Owner 绑定到 `platform-harmony`，不隐含额外审批权。 |
 | `capabilities.json` | 组装能力、Workflow、Skill、Evaluator、工具、权限和依赖。 | 九类 HarmonyOS 能力统一绑定 `harmonyos-engineering/SKILL.md` wrapper；初始化与完整业务开发使用独立能力，其余项目验证通过 `devecocli` 组装证据。 |
 | `routes.json` | 定义任务类型、识别信号和候选能力。 | 为兼容的 HarmonyOS 请求提供候选路由；Domain 已激活，具备路由资格。 |

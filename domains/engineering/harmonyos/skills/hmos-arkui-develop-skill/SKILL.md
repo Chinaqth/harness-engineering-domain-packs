@@ -33,6 +33,14 @@ description: |
 2. **可运行优先**：输出代码必须能通过语法检查
 3. **API 签名查表优先**：写代码前先查 `references/quick-apis/` 确认参数，不凭记忆写
 
+## Mandatory Domain Execution Plan Checkpoint
+
+Before creating or editing ArkUI code, integrate the selected component/page/Dialog structure,
+ViewModel and V1/V2 state ownership, navigation, resources, UI states, API evidence, validation and
+rollback into the target project's `changes/<change-id>/task.md`. Present the complete Markdown
+plan and stop. Resume mutation only after the Kernel records explicit confirmation of the current
+digest. Requested changes require updating and completely re-presenting the plan.
+
 ## 工作流程
 
 整体遵循 **先设计方案 → 识别不确定点 → 调用知识检索 → 完善方案** → **开发实现**的迭代模型。
@@ -196,4 +204,3 @@ harmonyos_knowledge_search(keywords: ['Video onUpdate callback', 'VideoAttribute
 
 完成后说明：
 > 本次为人工走查，建议安装 DevEco MCP 后在 DevEco Studio 中验证编译是否通过。
-

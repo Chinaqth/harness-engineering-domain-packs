@@ -41,6 +41,22 @@ revision, affected application and modules, evidence location, and accountable h
 authorized actions, changed-surface estimate, requirement-to-check mapping, and planned recovery
 unit. Missing information remains visible; it is never converted into a default silently.
 
+## Domain Execution Plan Confirmation Checkpoint
+
+Before the first mutating step in any selected procedure track, integrate the HarmonyOS
+professional plan into the target project's `changes/<change-id>/task.md`. It must identify the
+selected HarmonyOS capability, workflow and Skill; affected pages, dialogs, components, ViewModels,
+state ownership, modules, packages, routes, resources, API/model/network boundaries and configuration
+as applicable; the dependency order; each acceptance-to-check mapping; negative paths; bounded retry;
+recovery unit; and unchanged scope.
+
+Present the complete current `task.md` to the user as Markdown and stop. A summary, file link,
+written change record or silence is not approval. Resume a mutating HarmonyOS step only after the
+Kernel binds the current digest and records explicit confirmation. If the user requests any plan
+change, update the durable plan, let the old approval become stale, and present the complete new
+Markdown again. Read-only retrieval, baseline collection and diagnosis may continue before this
+checkpoint when already authorized.
+
 ## Common Evidence Model
 
 For every procedure, distinguish four evidence classes:

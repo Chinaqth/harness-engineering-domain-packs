@@ -3,7 +3,7 @@
   "id": "engineering.harmonyos",
   "display_name": "HarmonyOS Engineering",
   "description": "Owns reusable HarmonyOS application delivery practice and evaluation.",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "status": "active",
   "owner": "platform-harmony",
   "inherits": [],
@@ -35,8 +35,8 @@
     ]
   },
   "compatibility": {
-    "kernel_protocol_version": "1.0",
-    "statement": "Compatible with Harness Kernel protocol 1.0. Version 5.0.0 makes the business module's models/ boundary mandatory for request, response and other pure data definitions, limits its api/ boundary to endpoint declarations, repository contracts and implementations, and HTTP-facing services, and removes the 4.0.0 feature-owned transport and official-SDK adapter fallback. It retains deterministic typed request outcomes, sensitive-evidence redaction, State Management V2, page/Dialog classification, UI-resource, meaningful Chinese-comment, provider-direction, and Kernel authorization controls. Projects may remain pinned to 4.x; migration to 5.0.0 applies the new placement and no-local-transport rules only to new or materially changed request/response models and their direct API dependency chains, does not move unrelated legacy files, and blocks dependent network implementation when neither a supplied tool nor an established exported project network capability can be verified."
+    "kernel_protocol_version": "3.0",
+    "statement": "Compatible with Harness Kernel protocol 3.0. Version 6.0.0 adds the Kernel-owned Domain Execution Plan confirmation checkpoint before every mutating HarmonyOS procedure: the Domain contributes concrete HarmonyOS steps to the target project's task.md, the complete integrated Markdown is presented to the user, and implementation resumes only for the confirmed digest. It retains the 5.0.0 models/api boundary, no-local-transport rule, deterministic typed outcomes, evidence redaction, State Management V2, page/Dialog classification, UI-resource, meaningful Chinese-comment, provider-direction, and authorization controls. Projects pinned to 5.x retain the earlier workflow; migration to 6.0.0 requires Kernel protocol 3.0 and re-presentation whenever the concrete plan changes."
   },
   "activation": {
     "evidence": [

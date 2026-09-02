@@ -4,7 +4,7 @@
 
 `engineering.web` owns the reusable professional practice for designing, implementing, and evaluating browser-delivered user interfaces. Its baseline covers standards-based document structure and presentation, ECMAScript application behavior, accessibility, client-side HTTP integration, frontend security, browser performance measurement, and cross-browser verification. It turns declared product and interface requirements into reviewable implementation artifacts and reproducible evidence without selecting an organization-specific framework, architecture, toolchain, or release policy.
 
-The Domain is registered as **Web Frontend Engineering**, version `0.1.0`, with lifecycle status `active` and `platform-web` as owner and reviewer [REPO-WEB-DOMAIN-IDENTITY]. Activation establishes routing eligibility only; it does not grant operational permissions.
+The Domain is registered as **Web Frontend Engineering**, version `1.0.0`, with lifecycle status `active` and `platform-web` as owner and reviewer [REPO-WEB-DOMAIN-IDENTITY]. Activation establishes routing eligibility only; it does not grant operational permissions.
 
 ## Ownership and Decision Boundaries
 
@@ -111,7 +111,7 @@ The receiving authority and its disposition must be recorded when known. Silence
 
 ## Maturity and Task-Level Organization Inputs
 
-This Domain is an active source-supported professional baseline at version `0.1.0`. The following organization and project inputs remain mandatory for every dependent task claim or action:
+This Domain is an active source-supported professional baseline at version `1.0.0`. The following organization and project inputs remain mandatory for every dependent task claim or action:
 
 - required engineering, accessibility, security, design, product, and release reviewers, including their decision rights;
 - permissions for repository and dependency changes, deployment, production access, rollback, and policy configuration;

@@ -17,6 +17,11 @@ This repository is the authoritative source for enterprise function-level capabi
    Intervention mode (介入模式) as the Domain owner. Intervention mode may waive evaluation stages
    only, must be recorded with authority, waived gates, and rollback, and never waives schema,
    reference, or registry validation, Kernel policy, or fail-closed behavior.
+10. For any selected Domain capability that will mutate a target project, finish professional
+    planning in that project's `changes/<change-id>/task.md`, contribute Domain-specific steps and
+    evidence, present the complete integrated Markdown plan to the user, and pause. Do not mutate
+    until the Kernel records explicit confirmation of the current plan digest; requested revisions
+    require an updated plan and complete re-presentation.
 
 ## Read on Demand
 
