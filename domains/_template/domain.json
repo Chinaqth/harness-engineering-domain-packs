@@ -12,7 +12,7 @@
     "repository_signals": []
   },
   "compatibility": {
-    "kernel_protocol_version": "1.0",
+    "kernel_protocol_version": "4.0",
     "statement": ""
   },
   "activation": {

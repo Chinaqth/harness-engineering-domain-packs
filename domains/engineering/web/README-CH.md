@@ -58,3 +58,23 @@
 ## 目录完整性边界
 
 隐藏的 `.gitkeep` 文件只用于保留目录，不是生产制品，因此不列入上述清单。当其他生产文件或必需目录增删时，必须在它们稳定后同步更新本文件，以保持中文清单与英文权威制品一致。
+
+## Kernel 4.0 生命周期文件
+
+| 文件 | 职责 |
+| --- | --- |
+| `lifecycle.json` | 四阶段 Skill 绑定 |
+| `evidence/lifecycle-v4.json` | 独立于旧 changes 的版本证据 |
+| `skills/web-prepare/SKILL.md` | prepare 阶段专业实现 |
+| `skills/web-execute/SKILL.md` | execute 阶段专业实现 |
+| `skills/web-evaluate/SKILL.md` | evaluate 阶段专业实现 |
+| `skills/web-summarize/SKILL.md` | summarize 阶段专业实现 |
+
+| `evaluators/PROFESSIONAL_CRITERIA.md` | 继承的专业验收标准 |
+| `workflows/PROFESSIONAL_PROCEDURE.md` | 继承的专业执行方法 |
+
+## 持久专业来源
+
+- `evidence/research/capability-map.md`：继承的专业研究来源记录，供规则来源追溯。
+- `evidence/research/responsibility-boundaries.md`：继承的专业研究来源记录，供规则来源追溯。
+- `evidence/research/sources.json`：继承的专业研究来源记录，供规则来源追溯。

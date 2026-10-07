@@ -8,13 +8,9 @@ description: "检查并修复 HarmonyOS 项目的 ArkTS 语法错误，自动化
 
 本技能专门用于自动化构建 HarmonyOS 项目，通过静态语法检查、错误修复和循环构建的流程，确保项目能够成功编译并生成产物。
 
-## Mandatory Domain Execution Plan Checkpoint
+## Lifecycle Execution Contract
 
-Read-only diagnostics may establish the baseline. Before applying a fix, changing generated files
-or starting any build step with mutating side effects, record the affected ArkTS/ETS files,
-diagnostic-to-fix mapping, retry bound, build checks and rollback in the target project's
-`changes/<change-id>/task.md`. Present the complete Markdown plan and stop. Resume mutation only
-after explicit confirmation of the current digest; revise and re-present after a plan change.
+When dispatched through Kernel 4.0, perform this professional procedure within the selected Domain stage. Do not require the old task.md display/digest approval checkpoint. Record unavailable inputs, tools and checks; skip only dependent operations and continue feasible work. Independent Domain evaluation and final summary remain required. User and platform authority still applies.
 
 ## 使用场景
 

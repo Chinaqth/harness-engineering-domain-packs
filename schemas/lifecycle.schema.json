@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "domain_id",
+    "stages"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "domain_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prepare",
+        "execute",
+        "evaluate",
+        "summarize"
+      ],
+      "properties": {
+        "prepare": {
+          "type": "string",
+          "pattern": "skills/[a-z0-9-]+/SKILL\\.md"
+        },
+        "execute": {
+          "type": "string",
+          "pattern": "skills/[a-z0-9-]+/SKILL\\.md"
+        },
+        "evaluate": {
+          "type": "string",
+          "pattern": "skills/[a-z0-9-]+/SKILL\\.md"
+        },
+        "summarize": {
+          "type": "string",
+          "pattern": "skills/[a-z0-9-]+/SKILL\\.md"
+        }
+      }
+    }
+  }
+}

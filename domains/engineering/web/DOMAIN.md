@@ -123,7 +123,7 @@ This Domain is an active source-supported professional baseline at version `1.0.
 - the adopted WCAG conformance level, performance objectives and budgets, interoperability and coverage thresholds, and release-blocking criteria; and
 - the approved threat model, ASVS scope or verification level, CSP rollout policy, vulnerability thresholds, incident escalation path, and risk-acceptance authority.
 
-Activation evidence is stored under `changes/engineering.web-activation/`. Nothing in this contract supplies project-specific facts or operational approvals; missing inputs remain `needs-org-input` for the affected task and must fail closed.
+Activation evidence is stored under `evidence/lifecycle-v4.json`. Nothing in this contract supplies project-specific facts or operational approvals; missing inputs remain `needs-org-input` for the affected task and must fail closed.
 
 ## Source Basis
 

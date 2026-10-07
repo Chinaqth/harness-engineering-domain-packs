@@ -8,13 +8,9 @@ description: Develop or revise a HarmonyOS business HAR after scaffolding using 
 Deliver one bounded business-module change without collapsing UI, mutable presentation state,
 network access, routing, shell integration, or external contracts into one layer.
 
-## Mandatory Domain Execution Plan Checkpoint
+## Lifecycle Execution Contract
 
-Before editing, integrate the concrete MVVM, page/Dialog/component, routing, provider, model/API,
-network dependency, public-contract, verification and recovery steps into the target project's
-`changes/<change-id>/task.md`. Present the complete Markdown plan and stop. Resume mutation only
-after explicit confirmation of the current digest is recorded by the Kernel. Revise and completely
-re-present the plan after any requested material change; routing or silence is not approval.
+When dispatched through Kernel 4.0, perform this professional procedure within the selected Domain stage. Do not require the old task.md display/digest approval checkpoint. Record unavailable inputs, tools and checks; skip only dependent operations and continue feasible work. Independent Domain evaluation and final summary remain required. User and platform authority still applies.
 
 ## Required Inputs
 
@@ -209,3 +205,8 @@ shell-delegate changes, provider interface-to-implementation map, public export 
 scenario evidence, subordinate-capability map, composition conflicts, deviations, unresolved
 decisions, resource-key and changed-literal review, Chinese-comment review, and rollback
 instructions.
+
+
+## Kernel 4.0 Issue Semantics
+
+A professional fail-closed or stop instruction applies only to the dependent operation. Record the missing authority, input, tool or evidence and continue independent feasible work, final evaluation and summary. It must not terminate the whole matched task or reinstate a Kernel approval checkpoint. Never fabricate a capability or grant missing authority.

@@ -296,7 +296,7 @@ assurance.
 ## Source Register
 
 The validated research ledger is
-`changes/engineering.harmonyos-completion/research/sources.json`. This iteration uses all approved
+`evidence/research/sources.json`. This iteration uses all approved
 source IDs:
 
 - `REPO-HARMONYOS-IDENTITY`

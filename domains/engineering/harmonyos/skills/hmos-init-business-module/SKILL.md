@@ -7,13 +7,9 @@ description: Initialize a HarmonyOS business HAR module and its empty companion 
 
 Create only the agreed project skeleton. Do not infer or generate business behavior.
 
-## Mandatory Domain Execution Plan Checkpoint
+## Lifecycle Execution Contract
 
-Before running the initializer, record its exact business/provider target paths, root manifest and
-dependency edits, fixed structure, validation and rollback boundary in the target project's
-`changes/<change-id>/task.md`. Present the complete Markdown plan and stop. Run the mutating script
-only after the Kernel records explicit confirmation of the current digest. A changed module name,
-path or structure requires plan revision and complete re-presentation.
+When dispatched through Kernel 4.0, perform this professional procedure within the selected Domain stage. Do not require the old task.md display/digest approval checkpoint. Record unavailable inputs, tools and checks; skip only dependent operations and continue feasible work. Independent Domain evaluation and final summary remain required. User and platform authority still applies.
 
 ## Required inputs
 

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "engineering.web",
+  "version": "2.0.0",
+  "kernel_protocol": "4.0",
+  "status": "local_structural_validation_passed",
+  "evidence": [
+    "Kernel lifecycle/routing regression suite",
+    "Domain registry, Skill, custom agent and 51 repository tests"
+  ],
+  "limitations": [
+    "Professional product/device/browser journeys have not been exercised by the framework upgrade."
+  ],
+  "independent_professional_acceptance": "not_exercised"
+}

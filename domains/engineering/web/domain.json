@@ -3,7 +3,7 @@
   "id": "engineering.web",
   "display_name": "Web Frontend Engineering",
   "description": "Owns reusable Web frontend engineering delivery practice and evaluation.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "status": "active",
   "owner": "platform-web",
   "inherits": [],
@@ -28,12 +28,12 @@
     ]
   },
   "compatibility": {
-    "kernel_protocol_version": "3.0",
-    "statement": "Compatible with Harness Kernel protocol 3.0. Version 1.0.0 requires a concrete target-project task.md containing the Web professional execution plan, complete user-visible Markdown presentation, and explicit confirmation of the current digest before mutating implementation. It preserves the Domain's framework-neutral semantics, accessibility, security, privacy, compatibility, evidence, and lifecycle boundaries. Projects pinned to 0.x retain the earlier workflow and must migrate their Kernel before adopting 1.0.0."
+    "kernel_protocol_version": "4.0",
+    "statement": "Implements Kernel 4.0 lifecycle through Domain-owned stage Skills. Ordinary issues are recorded, not approval gates. Evaluation and final checklist remain mandatory for matched tasks."
   },
   "activation": {
     "evidence": [
-      "changes/engineering.web-activation/activation-evidence.json"
+      "evidence/lifecycle-v4.json"
     ]
   }
 }

@@ -1011,3 +1011,23 @@
 ## 维护说明
 
 目录内容变化后必须同步更新本清单。保留语料可以继续随 Skill 包存在，但其来源、版本、时效和工具依赖仍需在实际任务中核验。若本导览与英文核心制品、当前权威平台文档或观察到的工具结果冲突，以英文核心制品规定的来源优先级和交接流程处理。
+
+## Kernel 4.0 生命周期文件
+
+| 文件 | 职责 |
+| --- | --- |
+| `lifecycle.json` | 四阶段 Skill 绑定 |
+| `evidence/lifecycle-v4.json` | 独立于旧 changes 的版本证据 |
+| `skills/harmonyos-prepare/SKILL.md` | prepare 阶段专业实现 |
+| `skills/harmonyos-execute/SKILL.md` | execute 阶段专业实现 |
+| `skills/harmonyos-evaluate/SKILL.md` | evaluate 阶段专业实现 |
+| `skills/harmonyos-summarize/SKILL.md` | summarize 阶段专业实现 |
+
+| `evaluators/PROFESSIONAL_CRITERIA.md` | 继承的专业验收标准 |
+| `workflows/PROFESSIONAL_PROCEDURE.md` | 继承的专业执行方法 |
+
+## 持久专业来源
+
+- `evidence/research/capability-map.md`：继承的专业研究来源记录，供规则来源追溯。
+- `evidence/research/responsibility-boundaries.md`：继承的专业研究来源记录，供规则来源追溯。
+- `evidence/research/sources.json`：继承的专业研究来源记录，供规则来源追溯。

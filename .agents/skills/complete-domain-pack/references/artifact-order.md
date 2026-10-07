@@ -20,3 +20,5 @@ Build artifacts in this order unless the change contract records a justified dep
 12. Activation evidence: reproducible validation and representative routing results.
 
 Do not create placeholder downstream artifacts merely to satisfy references.
+
+Kernel 4.0: before final README inventory and activation, author lifecycle.json and four real Domain stage Skills (prepare, execute, evaluate, summarize). The binding must identify the Domain and use existing safe Skill paths. Draft registration leaves stages empty; activation must not. Durable source/activation evidence belongs in the Domain evidence/ directory, so changes cleanup cannot invalidate an active Pack.

@@ -71,6 +71,7 @@ class RegistryValidationTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         manifest["status"] = "active"
         manifest["compatibility"]["statement"] = "Compatible with Kernel protocol 1.0."
+        manifest["compatibility"]["kernel_protocol_version"] = "1.0"
         manifest["activation"]["evidence"] = ["tests/activation-evidence.md"]
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
         return manifest

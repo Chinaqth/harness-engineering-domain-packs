@@ -252,6 +252,16 @@ def validate(root: Path) -> list[str]:
                             f"must define {field}"
                         )
 
+    for domain_id, record in records.items():
+        if record['manifest'].get('status') != 'active' or record['manifest'].get('compatibility', {}).get('kernel_protocol_version') != '4.0':
+            continue
+        binding = load_json(record['path'] / 'lifecycle.json', errors)
+        if binding.get('schema_version') != '1.0' or binding.get('domain_id') != domain_id:
+            errors.append(f'{domain_id}: invalid lifecycle identity')
+        for stage in ('prepare', 'execute', 'evaluate', 'summarize'):
+            relative = binding.get('stages', {}).get(stage)
+            if not isinstance(relative, str) or not relative.startswith('skills/') or '..' in Path(relative).parts or not (record['path'] / relative).is_file():
+                errors.append(f'{domain_id}: missing or unsafe lifecycle stage {stage}')
     return errors
 
 

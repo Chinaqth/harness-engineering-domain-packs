@@ -388,3 +388,8 @@ request completion, and redaction additionally use `OWNER-HMOS-MODEL-API-BOUNDAR
 `changes/20260829-harmonyos-network-request-policy/research/sources.json`; the exemplar remains
 project evidence and does not make its package, tool, response, authentication, UI or network
 choices reusable authority.
+
+
+## Kernel 4.0 Issue Semantics
+
+A professional fail-closed or stop instruction applies only to the dependent operation. Record the missing authority, input, tool or evidence and continue independent feasible work, final evaluation and summary. It must not terminate the whole matched task or reinstate a Kernel approval checkpoint. Never fabricate a capability or grant missing authority.

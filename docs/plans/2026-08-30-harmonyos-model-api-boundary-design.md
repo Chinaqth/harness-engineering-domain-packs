@@ -1,3 +1,5 @@
+> Historical design record, superseded for Kernel 4.0 tasks. Do not use as current execution instructions.
+
 # HarmonyOS Business Model and API Boundary Design
 
 ## Goal

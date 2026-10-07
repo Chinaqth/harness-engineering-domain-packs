@@ -1,48 +1,12 @@
-# Domain Pack Repository Entry Point
+# Domain Repository
 
-This repository is the authoritative source for enterprise function-level capabilities. Keep Kernel policy and project-specific facts out of Domain Packs.
+Domains own professional preparation, execution, independent evaluation and summary.
+Kernel 4.0 owns only route and lifecycle structure. Active Domains declare lifecycle.json
+with four Domain Skill implementations. Existing technical capabilities remain reusable.
+No model-native Kernel fallback or routine quality approval gate exists.
 
-## Mandatory Rules
-
-1. Write new repository content in English by default. `README-CH.md` is the explicitly maintained Chinese companion; keep other generated repository content in English unless the user explicitly requests an authoritative locale-specific source.
-2. Register a new function through `$register-domain-pack`; do not hand-create an unregistered domain directory.
-3. Every Domain Pack requires a stable ID, named owner, lifecycle status, version, purpose, and validation evidence.
-4. Domain rules may specialize the Harness Kernel but may not weaken organization red lines.
-5. Do not place credentials, production data, customer data, or project-specific secrets in a Domain Pack.
-6. Capability, route, and Domain IDs are immutable after publication. Deprecate and replace instead of silently renaming.
-7. Run `./scripts/domain-check.sh` before completing a change. Do not treat a non-empty route or
-   capability list as activation readiness unless schema, reference, and lifecycle validation pass.
-8. Keep registry metadata and Domain Pack files consistent.
-9. Completion runs in Default mode (默认模式, full evaluation workflow) unless the user explicitly directs
-   Intervention mode (介入模式) as the Domain owner. Intervention mode may waive evaluation stages
-   only, must be recorded with authority, waived gates, and rollback, and never waives schema,
-   reference, or registry validation, Kernel policy, or fail-closed behavior.
-10. For any selected Domain capability that will mutate a target project, finish professional
-    planning in that project's `changes/<change-id>/task.md`, contribute Domain-specific steps and
-    evidence, present the complete integrated Markdown plan to the user, and pause. Do not mutate
-    until the Kernel records explicit confirmation of the current plan digest; requested revisions
-    require an updated plan and complete re-presentation.
-
-## Read on Demand
-
-| Task | Required reading |
-| --- | --- |
-| Understand repository boundaries | `docs/ARCHITECTURE.md` |
-| Register a function | `.agents/skills/register-domain-pack/SKILL.md` |
-| Complete a registered draft | `.agents/skills/complete-domain-pack/SKILL.md`, `.codex/agents/` |
-| Change ownership or lifecycle | `docs/GOVERNANCE.md` |
-| Add a route or capability | Relevant JSON Schema in `schemas/` |
-| Validate the repository | `scripts/domain-check.sh`, `scripts/validate_registry.py` |
-
-## Definition of Done
-
-- Registry validation passes.
-- New or changed metadata conforms to the schemas.
-- Domain ownership and lifecycle are explicit.
-- Routes identify inputs, outputs, dependencies, and applicable task types.
-- Capabilities identify workflows, Skills, tools, evaluators, and permission needs.
-- Documentation and actual registry state agree.
-- Autonomous completion cites a validated research ledger and automatically activates only after
-  its automated content, routing, reference, and evaluation gates pass; an intervention-mode
-  activation instead cites its recorded owner direction, waived gates, and passing deterministic
-  gates.
+Keep registry/manifests/versions and Skill references consistent. Do not fabricate
+professional evidence or permissions. Run scripts/domain-check.sh after modifications.
+Domain Pack authoring/activation is a separate maintenance workflow, not a product-task
+quality gate. Templates may remain draft; protocol-4 activation needs valid stage bindings.
+Use English for repository content; human-readable changes records may use Chinese.

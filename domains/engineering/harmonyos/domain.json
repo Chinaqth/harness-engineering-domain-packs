@@ -3,7 +3,7 @@
   "id": "engineering.harmonyos",
   "display_name": "HarmonyOS Engineering",
   "description": "Owns reusable HarmonyOS application delivery practice and evaluation.",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "status": "active",
   "owner": "platform-harmony",
   "inherits": [],
@@ -35,15 +35,12 @@
     ]
   },
   "compatibility": {
-    "kernel_protocol_version": "3.0",
-    "statement": "Compatible with Harness Kernel protocol 3.0. Version 6.0.0 adds the Kernel-owned Domain Execution Plan confirmation checkpoint before every mutating HarmonyOS procedure: the Domain contributes concrete HarmonyOS steps to the target project's task.md, the complete integrated Markdown is presented to the user, and implementation resumes only for the confirmed digest. It retains the 5.0.0 models/api boundary, no-local-transport rule, deterministic typed outcomes, evidence redaction, State Management V2, page/Dialog classification, UI-resource, meaningful Chinese-comment, provider-direction, and authorization controls. Projects pinned to 5.x retain the earlier workflow; migration to 6.0.0 requires Kernel protocol 3.0 and re-presentation whenever the concrete plan changes."
+    "kernel_protocol_version": "4.0",
+    "statement": "Implements Kernel 4.0 lifecycle through Domain-owned stage Skills. Ordinary issues are recorded, not approval gates. Evaluation and final checklist remain mandatory for matched tasks."
   },
   "activation": {
     "evidence": [
-      "changes/engineering.harmonyos-activation/activation-evidence.json",
-      "changes/20260828-harmonyos-ui-resource-comment-policy/acceptance.json",
-      "changes/20260829-harmonyos-network-request-policy/acceptance.json",
-      "changes/20260830-harmonyos-model-api-boundary/acceptance.json"
+      "evidence/lifecycle-v4.json"
     ]
   }
 }

@@ -1,3 +1,3 @@
-# Domain Pack Changes
+# Domain Maintenance Records
 
-Use the Harness Kernel change contract for material schema, governance, routing, activation, or compatibility changes. Store only Domain-specific decision and migration evidence here; do not duplicate the Kernel templates.
+Keep current maintenance evidence here. Stable activation evidence belongs in each Domain evidence/ directory and must not depend on temporary changes history.

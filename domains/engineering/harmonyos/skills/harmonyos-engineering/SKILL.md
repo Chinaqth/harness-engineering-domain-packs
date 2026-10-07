@@ -14,16 +14,9 @@ make the bundled Skill corpora authoritative. [REPO-HARMONYOS-IDENTITY]
 `evaluators/EVALUATOR.md` governs independent evaluation. The practitioner must not self-evaluate,
 activate the Domain, or issue the final verdict.
 
-## Mandatory Domain Execution Plan Checkpoint
+## Lifecycle Execution Contract
 
-For a task that will mutate the target project, complete authorized read-only assessment first,
-then write the concrete HarmonyOS steps into the target project's
-`changes/<change-id>/task.md`. Cover the selected capability and procedure track, affected
-pages/components/ViewModels/modules/resources/API boundaries, step order, checks, risks and
-recovery as applicable. Present the complete integrated Markdown plan to the user and stop. Resume
-mutation only after the Kernel records explicit confirmation of the current digest. If the user
-requests a change, revise the durable plan and present it completely again. Do not treat routing,
-file creation, a summary, silence or this Skill's recommendation as approval.
+When dispatched through Kernel 4.0, perform this professional procedure within the selected Domain stage. Do not require the old task.md display/digest approval checkpoint. Record unavailable inputs, tools and checks; skip only dependent operations and continue feasible work. Independent Domain evaluation and final summary remain required. User and platform authority still applies.
 
 ## Entry Contract
 
@@ -304,3 +297,8 @@ Return one reconciled packet containing:
 
 The delivery is incomplete while a material claim lacks the evidence class it requires or while
 human and machine-readable records disagree.
+
+
+## Kernel 4.0 Issue Semantics
+
+A professional fail-closed or stop instruction applies only to the dependent operation. Record the missing authority, input, tool or evidence and continue independent feasible work, final evaluation and summary. It must not terminate the whole matched task or reinstate a Kernel approval checkpoint. Never fabricate a capability or grant missing authority.

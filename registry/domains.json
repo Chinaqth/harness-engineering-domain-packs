@@ -4,14 +4,14 @@
     {
       "id": "engineering.harmonyos",
       "path": "domains/engineering/harmonyos",
-      "version": "6.0.0",
+      "version": "7.0.0",
       "status": "active",
       "owner": "platform-harmony"
     },
     {
       "id": "engineering.web",
       "path": "domains/engineering/web",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "status": "active",
       "owner": "platform-web"
     }

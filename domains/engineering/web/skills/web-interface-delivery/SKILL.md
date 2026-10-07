@@ -24,16 +24,9 @@ Invoke this Skill when the selected task includes one or more of the following:
 Do not invoke it merely to define product intent, approve visual design, change backend behavior,
 set organizational policy, deploy, accept risk, or issue a final evaluation verdict.
 
-## Mandatory Domain Execution Plan Checkpoint
+## Lifecycle Execution Contract
 
-For a task that will mutate the target project, complete authorized read-only baseline and design
-work first, then write the concrete Web steps into the target project's
-`changes/<change-id>/task.md`. Cover the selected capability, affected pages/components/states,
-semantics, responsive behavior, service and trust boundaries, accessibility and browser targets,
-step order, checks, risks and recovery. Present the complete integrated Markdown plan to the user
-and stop. Resume mutation only after the Kernel records explicit confirmation of the current
-digest. A requested change requires updating and completely re-presenting the plan. Routing, file
-creation, a summary, silence or this Skill's recommendation is not approval.
+When dispatched through Kernel 4.0, perform this professional procedure within the selected Domain stage. Do not require the old task.md display/digest approval checkpoint. Record unavailable inputs, tools and checks; skip only dependent operations and continue feasible work. Independent Domain evaluation and final summary remain required. User and platform authority still applies.
 
 ## Required Inputs
 

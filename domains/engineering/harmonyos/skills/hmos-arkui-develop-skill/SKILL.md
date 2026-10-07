@@ -33,13 +33,9 @@ description: |
 2. **可运行优先**：输出代码必须能通过语法检查
 3. **API 签名查表优先**：写代码前先查 `references/quick-apis/` 确认参数，不凭记忆写
 
-## Mandatory Domain Execution Plan Checkpoint
+## Lifecycle Execution Contract
 
-Before creating or editing ArkUI code, integrate the selected component/page/Dialog structure,
-ViewModel and V1/V2 state ownership, navigation, resources, UI states, API evidence, validation and
-rollback into the target project's `changes/<change-id>/task.md`. Present the complete Markdown
-plan and stop. Resume mutation only after the Kernel records explicit confirmation of the current
-digest. Requested changes require updating and completely re-presenting the plan.
+When dispatched through Kernel 4.0, perform this professional procedure within the selected Domain stage. Do not require the old task.md display/digest approval checkpoint. Record unavailable inputs, tools and checks; skip only dependent operations and continue feasible work. Independent Domain evaluation and final summary remain required. User and platform authority still applies.
 
 ## 工作流程
 

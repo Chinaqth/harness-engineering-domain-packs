@@ -70,6 +70,12 @@ def _prepare_domain(
     )
     _write_json(domain_path / "domain.json", manifest)
 
+    lifecycle_path = domain_path / "lifecycle.json"
+    if lifecycle_path.exists():
+        lifecycle = _load_json(lifecycle_path)
+        lifecycle["domain_id"] = domain_id
+        _write_json(lifecycle_path, lifecycle)
+
     routes = _load_json(domain_path / "routes.json")
     routes["domain_id"] = domain_id
     _write_json(domain_path / "routes.json", routes)

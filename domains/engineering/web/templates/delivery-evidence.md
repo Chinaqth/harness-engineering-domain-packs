@@ -313,4 +313,4 @@ HTML semantics [WEB-WHATWG-HTML-SEMANTICS], browser origins
 [WEB-W3C-ARIA-KEYBOARD], HTTP semantics [WEB-RFC9110-HTTP], frontend security verification and CSP
 [WEB-OWASP-ASVS] [WEB-W3C-CSP3], browser performance measurement
 [WEB-W3C-PERFORMANCE-TIMELINE], and cross-browser testing [WEB-WPT-DOCS]. Source IDs resolve
-through `changes/engineering.web-completion/research/sources.json`.
+through `evidence/research/sources.json`.
